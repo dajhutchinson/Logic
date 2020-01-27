@@ -33,12 +33,12 @@
 
 % Counters
 \newcounter{definition}[subsection]
-\newcounter{example}[subsection]
-\newcounter{notation}[subsection]
-\newcounter{proposition}[subsection]
-\newcounter{proof}[subsection]
-\newcounter{remark}[subsection]
-\newcounter{theorem}[subsection]
+\newcounter{example}[section]
+\newcounter{notation}[section]
+\newcounter{proposition}[section]
+\newcounter{proof}[section]
+\newcounter{remark}[section]
+\newcounter{theorem}[section]
 
 % commands
 \newcommand{\dotprod}[0]{\boldsymbol{\cdot}}
@@ -61,24 +61,60 @@
 \newcommand{\iid}[0]{\overset{\text{iid}}{\sim}}
 \newcommand{\proved}[0]{$\hfill\square$\\}
 
-\newcommand{\definition}[1]{\stepcounter{definition} \textbf{Definition \arabic{subsection}.\arabic{definition}\ - }\textit{#1}\\}
-\newcommand{\definitionn}[1]{\stepcounter{definition} \textbf{Definition \arabic{subsection}.\arabic{definition}\ - }\textit{#1}}
-\newcommand{\proof}[1]{\stepcounter{proof} \textbf{Proof \arabic{subsection}.\arabic{proof}\ - }\textit{#1}\\}
-\newcommand{\prooff}[1]{\stepcounter{proof} \textbf{Proof \arabic{subsection}.\arabic{proof}\ - }\textit{#1}}
-\newcommand{\example}[1]{\stepcounter{example} \textbf{Example \arabic{subsection}.\arabic{example}\ - }\textit{#1}\\}
-\newcommand{\examplee}[1]{\stepcounter{example} \textbf{Example \arabic{subsection}.\arabic{example}\ - }\textit{#1}}
-\newcommand{\notation}[1]{\stepcounter{notation} \textbf{Notation \arabic{subsection}.\arabic{notation}\ - }\textit{#1}\\}
-\newcommand{\notationn}[1]{\stepcounter{notation} \textbf{Notation \arabic{subsection}.\arabic{notation}\ - }\textit{#1}}
-\newcommand{\proposition}[1]{\stepcounter{proposition} \textbf{Proposition \arabic{subsection}.\arabic{proposition}\ - }\textit{#1}\\}
-\newcommand{\propositionn}[1]{\stepcounter{proposition} \textbf{Proposition \arabic{subsection}.\arabic{proposition}\ - }\textit{#1}}
-\newcommand{\remark}[1]{\stepcounter{remark} \textbf{Remark \arabic{subsection}.\arabic{remark}\ - }\textit{#1}\\}
-\newcommand{\remarkk}[1]{\stepcounter{remark} \textbf{Remark \arabic{subsection}.\arabic{remark}\ - }\textit{#1}}
-\newcommand{\theorem}[1]{\stepcounter{theorem} \textbf{Theorem \arabic{subsection}.\arabic{theorem}\ - }\textit{#1}\\}
-\newcommand{\theoremm}[1]{\stepcounter{theorem} \textbf{Theorem \arabic{subsection}.\arabic{theorem}\ - }\textit{#1}}
+\newcommand{\definition}[1]{\stepcounter{definition} \textbf{Definition \arabic{section}.\arabic{definition}\ - }\textit{#1}\\}
+\newcommand{\definitionn}[1]{\stepcounter{definition} \textbf{Definition \arabic{section}.\arabic{definition}\ - }\textit{#1}}
+\newcommand{\proof}[1]{\stepcounter{proof} \textbf{Proof \arabic{section}.\arabic{proof}\ - }\textit{#1}\\}
+\newcommand{\prooff}[1]{\stepcounter{proof} \textbf{Proof \arabic{section}.\arabic{proof}\ - }\textit{#1}}
+\newcommand{\example}[1]{\stepcounter{example} \textbf{Example \arabic{section}.\arabic{example}\ - }\textit{#1}\\}
+\newcommand{\examplee}[1]{\stepcounter{example} \textbf{Example \arabic{section}.\arabic{example}\ - }\textit{#1}}
+\newcommand{\notation}[1]{\stepcounter{notation} \textbf{Notation \arabic{section}.\arabic{notation}\ - }\textit{#1}\\}
+\newcommand{\notationn}[1]{\stepcounter{notation} \textbf{Notation \arabic{section}.\arabic{notation}\ - }\textit{#1}}
+\newcommand{\proposition}[1]{\stepcounter{proposition} \textbf{Proposition \arabic{section}.\arabic{proposition}\ - }\textit{#1}\\}
+\newcommand{\propositionn}[1]{\stepcounter{proposition} \textbf{Proposition \arabic{section}.\arabic{proposition}\ - }\textit{#1}}
+\newcommand{\remark}[1]{\stepcounter{remark} \textbf{Remark \arabic{section}.\arabic{remark}\ - }\textit{#1}\\}
+\newcommand{\remarkk}[1]{\stepcounter{remark} \textbf{Remark \arabic{section}.\arabic{remark}\ - }\textit{#1}}
+\newcommand{\theorem}[1]{\stepcounter{theorem} \textbf{Theorem \arabic{section}.\arabic{theorem}\ - }\textit{#1}\\}
+\newcommand{\theoremm}[1]{\stepcounter{theorem} \textbf{Theorem \arabic{section}.\arabic{theorem}\ - }\textit{#1}}
 
 \tableofcontents
 
 % Start of content
 \newpage
+
+\section{Introduction}
+
+\subsection{Alphabets \& Strings}
+
+\definition{Alphabet}
+An \textit{Alphabet} is a set of symbols from which \textit{Strings} can be created.\\
+
+\definition{String}
+A \textit{String} over a set $\mathcal{A}$ is any sequence $\alpha:=\langle a_1,\dots,a_n\rangle$ where $a_1,\dots,a_n\in\mathcal{A}$.\\
+\nb Here we say $\alpha$ has \textit{length} $n$ and $\alpha\in\mathcal{A}^n$.\\
+
+\remark{Concatenating Strings}
+Define \textit{Strings} $\alpha:=\langle a_1,\dots,a_n\rangle\in\mathcal{A}^n$ and $\beta:=\langle b_1,\dots,b_m\rangle\in\mathcal{A}^m$.\\
+We define \textit{Concatenation} of $\alpha$ \& $\beta$ as
+$\alpha\beta:=\langle a_1,\dots,a_n,b_1,\dots,b_m\rangle$
+Note that
+$$\alpha\beta\neq\langle\alpha,\beta\rangle=\langle\langle a_1,\dots,a_n\rangle,\langle b_1,\dots,b_m\rangle\rangle$$
+\nb Sometimes the following notation is used $\alpha*\beta$.
+
+\example{English Alphabet}
+If we define an alphabet $\mathcal{A}:=\{`a`,\dots,`z`\}$ then $\langle`t`,`h`,`i`,`s`\rangle$ is a \textit{String} of $\mathcal{A}$.\\
+
+\remark{Ambiguity when using multiple Alphabets}
+Consider the \textit{Alphabets} $\mathcal{A}_1:=\{0,1,\dots,9\}$ \& $\mathcal{A}_2:=\nats$.\\
+Then we are unsure which of the following definitions of $123$ is valid
+$$\langle123\rangle,\ \langle12,3\rangle,\ \langle1,23\rangle, \langle1,2,3\rangle$$
+
+\remark{$\mathcal{A}:=\{0,1\}$ is sufficient to describe any language - binary}
+
+\remark{Describing Formal Languages}
+When describing a \textit{Formal Language} we need to provide two things
+\begin{enumerate}
+	\item An \textit{Alphabet} which defines what symbols are allowed.
+	\item A \textit{Grammar} which defines what combinations of symbols are allowed.
+\end{enumerate}
 
 \end{document}
