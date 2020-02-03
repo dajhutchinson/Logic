@@ -19,7 +19,7 @@
 \allowdisplaybreaks
 
 \renewcommand{\headrulewidth}{0pt}
-\setlist[enumerate,1]{label={(\roman*)}}
+\setlist[enumerate,1]{label={\roman*)}}
 
 
 % Cover page title
@@ -141,8 +141,8 @@ A set $X$ is said to be \textit{Countably Infinite} if $\exists$ a bijection $f:
 If set $\mathcal{A}$ is \textit{countable} then $\mathcal{A}^*$ is \textit{countable}.\\
 
 \proof{Theorem 1.1}
-Let $f:\mathcal{A}\to\nats$ (This function exists trivally since we define $\mathcal{A}$ to be countable).\\
-Define the following function $g(\cdot):\mathcal{A}^*\to\nats$
+Let $f:\mathcal{A}\longrightarrow\nats$ (This function exists trivally since we define $\mathcal{A}$ to be countable).\\
+Define the following function $g(\cdot):\mathcal{A}^*\longrightarrow\nats$
 $$g(\langle a_1,\dots,a_n\rangle):=p_1^{f(a_1)+1}\cdot\dots\cdot p_n^{f(a_n)+1}$$
 where $p_i$ is the $i^\text{th}$ prime.\\
 Since each natural number can be described by a unique composition of primes and since $f(\dot)$ is injective, then $g(\cdot)$ is injective.\\
@@ -155,7 +155,7 @@ Thus there exists an injection from $\mathcal{A}^*$ to $\nats$, making $\mathcal
 \definition{First-Order Language, $\lang$}
 The \textit{Alphabet} of a \textit{First-Order Language}, comprises of the following, pairwise disjoint, categories (and nothing else)
 \begin{enumerate}
-	\item Negation, $\neg$, and implication, $\implies$.
+	\item Negation, $\neg$, and implication, $\longrightarrow$.
 	\item For all, $\forall$.
 	\item Infinitely many variables, $\{v_0,v_1,\dots\}$.
 	\item Parentheses, `$($' `$)$', and comman `$,$'.
@@ -177,11 +177,11 @@ F&T
 \end{tabular}
 \end{center}
 
-\definition{Implication, $\implies$}
+\definition{Implication, $\longrightarrow$}
 Implication returns whether one predicate being true necessarily implies a second predicate being true
 \begin{center}
 \begin{tabular}{cc|c}
-$P$&$Q$&$P\implies Q$\\\hline
+$P$&$Q$&$P\to Q$\\\hline
 T&T&T\\
 T&F&F\\
 F&T&T\\
@@ -192,20 +192,20 @@ F&F&T
 \remark{First-Order Languages don't have $\wedge,\ \vee,\ \exists$}
 Alphabets for \textit{First-Order Languages} do not contain propositional connectives for AND, $\wedge$, OR, $\vee$, or EXISTS,$\exists$ since they can be expressed as a combination of negation \& implication.
 \[\begin{array}{rcl}
-P\vee Q&\Longleftrightarrow& \neg P\implies Q\\P\wedge Q&\Longleftrightarrow&\neg(P\implies\neg Q)\\
+P\vee Q&\Longleftrightarrow& \neg P\to Q\\P\wedge Q&\Longleftrightarrow&\neg(P\to\neg Q)\\
 \exists\ x\text{ st }P(x)\text{ is true}&\Longleftrightarrow&\neg(\forall\ x,\ \neg P(x))
 \end{array}\]
 \begin{center}
 \begin{tabular}{cc}
 \begin{tabular}{cc|c|c}
-$P$&$Q$&$\neg P$&$\neg P\implies Q$\\\hline
+$P$&$Q$&$\neg P$&$\neg P\to Q$\\\hline
 T&T&F&T\\
 T&F&F&T\\
 F&T&F&T\\
 F&F&F&F
 \end{tabular}&
 \begin{tabular}{cc|c|c|c}
-$P$&$Q$&$\neg Q$&$P\implies\neg Q$&$\neg(P\implies\neg Q)$\\\hline
+$P$&$Q$&$\neg Q$&$P\to\neg Q$&$\neg(P\to\neg Q)$\\\hline
 T&T&F&F&T\\
 T&F&T&T&F\\
 F&T&F&T&F\\
@@ -234,7 +234,7 @@ We define \textit{$\lang$-Terms} \& \textit{Complexity}, $cp(\cdot)$, together u
 	\nb Terms with $cp(\cdot)\geq1$ are called \textit{Compound Terms}.
 	\item Nothing else is an \textit{$\lang$-Term}
 \end{enumerate}
-\nb We denote the set of $\lang-\text{Terms}$ by $T_\mathcal{M_L}$
+\nb We denote the set of $\lang-\text{Terms}$ by $T_\mathcal{M_L}$.\\
 
 \example{Complexity}
 Let $\{c,d,f,g,h,p\}\subseteq\lang$ with $c,d$ being constants, $g,p$ being uniary functions \& $f,h$ being binary functions.\\
@@ -258,6 +258,90 @@ Let $\lang$ be a \textit{First-Order Language}.\\
 The atomic $\lang$\textit{-Formulae} are those strings over $\mathcal{A_L}$ of the form
 $$R(t_1,\dots,t_n)\text{ for }n\in\nats$$
 where $R$ is a predicate symbol of $\lang$ with $n$-arity and $t_1,\dots,t_n$ are $\lang$\textit{-terms}.\\
-\nb $\equiv(t_1,t_2)$ is an \textit{Atomic $\lang$-Formula} for each $\lang$ terms $t_1,t_2$
+\nb $\equiv(t_1,t_2)$ is an \textit{Atomic $\lang$-Formula} for each $\lang$ terms $t_1,t_2$.\\
+
+\definition{$\mathcal{L}$-Formulae \& Complexity}
+We define \textit{$\mathcal{L}$-Formulae} \& \textit{Complexity}, $cp(\cdot)$, together using the following recursive definition
+\begin{enumerate}
+	\item If $\phi\in\mathcal{A}^*_\mathcal{L}$ is an \textit{Atomic $\mathcal{L}$-Formula} then $\phi$ is an \textit{$\mathcal{L}$-Formula} with $cp(\phi)=0$.
+	\item If $\phi$ is an \textit{$\mathcal{L}$-Formula} with $cp(\phi)=n$ then $\neg\phi$ is an \textit{$\mathcal{L}$-Formula} with $cp(\neg\phi)=n+1$.
+	\item If $\phi\ \&\ \psi$ are \textit{$\mathcal{L}$-Formulae} then $\phi\to\psi$ is an \textit{$\mathcal{L}$-Formula} with ${cp(\phi\to\psi)=\max\{cp(\phi),cp(\psi)\}+1}$.
+	\item if $\phi$ is an \textit{$\mathcal{L}$-Formula} then $\forall x\phi$ is an \textit{$\mathcal{L}$-Formula} with $cp(\forall x\phi)=cp(\phi)+1$, where $x$ is a variable.
+\end{enumerate}
+
+\remark{Formulae are uniquely readable \& parsable}
+
+\example{\textit{$\mathcal{L}$-Formulae} Complexity}
+Let $\{R,f\}\subset\mathcal{L}$ be binary operations.\\
+Show that the following is an \textit{$\mathcal{L}$-Formula}
+$$\forall\ v_0\ (\neg R(f(v_0,v_2),v_2)\longrightarrow\underbrace{\equiv(v_0,v_2)}_{v_0\equiv v_2}$$
+\begin{enumerate}
+	\item $v_0,v_2$ are $\mathcal{L}$-Terms.
+	\item $f(v_0,v_2)$ is an $\mathcal{L}$-Term.
+	\item $R(f(v_0,v_2),v_2)$ is an $\mathcal{L}$-Formula with $cp(\cdot)=0$.
+	\item $\neg R(f(v_0,v_2),v_2)$ is an $\mathcal{L}$-Formula with $cp(\cdot)=0+1=1$.
+	\item $\equiv(v_0,v_2)$ is an $\mathcal{L}$-Formula with $cp(\cdot)=0$.
+	\item $\neq R(f(v_0,v_2),v_2)\longrightarrow\equiv(v_0,v_2)$ is an $\mathcal{L}$-Formula with $cp(\cdot)=\max\{0,1\}+1=2$.
+	\item $\forall\ v_0\ (\neg R(f(v_0,v_2),v_2)\longrightarrow\equiv(v_0,v_2))$ is an $\mathcal{L}$-Formula with $cp(\dot)=2+1=3$.
+\end{enumerate}
+
+\notation{Convention for common operators}
+To make formulae more readble we general make the following allowances in notation
+\[\begin{array}{rcl}
+t_1\equiv t_2&\text{for}&\equiv(t_1,t_2)\\
+t_1\not\equiv t_2&\text{for}&\neg\equiv(t_1,t_2)\\
+t_1< t_2&\text{for}&<(t_1,t_2)\\
+t_1\not\equiv t_2&\text{for}&\neg\equiv(t_1,t_2)
+\end{array}\]
+Further, when a formula is encapsulated by parantheses then we will often surpress the outermost parentheses (only), as they do not affect anything.
+$$\phi\longrightarrow(\psi\longrightarrow\theta)\text{ for }(\phi\longrightarrow(\psi\longrightarrow\theta))$$
+
+\definitionn{More complex operators}
+\begin{itemize}
+	\item[-] AND, $(\phi\wedge\psi):=\neg(\phi\longrightarrow\neg\psi)$.
+	\item[-] OR, $(\phi\vee\psi):=(\neg\phi\longrightarrow\psi)$.
+	\item[-] IFF, $(\phi\longleftrightarrow\psi):=(\phi\longrightarrow\psi)\wedge(\psi\longrightarrow\phi)$.
+	\item[-] EXISTS, $(\exists\ x\phi):=\neg\forall\ x\ \neg\phi$.
+\end{itemize}
+
+\notationn{Sets of $\mathcal{L}$ Features}
+\begin{itemize}
+	\item[-] $T_\mathcal{M_L}:=$ Set of $\mathcal{L}$-Terms.
+	\item[-] $F_\mathcal{M_L}:=$ Set of $\mathcal{L}$-Formulae.
+	\item[-] $\text{Var}:=$ Set of Variables.
+\end{itemize}
+
+\proposition{$T_\mathcal{M_L}\ \&\ F_\mathcal{M_L}$ are always countable in this course since we assume $\mathcal{L}$ to be finite.}
+
+\subsection{Induction of Terms \& Formulae}
+
+\theorem{Inheritance of a Proeprty - $\mathcal{L}$-Terms}
+Let $P$ be a property of $\mathcal{L}$-Terms.\\
+Suppose the following to be true
+\begin{enumerate}
+	\item All \textit{Atomic $\mathcal{L}$-Terms} have property $P$.
+	\item $\forall\ k\in\nats,\ \forall$ function symbols $f$ with $k$-arity:
+	If $\mathcal{L}$-Terms $t_1,\dots,t_k$ have property $P$ then $f(t_1,\dots,t_k)$ has $P$.
+\end{enumerate}
+Then every $\mathcal{L}$-Term has property $P$.\\
+
+\proof{Theorem 2.1}
+\textit{This is a proof by contradiction}.
+Suppose that $i)\ \&\ ii)$ are true but there exists some $\mathcal{L}$-Term which does not have $P$.\\
+Let $t$ be an $\mathcal{L}$-Term with minimum complexity st $t$ does not have $P$.\\
+Then $cp(t)\neq0$ otherwise $i)$ would be untrue.\\
+Thus $t\equiv f(t_1,\dots,t_k)$ by the minimlaity of $cp(t)$.\\
+We know that $t_1,\dots,t_k$ have $P$.\\
+Thus $f(t_1,\dots,t_k)$ has $P$. This is a contradiction.\\
+
+\theorem{Inheritance of a Proeprty - $\mathcal{L}$-Formulae}
+Let $P$ be a property of $\mathcal{L}$-Formula.\\
+Suppose the following to be true
+\begin{enumerate}
+	\item All \textit{Atomic $\mathcal{L}$-Formulae} have property $P$.
+	\item If $\phi,\psi\in F_\mathcal{M_L}$ have $P$ then $\neg\phi,(\phi\to\psi)\ \&\ \forall\ x\phi$ have $P$ to.
+\end{enumerate}
+Then every $\mathcal{L}$-Formulae has property $P$.\\
+
 
 \end{document}
