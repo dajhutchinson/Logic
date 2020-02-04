@@ -62,7 +62,7 @@
 \newcommand{\x}[0]{\textbf{x}}
 \newcommand{\iid}[0]{\overset{\text{iid}}{\sim}}
 \newcommand{\proved}[0]{$\hfill\square$\\}
-\newcommand{\lang}[0]{\mathcal{L}}
+\newcommand{\LL}[0]{\mathcal{L}}
 
 \newcommand{\definition}[1]{\stepcounter{definition} \textbf{Definition \arabic{section}.\arabic{definition}\ - }\textit{#1}\\}
 \newcommand{\definitionn}[1]{\stepcounter{definition} \textbf{Definition \arabic{section}.\arabic{definition}\ - }\textit{#1}}
@@ -152,7 +152,7 @@ Thus there exists an injection from $\mathcal{A}^*$ to $\nats$, making $\mathcal
 
 \section{First-Order Languages}
 
-\definition{First-Order Language, $\lang$}
+\definition{First-Order Language, $\LL$}
 The \textit{Alphabet} of a \textit{First-Order Language}, comprises of the following, pairwise disjoint, categories (and nothing else)
 \begin{enumerate}
 	\item Negation, $\neg$, and implication, $\longrightarrow$.
@@ -164,7 +164,7 @@ The \textit{Alphabet} of a \textit{First-Order Language}, comprises of the follo
 	\item For each $n\geq1$, a set of $n$-arity function symbols $\{f_1^n,f_2^n,\dots\}$. (Possibly empty)
 	\item For each $n\geq1$, a set of $n$-arity non-logical predicate symbols $\{P_1^n,P_2^n,\dots\}$. (Possibly empty)
 \end{enumerate}
-\nb We denote the set of variables by $Var:=\{v_0,v_1,\dots\}$; denote a language as $\lang$ and the alphabet of $\lang$ as $\mathcal{A_L}$.\\
+\nb We denote the set of variables by $Var:=\{v_0,v_1,\dots\}$; denote a language as $\LL$ and the alphabet of $\LL$ as $\mathcal{A_L}$.\\
 \nb In this course \textit{Alphabets} are restricted to being \textit{Countable}.\\
 
 \definition{Negation, $\neg$}
@@ -223,66 +223,67 @@ We can instead use the recursive definition
 	\item If $n$ is a multiple of 5 then $n+5$ is a multiple of 5.
 \end{enumerate}
 
-\definition{$\lang$-Term \& Complexity}
-Let $\lang$ be a \textit{First-Order Language}.\\
-We define \textit{$\lang$-Terms} \& \textit{Complexity}, $cp(\cdot)$, together using the following \textit{recursive definition}
+\definition{$\LL$-Term \& Complexity}
+Let $\LL$ be a \textit{First-Order Language}.\\
+We define \textit{$\LL$-Terms} \& \textit{Complexity}, $cp(\cdot)$, together using the following \textit{recursive definition}
 \begin{enumerate}
-	\item If $s$ is a variable or a constant symbol, then $s$ is an \textit{$\lang$-Term} with $cp(s)=0$.\\
+	\item If $s$ is a variable or a constant symbol, then $s$ is an \textit{$\LL$-Term} with $cp(s)=0$.\\
 	\nb Terms with $cp(\cdot)=0$ are called \textit{Atomic Terms}.
-	\item If $f$ is a fucntion symbol with $k$-arity \& if $a_1,\dots,a_k$ are \textit{$\lang$-Terms} then $f(a_1,\dots,f_k)$ is an \textit{$\lang$-Term} with complexity
+	\item If $f$ is a fucntion symbol with $k$-arity \& if $a_1,\dots,a_k$ are \textit{$\LL$-Terms} then $f(a_1,\dots,f_k)$ is an \textit{$\LL$-Term} with complexity
 	$$cp(f(a_1,\dots,a_k)):=\max\{cp(a_1),\dots,cp(a_k)\}+1$$
 	\nb Terms with $cp(\cdot)\geq1$ are called \textit{Compound Terms}.
-	\item Nothing else is an \textit{$\lang$-Term}
+	\item Nothing else is an \textit{$\LL$-Term}
 \end{enumerate}
-\nb We denote the set of $\lang-\text{Terms}$ by $T_\mathcal{M_L}$.\\
+\nb We denote the set of $\LL-\text{Terms}$ by $T_\mathcal{M_L}$.\\
 
 \example{Complexity}
-Let $\{c,d,f,g,h,p\}\subseteq\lang$ with $c,d$ being constants, $g,p$ being uniary functions \& $f,h$ being binary functions.\\
-Show that the following is an $\lang$\textit{-Term} \& find its \textit{Complexity}
+Let $\{c,d,f,g,h,p\}\subseteq\L$ with $c,d$ being constants, $g,p$ being uniary functions \& $f,h$ being binary functions.\\
+Show that the following is an $\LL$\textit{-Term} \& find its \textit{Complexity}
 $$h(g(f(x,c)),p(d))$$
 \begin{enumerate}
-	\item $x$ is an $\lang$\textit{-Term} with $cp(x)=0$ by $(i)$.
-	\item $c\ \&\ d$ are $\lang$\textit{-Terms} with $cp(c)=0=cp(d)$ by $(i)$.
-	\item $f(x,c)$ is an $\lang$\textit{-Term} with $cp(f)=\max{0,0}+1=1$ by $(ii)$.
-	\item $p(d)$ is an $\lang$\textit{-Term} with $cp(f)=\max{0}+1=1$ by $(ii)$.
-	\item $g(f(x,c),p(d))$ is an $\lang$\textit{-Term} with $cp(g)=\max{1,1}+1=2$ by $(ii)$.
-	\item $h(g(f(x,c),p(d)))$ is an $\lang$\textit{-Term} with $cp(h)=\max{2}+1=3$ by $(ii)$.
+	\item $x$ is an $\LL$\textit{-Term} with $cp(x)=0$ by $(i)$.
+	\item $c\ \&\ d$ are $\LL$\textit{-Terms} with $cp(c)=0=cp(d)$ by $(i)$.
+	\item $f(x,c)$ is an $\LL$\textit{-Term} with $cp(f)=\max{0,0}+1=1$ by $(ii)$.
+	\item $p(d)$ is an $\LL$\textit{-Term} with $cp(f)=\max{0}+1=1$ by $(ii)$.
+	\item $g(f(x,c),p(d))$ is an $\LL$\textit{-Term} with $cp(g)=\max{1,1}+1=2$ by $(ii)$.
+	\item $h(g(f(x,c),p(d)))$ is an $\LL$\textit{-Term} with $cp(h)=\max{2}+1=3$ by $(ii)$.
 \end{enumerate}
-Thus $h(g(f(x,c),p(d)))$ is an $\lang$\textit{-Term} with \textit{Complexity} 3.\\
+Thus $h(g(f(x,c),p(d)))$ is an $\LL$\textit{-Term} with \textit{Complexity} 3.\\
 
 \notation{More readble Functions}
 WE often write $x\circ y$ instead of $\circ(x,y)$ as it is more readable (even though the later is technically the only correct notation). Similarly, $x+y$ instead of $+(x,y)$.\\
 
 \definition{Atomic Formulae}
-Let $\lang$ be a \textit{First-Order Language}.\\
-The atomic $\lang$\textit{-Formulae} are those strings over $\mathcal{A_L}$ of the form
+Let $\LL$ be a \textit{First-Order Language}.\\
+The atomic $\LL$\textit{-Formulae} are those strings over $\mathcal{A_L}$ of the form
 $$R(t_1,\dots,t_n)\text{ for }n\in\nats$$
-where $R$ is a predicate symbol of $\lang$ with $n$-arity and $t_1,\dots,t_n$ are $\lang$\textit{-terms}.\\
-\nb $\equiv(t_1,t_2)$ is an \textit{Atomic $\lang$-Formula} for each $\lang$ terms $t_1,t_2$.\\
+where $R$ is a predicate symbol of $\LL$ with $n$-arity and $t_1,\dots,t_n$ are $\LL$\textit{-terms}.\\
+\nb $\equiv(t_1,t_2)$ is an \textit{Atomic $\LL$-Formula} for each $\LL$ terms $t_1,t_2$.\\
 
-\definition{$\mathcal{L}$-Formulae \& Complexity}
-We define \textit{$\mathcal{L}$-Formulae} \& \textit{Complexity}, $cp(\cdot)$, together using the following recursive definition
+\definition{$\LL$-Formulae \& Complexity}
+We define \textit{$\LL$-Formulae} \& \textit{Complexity}, $cp(\cdot)$, together using the following recursive definition
 \begin{enumerate}
-	\item If $\phi\in\mathcal{A}^*_\mathcal{L}$ is an \textit{Atomic $\mathcal{L}$-Formula} then $\phi$ is an \textit{$\mathcal{L}$-Formula} with $cp(\phi)=0$.
-	\item If $\phi$ is an \textit{$\mathcal{L}$-Formula} with $cp(\phi)=n$ then $\neg\phi$ is an \textit{$\mathcal{L}$-Formula} with $cp(\neg\phi)=n+1$.
-	\item If $\phi\ \&\ \psi$ are \textit{$\mathcal{L}$-Formulae} then $\phi\to\psi$ is an \textit{$\mathcal{L}$-Formula} with ${cp(\phi\to\psi)=\max\{cp(\phi),cp(\psi)\}+1}$.
-	\item if $\phi$ is an \textit{$\mathcal{L}$-Formula} then $\forall x\phi$ is an \textit{$\mathcal{L}$-Formula} with $cp(\forall x\phi)=cp(\phi)+1$, where $x$ is a variable.
+	\item If $\phi\in\mathcal{A}^*_\LL$ is an \textit{Atomic $\LL$-Formula} then $\phi$ is an \textit{$\LL$-Formula} with $cp(\phi)=0$.
+	\item If $\phi$ is an \textit{$\LL$-Formula} with $cp(\phi)=n$ then $\neg\phi$ is an \textit{$\LL$-Formula} with $cp(\neg\phi)=n+1$.
+	\item If $\phi\ \&\ \psi$ are \textit{$\LL$-Formulae} then $\phi\to\psi$ is an \textit{$\LL$-Formula} with ${cp(\phi\to\psi)=\max\{cp(\phi),cp(\psi)\}+1}$.
+	\item if $\phi$ is an \textit{$\LL$-Formula} then $\forall x\phi$ is an \textit{$\LL$-Formula} with $cp(\forall x\phi)=cp(\phi)+1$, where $x$ is a variable.
 \end{enumerate}
+\nb \textit{Complexity} is just a measure of the syntactic complexity, not semantic. Notice how ${cp(\neg\neg\phi)=cp(\phi)+2}$.\\
 
 \remark{Formulae are uniquely readable \& parsable}
 
-\example{\textit{$\mathcal{L}$-Formulae} Complexity}
+\example{\textit{$\LL$-Formulae} Complexity}
 Let $\{R,f\}\subset\mathcal{L}$ be binary operations.\\
-Show that the following is an \textit{$\mathcal{L}$-Formula}
+Show that the following is an \textit{$\LL$-Formula}
 $$\forall\ v_0\ (\neg R(f(v_0,v_2),v_2)\longrightarrow\underbrace{\equiv(v_0,v_2)}_{v_0\equiv v_2}$$
 \begin{enumerate}
-	\item $v_0,v_2$ are $\mathcal{L}$-Terms.
-	\item $f(v_0,v_2)$ is an $\mathcal{L}$-Term.
-	\item $R(f(v_0,v_2),v_2)$ is an $\mathcal{L}$-Formula with $cp(\cdot)=0$.
-	\item $\neg R(f(v_0,v_2),v_2)$ is an $\mathcal{L}$-Formula with $cp(\cdot)=0+1=1$.
-	\item $\equiv(v_0,v_2)$ is an $\mathcal{L}$-Formula with $cp(\cdot)=0$.
-	\item $\neq R(f(v_0,v_2),v_2)\longrightarrow\equiv(v_0,v_2)$ is an $\mathcal{L}$-Formula with $cp(\cdot)=\max\{0,1\}+1=2$.
-	\item $\forall\ v_0\ (\neg R(f(v_0,v_2),v_2)\longrightarrow\equiv(v_0,v_2))$ is an $\mathcal{L}$-Formula with $cp(\dot)=2+1=3$.
+	\item $v_0,v_2$ are $\LL$-Terms.
+	\item $f(v_0,v_2)$ is an $\LL$-Term.
+	\item $R(f(v_0,v_2),v_2)$ is an $\LL$-Formula with $cp(\cdot)=0$.
+	\item $\neg R(f(v_0,v_2),v_2)$ is an $\LL$-Formula with $cp(\cdot)=0+1=1$.
+	\item $\equiv(v_0,v_2)$ is an $\LL$-Formula with $cp(\cdot)=0$.
+	\item $\neq R(f(v_0,v_2),v_2)\longrightarrow\equiv(v_0,v_2)$ is an $\LL$-Formula with $cp(\cdot)=\max\{0,1\}+1=2$.
+	\item $\forall\ v_0\ (\neg R(f(v_0,v_2),v_2)\longrightarrow\equiv(v_0,v_2))$ is an $\LL$-Formula with $cp(\dot)=2+1=3$.
 \end{enumerate}
 
 \notation{Convention for common operators}
@@ -304,44 +305,123 @@ $$\phi\longrightarrow(\psi\longrightarrow\theta)\text{ for }(\phi\longrightarrow
 	\item[-] EXISTS, $(\exists\ x\phi):=\neg\forall\ x\ \neg\phi$.
 \end{itemize}
 
-\notationn{Sets of $\mathcal{L}$ Features}
+\notationn{Sets of $\LL$ Features}
 \begin{itemize}
-	\item[-] $T_\mathcal{M_L}:=$ Set of $\mathcal{L}$-Terms.
-	\item[-] $F_\mathcal{M_L}:=$ Set of $\mathcal{L}$-Formulae.
+	\item[-] $T_\mathcal{M_L}:=$ Set of $\LL$-Terms.
+	\item[-] $F_\mathcal{M_L}:=$ Set of $\LL$-Formulae.
 	\item[-] $\text{Var}:=$ Set of Variables.
 \end{itemize}
 
-\proposition{$T_\mathcal{M_L}\ \&\ F_\mathcal{M_L}$ are always countable in this course since we assume $\mathcal{L}$ to be finite.}
+\propositionn{$T_\mathcal{M_L}\ \&\ F_\mathcal{M_L}$ are always countable in this course since we assume $\LL$ to be finite.}
 
 \subsection{Induction of Terms \& Formulae}
 
-\theorem{Inheritance of a Proeprty - $\mathcal{L}$-Terms}
-Let $P$ be a property of $\mathcal{L}$-Terms.\\
+\theorem{Inheritance of a Proeprty - $\LL$-Terms}
+Let $P$ be a property of $\LL$-Terms.\\
 Suppose the following to be true
 \begin{enumerate}
-	\item All \textit{Atomic $\mathcal{L}$-Terms} have property $P$.
+	\item All \textit{Atomic $\LL$-Terms} have property $P$.
 	\item $\forall\ k\in\nats,\ \forall$ function symbols $f$ with $k$-arity:
-	If $\mathcal{L}$-Terms $t_1,\dots,t_k$ have property $P$ then $f(t_1,\dots,t_k)$ has $P$.
+	If $\LL$-Terms $t_1,\dots,t_k$ have property $P$ then $f(t_1,\dots,t_k)$ has $P$.
 \end{enumerate}
-Then every $\mathcal{L}$-Term has property $P$.\\
+Then every $\LL$-Term has property $P$.\\
 
 \proof{Theorem 2.1}
 \textit{This is a proof by contradiction}.
-Suppose that $i)\ \&\ ii)$ are true but there exists some $\mathcal{L}$-Term which does not have $P$.\\
-Let $t$ be an $\mathcal{L}$-Term with minimum complexity st $t$ does not have $P$.\\
+Suppose that $i)\ \&\ ii)$ are true but there exists some $\LL$-Term which does not have $P$.\\
+Let $t$ be an $\LL$-Term with minimum complexity st $t$ does not have $P$.\\
 Then $cp(t)\neq0$ otherwise $i)$ would be untrue.\\
 Thus $t\equiv f(t_1,\dots,t_k)$ by the minimlaity of $cp(t)$.\\
 We know that $t_1,\dots,t_k$ have $P$.\\
 Thus $f(t_1,\dots,t_k)$ has $P$. This is a contradiction.\\
 
-\theorem{Inheritance of a Proeprty - $\mathcal{L}$-Formulae}
-Let $P$ be a property of $\mathcal{L}$-Formula.\\
+\theorem{Inheritance of a Proeprty - $\LL$-Formulae}
+Let $P$ be a property of $\LL$-Formula.\\
 Suppose the following to be true
 \begin{enumerate}
-	\item All \textit{Atomic $\mathcal{L}$-Formulae} have property $P$.
+	\item All \textit{Atomic $\LL$-Formulae} have property $P$.
 	\item If $\phi,\psi\in F_\mathcal{M_L}$ have $P$ then $\neg\phi,(\phi\to\psi)\ \&\ \forall\ x\phi$ have $P$ to.
 \end{enumerate}
-Then every $\mathcal{L}$-Formulae has property $P$.\\
+Then every $\LL$-Formulae has property $P$.\\
 
+\theorem{Number of Parenthese}
+Ever \textit{$\LL$-Formula} has as many left parentheses as right parentheses.\\
+Ever \textit{$\LL$-Term} has as many left parentheses as right parentheses.\\
+
+\proof{Theorem 2.3}
+\textit{This is a proof by induction}.\\
+Let $P$ be the property \textit{``Has as many left parenthese as right''}.\\
+\underline{Base Case} - When $\phi$ is an \textit{Atomic $\LL$ Formula} it trivially has equal number of parenthese.\\
+\underline{Inductive Case}\\
+Let $\phi\ \&\ \psi$ be arbitrary $\LL$-Formulae.\\
+Assume that $P(\phi)$ \& $P(\psi)$ hold.\\
+We need to show that $P(\neg\phi),\ P(\phi\to\psi)\ \&\ P(\forall\ x\phi)$ all hold.\\
+We do not need to show $P(\neg\psi),\ P(\psi\to\phi)\ \&\ P(\forall\ x\psi)$ hold as $\phi\ \&\ \psi$ are arbitrary.\\
+We have that $\neg\phi$ and $\forall\ x\phi$ don't add any brackets, so $P$ holds.\\
+We have that $(\phi\to\psi)$ add one left \& one right parentheses (although they are often surpressed), thus $P$ holds.\\
+Thus by the process of mathematical induction $P$ holds forall $\LL$-Formulae.\\
+\nb The proof for $\LL$-Terms is very similar.
+
+\subsection{Free Variables}
+
+\definition{Variable Function, $var(\cdot)$}
+Define $var:\mathcal{A_L}^*\to2^\text{Var}$ st $var(s)$ is the set of all variables in string $s$.\\
+
+\examplee{$\var(\cdot)$}
+\[\begin{array}{rcl}
+var(f(x,f(y,c))&=&\{x,y\}\\
+var(f(c,f(c,c))&=&\emptyset\\
+var(\equiv,\equiv,\equiv)&=&\emptyset\text{ nonsense strins are acceptable}
+\end{array}\]
+
+\definition{Free Variables}
+\textit{Free Variables} are variables whose value are ambiguous in an \textit{$\LL$-Formula}.\\
+
+\definition{Free Variable Function, $FV(\cdot)$}
+We recursively define $FV(\phi)$ for \textit{$\LL$-Formulae} as $\phi$ as follows
+\begin{enumerate}
+	\item $FV(\phi)=var(\phi)$ if $\phi$ is an \textit{Atomic $\LL$-Formula}.
+	\item $FV(\neg\phi)=FV(\phi)$.
+	\item $FV((\phi\to\psi))=FV(\phi)\cup FV(\psi)$.
+	\item $FV(\forall\ x\phi)=FV(\phi)\backslash\{x\}$.
+\end{enumerate}
+
+\examplee{Free Variable Function}
+\[\begin{array}{rcl}
+FV(\forall x(P(y)\to Q(x)))&=&FV(P(y)\to Q(x))\backslash\{x\}\\
+&=&[FV(P(y))\cup FV(Q(x))]\backslash\{x\}\\
+&=&[\{y\}\cup\{x\}]\backslash\{x\}\\
+&=&\{y\}
+\end{array}\]
+
+\propositionn{Free Variable Function for more complex operators}
+\[\begin{array}{rcl}
+FV(\phi\wedge\psi)&=&FV(\neg(\phi\to\neg\psi))\text{ by definition of }\wedge\\
+&=&FV(\phi)\cup FV(\psi)\\
+FV(\phi\vee\psi)&=&FV(\neg\phi\to\psi)\text{ by definition of }\vee\\
+&=&FV(\phi)\cup FV(\psi)\\
+FV(\exists x\phi)&=&FV(\neg\forall x\neg\phi)\text{ by definition of }\exists\\
+&=&FV(\phi)\backslash\{x\}
+\end{array}\]
+
+\definition{Closed $\LL$-Term}
+Let $t$ be an $\LL$-Term.\\
+If $var(t)=\emptyset$ then $t$ is called a \textit{Closed $\LL$-Term}.\\
+
+\definition{$\LL$-Sentence}
+Let $\phi$ be an $\LL$-Formula.\\
+If $FV(\phi)=\emptyset$ then $\phi$ is called an \textit{$\LL$-Sentence}.\\
+
+\examplee{$\LL$-Sentence}
+\[\begin{array}{rcl}
+FV(\forall x(P(x)\to\exists y\ R(y,x))&=&FV((P(x)\to\exists y\ R(y,x))\backslash\{x\}\\
+&=&FV(P(x))\cup FC(\exists y\ R(y,x))\backslash\{x\}\\
+&=&\{x\}\cup(FV(R(y,x)\backslash\{y\})\backslash\{x\}\\
+&=&\{x\}\cup(\{y,x\}\backslash\{y\})\backslash\{x\}\\
+&=&\{x\}\cup\{x\}\backslash\{x\}\\
+&=&\emptyset
+\end{array}\]
+
+\remark{$\LL$-Sentences have no Free Variables and thus no ambiguity in meaning.}
 
 \end{document}
