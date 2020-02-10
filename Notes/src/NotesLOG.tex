@@ -64,6 +64,7 @@
 \newcommand{\iid}[0]{\overset{\text{iid}}{\sim}}
 \newcommand{\proved}[0]{$\hfill\square$\\}
 \newcommand{\LL}[0]{\mathcal{L}}
+\newcommand{\M}[0]{\mathfrak{M}}
 
 \newcommand{\definition}[1]{\stepcounter{definition} \textbf{Definition \arabic{section}.\arabic{definition}\ - }\textit{#1}\\}
 \newcommand{\definitionn}[1]{\stepcounter{definition} \textbf{Definition \arabic{section}.\arabic{definition}\ - }\textit{#1}}
@@ -429,7 +430,7 @@ FV(\forall x(P(x)\to\exists y\ R(y,x))&=&FV((P(x)\to\exists y\ R(y,x))\backslash
 
 \definition{$\LL$-Structure}
 Let $\LL$ be a first-order language.\\
-An \textit{$\LL$-Structure} is an ordered pair $\mathfrak{M}=\langle D,\mathfrak{I}\rangle$
+An \textit{$\LL$-Structure} is an ordered pair $\M=\langle D,\mathfrak{I}\rangle$
 \begin{enumerate}
 	\item $D$ is a non-empty set.
 	\item $\mathfrak{I}$ is a function on the non-logical symbols of $\LL$ st
@@ -446,7 +447,7 @@ An \textit{$\LL$-Structure} is an ordered pair $\mathfrak{M}=\langle D,\mathfrak
 
 \notation{$\LL$-Structure}
 For ease we use the following notation wrt \textit{$\LL$-Structure}
-$$|\mathfrak{M}|:=D\quad f^\mathfrak{M}:=\mathfrak{I}(f)\quad c^\mathfrak{M}:=\mathfrak{I}(c)\quad p^\mathfrak{M}=\mathfrak{I}(p)$$
+$$|\M|:=D\quad f^\M:=\mathfrak{I}(f)\quad c^\M:=\mathfrak{I}(c)\quad p^\M=\mathfrak{I}(p)$$
 
 \example{$\LL$-Structure}
 Let $\LL_\text{Rng}:=\{\bar0,\bar1\bar+,\bar\cdot\}$ where $\bar+\ \&\ \bar\cdot$ are binary functions and $\bar0\ \&\ \bar1$ are constants.\\
@@ -461,45 +462,108 @@ D&:=&\reals\\
 \mathfrak{I}(\bar\cdot)&:&\reals\times\reals\to\reals\text{ with} (a,b)\mapsto(a\cdot b)
 \end{array}\]
 We recall $\langle D,\mathfrak{1}\rangle$ is the standard model of the real field.\\
-\nb We can alternatively write $\langle D,\mathfrak{I}\rangle=\langle\reals,0,1,+,\cdot\rangle$ for neatness.
+\nb We can alternatively write $\langle D,\mathfrak{I}\rangle=\langle\reals,0,1,+,\cdot\rangle$ for neatness.\\
 
 \definition{Variable Assignment}
 A \textit{Variable Assignment} over an $\LL$-Structure is a function which maps from the set of variables to the domain of the $\LL$-Structure.
-$$s:\text{Var}\to|\mathfrak{M}|$$
+$$s:\text{Var}\to|\M|$$
 
 \definition{Extension of Variable Assignment}
-Let $\mathfrak{M}$ be an $\mathcal{L}$-Structure \& $s$ be a variable assignment over $\mathfrak{M}$.\\
-The function $\bar{s}:T_{\mathfrak{M}_\mathcal{L}}\to|\mathfrak{M}|$ is defined using the following recursion
+Let $\M$ be an $\mathcal{L}$-Structure \& $s$ be a variable assignment over $\M$.\\
+The function $\bar{s}:T_{\M_\mathcal{L}}\to|\M|$ is defined using the following recursion
 \begin{enumerate}
 	\item $\bar{s}(t)=s(t)$ if $t\in\text{Var}$.
-	\item $\bar{s}(t)=t^\mathfrak{M}$ if $t$ is a constant symbol.
-	\item $\bar{s}(f(t_1,\dots,t_k))=f^\mathfrak{M}(\bar{s}(t_1),\dots,\bar{s}(t_k))$.
+	\item $\bar{s}(t)=t^\M$ if $t$ is a constant symbol.
+	\item $\bar{s}(f(t_1,\dots,t_k))=f^\M(\bar{s}(t_1),\dots,\bar{s}(t_k))$.
 \end{enumerate}
 
 \example{Variable Assignment}
-Let $\mathfrak{M}$ be the standard model of the real field.\\
-Let $s$ bea variable assignment over $\mathfrak{M}$ st $s(x)=s(y)=\pi$. Then
+Let $\M$ be the standard model of the real field.\\
+Let $s$ bea variable assignment over $\M$ st $s(x)=s(y)=\pi$. Then
 \[\begin{array}{rcl}
-\bar{s}(x\bar+y)&=&\bar+^\mathfrak{m}(\bar{s}(x),\bar{s}(y))\\
-&=&\bar+^\mathfrak{m}(s(x),s(y))\\
-&=&\bar+^\mathfrak{m}(\pi,\pi)\\
+\bar{s}(x\bar+y)&=&\bar+^\M(\bar{s}(x),\bar{s}(y))\\
+&=&\bar+^\M(s(x),s(y))\\
+&=&\bar+^\M(\pi,\pi)\\
 &=&\pi+\pi\\
 &=&2\pi
 \end{array}\]
 
 \theorem{}
-Let $s$ be a variable assignment over $\mathfrak{M}$, $x\in\text{Var}$ \& $d\in|\mathfrak{M}|$.\\
-A new variable assignment $\frac{sd}{x}$ over $\mathfrak{M}$ is defined as
+Let $s$ be a variable assignment over $\M$, $x\in\text{Var}$ \& $d\in|\M|$.\\
+A new variable assignment $\frac{sd}{x}$ over $\M$ is defined as
 $$\frac{sd}{x}(y)=\begin{cases}d&\text{if }y=x\\s(y)&\text{otherwise}\end{cases}$$
 
 \definition{Satisfaction Relation}
-Let $\mathfrak{M}$ be an $\LL$-Structure \& $s$ be a variable assignment over $\mathfrak{M}$.\\
-The \textit{Satiscation Relation}, $\mathfrak{M},s\vDash\phi$ between $\mathfrak{M},s$ and $\LL$-Formula $\phi$ is recursively defined as
+Let $\M$ be an $\LL$-Structure \& $s$ be a variable assignment over $\M$.\\
+The \textit{Satiscation Relation}, $\M,s\vDash\phi$ between $\M,s$ and $\LL$-Formula $\phi$ is recursively defined as
 \begin{enumerate}
-	\item $\mathfrak{M},s\vDash t_1\equiv t_2$ iff $\bar{s}(t_1)=\bar{s}(t_2)$.
-	\item $\mathfrak{M},s\vDash P(t_1,\dots,t_k)$ iff $\langle\bar{s}(t_1),\dots,\bar{s}(t_k)\rangle\in P^\mathfrak{M}\subset D^k$.
-	\item $\mathfrak{M},s\vDash \neg\phi$ iff $\mathfrak{M},s\not\equiv\phi$.
-	\item $\mathfrak{M},s\vDash\phi\to\psi$ iff if $\mathfrak{M},s\vDash\phi$ then $\mathfrak{M},s\vDash\psi$.
-	\item $\mathfrak{M},s\vDash \forall x\phi$ iff for all $d\in|\mathfrak{M}|$, $\mathfrak{M}\frac{sd}{x}\vDash\phi$.
+	\item $\M,s\vDash t_1\equiv t_2$ iff $\bar{s}(t_1)=\bar{s}(t_2)$.
+	\item $\M,s\vDash P(t_1,\dots,t_k)$ iff $\langle\bar{s}(t_1),\dots,\bar{s}(t_k)\rangle\in P^\M\subset D^k$.
+	\item $\M,s\vDash \neg\phi$ iff $\M,s\not\equiv\phi$.
+	\item $\M,s\vDash\phi\to\psi$ iff if $\M,s\vDash\phi$ then $\M,s\vDash\psi$.
+	\item $\M,s\vDash \forall x\phi$ iff for all $d\in|\M|$, $\M\frac{sd}{x}\vDash\phi$.
 \end{enumerate}
+
+\propositionn{Extension of Satisfaction Relation}
+\[\begin{array}{rcl}
+\M,s\vDash\phi\wedge\psi&\quad\text{iff}\quad&\M,s\vDash\phi\text{ and }\M,s\vDash\psi\\
+\M,s\vDash\phi\vee\psi&\text{iff}&\M,s\vDash\phi\text{ or }\M,s\vDash\psi\\
+\M,s\vDash\phi\leftrightarrow\psi&\quad\text{iff}\quad&\M,s\vDash\phi\text{ iff }\M,s\vDash\psi\\
+\M,s\vDash\exists x\phi&\quad\text{iff}\quad&\M,s\frac{d}{x}\vDash\phi\text{ for some }d\in|\M|
+\end{array}\]
+
+\definition{Model}
+Let $\Phi\subset\text{Fml}_\LL$, a subset of formulae of a first order language $\LL$.\\
+$\M,s$ is a \textit{model} of $\Phi$ iff $\M,s\propto\phi\text{ for all}\phi\in\Phi$.\\
+\nb This is denoted $\M,s\vDash\Phi$.\\
+
+\example{Model}
+Let $\M$ be the standard model of ring theory \& $s$ be a variable assignment over $\M$ st $s(v_1)=3$ \& $s(v_2)=-\pi$.\\
+\[\begin{array}{rl}
+&\M,s\vDash\bar0\bar< v_1\bar+v_2\\
+\Longleftrightarrow&\bar<^\M(\bar{s}(\bar0),\bar{s}(v_1\bar+v_2))\\
+\Longleftrightarrow&\bar<^\M(\bar{0}^\M,\bar{+}^\M(\bar{s}(v_1),\bar{s}(v_2)))\\
+\Longleftrightarrow&\bar<^\M(0,\bar{+}^\M(s(v_1),s(v_2)))\\
+\Longleftrightarrow&0<3+(-\pi)\\
+\implies&\M,s\not\vDash\bar0\bar< v_1\bar+v_2
+\end{array}\]
+
+\[\begin{array}{rl}
+&\M,s\vDash\forall v_2\exists v_0,\ v_2\bar<v_0\\
+\Longleftrightarrow&\text{for all }d\in\reals,\ \M s\frac{d}{v_2}\propto\exists v_0,\ v_2\bar<v_0\\
+\Longleftrightarrow&\text{for all }e\in\reals,\ \M(s\frac{d}{v_2})\frac{e}{v_0}\propto v_2\bar<v_0\\
+\Longleftrightarrow&\text{for all }d\in\reals\text{ there is }e\in\reals,\ s(\frac{d}{v_2})\frac{e}{v_)}v_2<(s\frac{d}{v_0})\frac{e}{v_0}v_0\\
+\Longleftrightarrow&\text{for all }d\in\reals\text{ there is }e\in\reals\text{ st }d<e
+\end{array}\]
+
+\theorem{}
+Let $\LL_1,\LL_2$ be first order langauges.\\
+Define models
+\[\begin{array}{rcl}
+\M_1&=&\langle D,\mathcal{I}_1\rangle:\LL_1\text{ structure}\\
+\M_1&=&\langle D,\mathcal{I}_2\rangle:\LL_2\text{ structure}
+\end{array}\]
+Note that $D$ is the same for both (\ie Different languages, same world).\\
+Let $\LL:=\LL_1\cup\LL_2$
+\begin{enumerate}
+	\item For all $\LL$-Terms, $t$, for all variable assignements $s_1$ over $\M_1$ \& $s_2$ over $\M_2$.\\
+	If $\begin{cases}c^{\M_1}=c^{\M_2}&\text{ for all constants symbols that occur in }t\\f^{\M_1}=f^{\M_2}&\text{ for all functions symbols that occur in }t\\s_1(x)=s_2(x)&\text{ for all variable symbols that occur in }t\end{cases}$ then $\bar{s}_1(t)=\bar{s}_2(t)$.
+	\item For all $\phi\in\text{Fml}_\LL$ \& for all variable assignemnts $s_1$ over $\M_1$ \& $s_2$ over $\M_2$.\\
+	If $\begin{cases}c^{\M_1}=c^{\M_2}&\text{ for all constants symbols that occur in }\phi\\f^{\M_1}=f^{\M_2}&\text{ for all functions symbols that occur in }\phi\\R^{\M_1}=R^{\M_2}&\text{ for all predicate symbols that occur in }\phi\\s_1(x)=s_2(x)&\text{ for all variable symbols that occur in }\phi\end{cases}$ then $\M_1s_1\vDash\phi$ iff $\M_2\vDash\phi$.\\
+\end{enumerate}
+\nb If $\LL=\emptyset$ it is not very interesting.\\
+
+\proof{Theorem 3.2 i)}
+\textit{This is a proof by induction on $\LL$-Term}.\\
+\textbf{Base Case}\\
+Let $t$ be atomic then $\bar{s}_1(t)=\bar{s}_2(t)$ is trivial, $\bar{s}_1(x)=s_1(x)=s_2(x)=\bar{s}_2(x)$ and $\bar{s}_1(c)=c^{\M_1}=c^{\M_2}=\bar{s}_2(c)$.\\
+\textbf{Inductive Case}\\
+Let $t=f(t_1,\dots,t_k)$. Then
+\[\begin{array}{rcl}
+\bar{s}_1(t)&=&f^{\M_1}(\bar{s}_1(t_1),\dots,\bar{s}_1(t_k))\\
+&=&f^{\M_1}(\bar{s}_2(t_1),\dots,\bar{s}_2(t_k))\text{ by inductive hypothesis}\\
+&=&f^{\M_2}(\bar{s}_2(t_1),\dots,\bar{s}_2(t_k))\\
+&=&\bar{s}_2(t)
+\end{array}\]\proved
+
 \end{document}
