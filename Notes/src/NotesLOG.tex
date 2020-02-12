@@ -549,7 +549,7 @@ Let $\LL:=\LL_1\cup\LL_2$
 	\item For all $\LL$-Terms, $t$, for all variable assignements $s_1$ over $\M_1$ \& $s_2$ over $\M_2$.\\
 	If $\begin{cases}c^{\M_1}=c^{\M_2}&\text{ for all constants symbols that occur in }t\\f^{\M_1}=f^{\M_2}&\text{ for all functions symbols that occur in }t\\s_1(x)=s_2(x)&\text{ for all variable symbols that occur in }t\end{cases}$ then $\bar{s}_1(t)=\bar{s}_2(t)$.
 	\item For all $\phi\in\text{Fml}_\LL$ \& for all variable assignemnts $s_1$ over $\M_1$ \& $s_2$ over $\M_2$.\\
-	If $\begin{cases}c^{\M_1}=c^{\M_2}&\text{ for all constants symbols that occur in }\phi\\f^{\M_1}=f^{\M_2}&\text{ for all functions symbols that occur in }\phi\\R^{\M_1}=R^{\M_2}&\text{ for all predicate symbols that occur in }\phi\\s_1(x)=s_2(x)&\text{ for all variable symbols that occur in }\phi\end{cases}$ then $\M_1s_1\vDash\phi$ iff $\M_2\vDash\phi$.\\
+	If $\begin{cases}c^{\M_1}=c^{\M_2}&\text{ for all constants symbols that occur in }\phi\\f^{\M_1}=f^{\M_2}&\text{ for all functions symbols that occur in }\phi\\R^{\M_1}=R^{\M_2}&\text{ for all predicate symbols that occur in }\phi\\s_1(x)=s_2(x)&\text{ for all variable symbols in FV}(\phi)\end{cases}$ then $\M_1s_1\vDash\phi$ iff $\M_2\vDash\phi$.\\
 \end{enumerate}
 \nb If $\LL=\emptyset$ it is not very interesting.\\
 
@@ -565,5 +565,65 @@ Let $t=f(t_1,\dots,t_k)$. Then
 &=&f^{\M_2}(\bar{s}_2(t_1),\dots,\bar{s}_2(t_k))\\
 &=&\bar{s}_2(t)
 \end{array}\]\proved
+
+\proof{Theorem 3.2 ii)}
+\textit{This is a proof by induction on $\LL$-Formulae}.
+\textbf{Base Case}\\
+Let $\phi=R(t_1,\dots,t_k)$ be an atomic $\LL$-formula (\ie $cp(\phi)=0$).\\
+Note that $FV(\phi)=\text{var}(\phi)$, thu conditions in \textbf{ii)} for $\phi$ imply the conditions of \textbf{i)} for $t_1,\dots,t_k$.\\
+Therefore $\bar{s}_i(t_i)=\bar{s}_1(t_i)\ \forall\ i\in[1,k]$. Then
+\[\begin{array}{rl}
+&\M_1,s_1\vDash\phi\\
+\Longleftrightarrow&\langle\bar{s}_1(t_1),\dots,\bar{s}_1(t_k)\rangle\in R^{\M_1}\\
+\Longleftrightarrow&\langle\bar{s}_2(t_1),\dots,\bar{s}_2(t_k)\rangle\in R^{\M_1}\\
+\Longleftrightarrow&\langle\bar{s}_2(t_1),\dots,\bar{s}_2(t_k)\rangle\in R^{\M_2}\\
+\Longleftrightarrow&\M_2,s_2\vDash\phi
+\end{array}\]
+\textbf{Inductive Case}\\
+Let $\phi:=\psi\to\theta$.\\
+Since the conditions hold for $\phi$ they hold for $\psi\ \&\ \theta$. Then
+\[\begin{array}{rl}
+&\M_1,s_1\vDash\phi\\
+\Longleftrightarrow&\text{if }\M_1,s_1\vDash\phi\text{ then }\M_1,s_1\vDash\theta\\
+\overset{\text{by IH}}{\Longleftrightarrow}&\text{if }\M_2,s_2\vDash\phi\text{ then }\M_2,s_2\vDash\theta\\
+\Longleftrightarrow&\M_2,s_2\vDash\phi
+\end{array}\]
+Let $\phi:=\neg\psi$>\\
+By the inductive hypothesis the claim holds for $\psi$.\\
+Since the conditions of \textbf{ii)} hold for $\phi$ they hold for $\psi$.\\
+Note that $FV(\neg\psi)=FV(\psi)$. Hence
+\[\begin{array}{rl}
+&\M_1,s_1\vDash\phi\\
+\Longleftrightarrow&\M_1,s_1\not\vDash\psi\\
+\overset{\text{by IH}}{\Longleftrightarrow}&\M_2,s_2\not\vDash\psi\\
+\Longleftrightarrow&\M_2,s_2\vDash\phi
+\end{array}\]
+Let $\phi:=\forall z\psi$.\\
+By the last condition of \textbf{ii)} we have that $s_1(x)=s_2(x)\ \forall\ x\in FV(\phi)$.\\
+Since $FV(\phi)\subset FV(\psi)\subset FV(\phi)\cup\{z\}$ it holds that $\forall\ d\in D$ that $s_1\frac{d}{z}(x)=s_2\frac{d}{z}(x)\ \forall\ x\in FV(\psi)$.\\
+Meaning that $\forall\ d\in D$ the conditions of \textbf{ii)} hold for $\psi$ wrt $s_1\frac{d}{z}\ \&\ s_2\frac{d}{z}$.\\
+Hence
+\[\begin{array}{rl}
+&\M_1,s_1\vDash\phi\\
+\Longleftrightarrow&\forall\ d\in D,\ \M_1,s_1\frac{d}{z}\vDash\psi\\
+\overset{\text{by IH}}\Longleftrightarrow&\forall\ d\in D,\ \M_2,s_2\frac{d}{z}\vDash\psi\\
+\Longleftrightarrow&\M_2,s_2\vDash\phi
+\end{array}\]\proved
+
+\theorem{}
+Let $\M$ be an $\LL$-Strucutre, $t$ be a closed $\LL$-Term, $\phi$ to be an $\LL$-Sentence and $s_1,s)2$ to be variable assignments over $\M$.\\
+Then $\bar{s}_1(t)=\bar{s}_2(t)$ and $\M,s_1\vDash\phi$ iff $\M,s_2\vDash\phi$.\\
+\nb This is since $t$ is closed and thus its sematnic value is indepedent of variable assignment.\\
+
+\notation{}
+Let $t$ be a closed $\LL$-Term \& $\phi$ an $\LL$-Sentence.\\
+We use the following notation
+\[\begin{array}{rcl}
+t^\M&:=&\text{the unique }d\in D\text{ st }\ bar{s}(t)=d\text{ for \textbf{some} variable assignment }s\text{ over }\M\\
+&:=&\text{the unique }d\in D\text{ st }\ bar{s}(t)=d\text{ for \textbf{all} variable assignment }s\text{ over }\M\\
+\M\vDash\phi&:=&\M,s\vDash\phi\text{ for \textbf{some} variable assignment }s\text{ over }\M\\
+&:=&\M,s\vDash\phi\text{ for \textbf{all} variable assignment }s\text{ over }\M\\
+\end{array}\]
+\nb The $s$ is dropped in $\M\vDash\phi$.\\
 
 \end{document}
