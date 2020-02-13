@@ -428,6 +428,8 @@ FV(\forall x(P(x)\to\exists y\ R(y,x))&=&FV((P(x)\to\exists y\ R(y,x))\backslash
 
 \section{Semantics of First-Order Languages}
 
+\subsection{Structures, Variable Assignments \& Satisfaction}
+
 \definition{$\LL$-Structure}
 Let $\LL$ be a first-order language.\\
 An \textit{$\LL$-Structure} is an ordered pair $\M=\langle D,\mathfrak{I}\rangle$
@@ -624,6 +626,98 @@ t^\M&:=&\text{the unique }d\in D\text{ st }\ bar{s}(t)=d\text{ for \textbf{some}
 \M\vDash\phi&:=&\M,s\vDash\phi\text{ for \textbf{some} variable assignment }s\text{ over }\M\\
 &:=&\M,s\vDash\phi\text{ for \textbf{all} variable assignment }s\text{ over }\M\\
 \end{array}\]
-\nb The $s$ is dropped in $\M\vDash\phi$.\\
+\nb The $s$ is dropped in $\M\vDash\phi$.
+
+\subsection{Important Semantic Concepts}
+
+\remark{Throughout this section $\LL$ will be a first-order language}
+
+\definition{Logical Consequence}
+Let $\phi\in\text{Fml}_\LL$ \& $\Phi\subset\text{Fml}_\LL$.\\
+$\phi$ is said to be a \textit{Logical Consequence} of $\Phi$ iff $\forall\ \LL$-Structures, $\M$, and variable assignments, $s$, over $\M$ if $\M,s\vDash\Phi$ then $\M,s\vDash\phi$.\\
+\nb When this holds we say $\phi$ logically follows from $\Phi$, denoted $\Phi\vDash\phi$.\\
+
+\example{Logical Consequence}
+TODO\\
+
+\proposition{}
+$\forall\ \phi,\psi\in\text{Fml}_\LL$ and $\Phi\subset\text{Fml}_\LL$
+$$\underbrace{\Phi,\phi}_{\equiv\Phi\cup\{\phi\}}\vDash\psi\text{ iff }\Phi\vDash\phi\to\psi$$
+
+\prooff{Proposition 3.2}
+\[\begin{array}{rl}
+&\Phi,\phi\vDash\psi\\
+\Longleftrightarrow&\forall\M,s\text{ if }\M s\vDash\theta\ \forall\ \theta\in\Phi\cup\{\psi\}\text{ then }\M,s\vDash\psi\\
+\Longleftrightarrow&\forall\M,s\text{ if }\M s\vDash\theta\ \forall\ \theta\in\Phi\text{ and }\M,s\vDash\phi\text{ then }\M,s\vDash\psi\\
+\Longleftrightarrow&\text{if }\M,s\vDash\theta\ \forall\ \theta\in\Phi\text{ then }\M,s\vDash\phi\text{ implies }\M,s\vDash\psi\\
+\overset{\text{by def}}{\Longleftrightarrow}&\Phi\vDash\phi\to\psi
+\end{array}\]
+
+\definition{}
+Let $\Lambda$ be a set of $\LL$-sentences
+$$\M\vDash\Lambda\text{ iff }\M\vDash\sigma\ \forall\ \sigma\in\Lambda$$
+
+\example{}
+Let $\LL=\LL_\text{GT}=\{e,\cdot\}$ the language of group theory.\\
+Let $\Phi=\{\forall x\forall y\forall z\ (x\cdot y)\cdot z\equiv x\cdot(y\cdot z),\ \forall\ x\cdot e\equiv x,\ \forall x\exists y\ x\cdot y\equiv e\}$.\\
+Then $\Phi\vDash\forall\ x\exists y$ st $y\cdot x\equiv e$ but $\Phi\not\vDash\forall x\forall y\ (x\cdot y)\equiv(y\cdot x)$.\\
+
+\remark{}
+We always have either $\M,s\vDash\phi$ or $\M s\vDash\not\phi$ since $\M s\vDash\phi\Leftrightarrow\M s\not\vDash\phi$.\\
+But it is not always the case that either $\Phi\vDash\phi$ or $\Phi\vDash\not\phi$. (There may be some elements in a group with fulfil a criteria by chance).\\
+
+\definition{Logically Valid}
+Let $\phi\in\text{Fml}_\LL$.\\
+$\phi$ is said to be \textit{Logically Valid} iff $\M,s\vDash\phi\ \forall\ \M,s$.\\
+\nb This is also known as valid \& logically true.\\
+\nb Denoted $\vDash\phi$ for short.\\
+
+\examplee{Logically Valid}
+\begin{itemize}
+	\item[-] $\forall x\exists\ x\equiv y$ is \textit{Logically Valid} since trivially true for $y=x$.
+	\item[-] $\exists xP(x)$ is \underline{not} \textit{Logically Valid}.\\
+	Consider the case where $|\M|=\nats\ \&\ P^\M=\emptyset$ where $\M\not\vDash\exists xP(x)$.
+\end{itemize}
+
+\definition{Satisfiable}
+Let $\phi\in\text{Fml}_\LL$ \& $\Phi\subset\text{Fml}_\LL$.\\
+$\phi$ is \textit{Satisfiable} iff $\M,s\vDash\phi$ for some $\M,s$.\\
+$\Phi$ is \textit{Satisfiable} iff $\M,s\vDash\Phi$ for some $\M,s$.\\
+
+\examplee{Satisfiable}
+\begin{itemize}
+	\item[-] $\exists x P(x)$ is \textit{Satisfiable}.\\
+	Since $|\M|=\nats\ \&\ P^\M=|\M|=\nats$ satisfies $\exists xP(x)$.
+	\item[-] $x\not\equiv x$ is \underline{not} \textit{Satisfiable} as $\bar{s}(x)=s(x)=s(x)=\bar{s}(x)$ always and so $\M,s\vDash x\equiv x\ \forall\ \M,s$.
+\end{itemize}
+
+\theorem{}
+Let $\phi\in\text{Fml}_\LL$ \& $\Phi\subset\text{Fml}_\LL$.
+\begin{enumerate}
+	\item $\phi$ is \textit{Logically Valid} iff $\emptyset\vDash\phi$.
+	\item $\Phi\vDash\phi$ iff $\Phi\cup\{\neg\phi\}$ is \textit{Unsatisfiable}.
+	\item $\phi$ is logically valid iff $\neg\phi$ is \textit{Unsatisfiable}.
+\end{enumerate}
+
+\prooff{Theorem 3.4}
+\begin{enumerate}
+	\item \[\begin{array}{rl}
+	&\emptyset\vDash\phi\\
+	\Longleftrightarrow&\text{for all }\M,s\underbrace{\text{if }\M,s\vDash\theta\ \forall\ \theta\in\emptyset}_{\text{Vacuously true}}\text{ then }\M,s\vDash\phi\\
+	\Longleftrightarrow&\forall\ M,s\ \M,s\vDash\phi\\
+	\Longleftrightarrow&\phi\text{ is logically valid}\\
+	\end{array}\]
+	\item \[\begin{array}{rl}
+	&\Phi\vDash\phi\\
+	\Longleftrightarrow&\forall\ \M,s\text{ if }\M,s\vDash\phi\text{ then }\M,s\vDash\phi\\
+	\Longleftrightarrow&\text{ there is no }\M,s\text{ st }\M,s\vDash\Phi\text{ and }\underbrace{\M,s\not\vDash\phi}_{\M,s\vDash\neg\phi}
+	\end{array}\]
+	\item By $i)\ \&\ ii)$
+\end{enumerate}
+
+\definition{Logically Equivalent}
+Let $\phi,\psi\in\text{Fml}_\LL$.\\
+$\phi$ is \textit{Logically Equivalent} to $\psi$ iff $\phi\vDash\psi$ \& $\psi\vDash\phi$.\\
+\nb Equivalently $\vDash\phi\leftrightarrow\psi$.
 
 \end{document}
