@@ -1,0 +1,161 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=1in, paperwidth=8.3in, paperheight=11.7in]{geometry}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{dsfont}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{nccmath}
+\usepackage{tikz}
+\usepackage{changepage} 
+
+\begin{document}
+
+\pagestyle{fancy}
+\setlength\parindent{0pt}
+\allowdisplaybreaks
+
+\renewcommand{\headrulewidth}{0pt}
+\hyphenpenalty 10000
+\exhyphenpenalty 10000
+
+% Cover page title
+\title{Logic - Problem Sheet 2}
+\author{Dom Hutchinson}
+\maketitle
+
+% Header
+\fancyhead[L]{Dom Hutchinson}
+\fancyhead[C]{Logic - Problem Sheet 2}
+\fancyhead[R]{\today}
+
+% Counters
+\newcounter{qpart}[section]
+
+% commands
+\newcommand{\dotprod}[0]{\boldsymbol{\cdot}}
+\newcommand{\cosech}[0]{\mathrm{cosech}\ }
+\newcommand{\cosec}[0]{\mathrm{cosec}\ }
+\newcommand{\sech}[0]{\mathrm{sech}\ }
+\newcommand{\prob}[0]{\mathbb{P}}
+\newcommand{\nats}[0]{\mathbb{N}}
+\newcommand{\cov}[0]{\mathrm{cov}}
+\newcommand{\var}[0]{\mathrm{var}}
+\newcommand{\expect}[0]{\mathbb{E}}
+\newcommand{\reals}[0]{\mathbb{R}}
+\newcommand{\integers}[0]{\mathbb{Z}}
+\newcommand{\indicator}[0]{\mathds{1}}
+\newcommand{\nb}[0]{\textit{N.B.} }
+\newcommand{\ie}[0]{\textit{i.e.} }
+\newcommand{\eg}[0]{\textit{e.g.} }
+\newcommand{\iid}[0]{\overset{\text{iid}}{\sim} }
+\newcommand{\x}[0]{\textbf{x} }
+\newcommand{\X}[0]{\textbf{X} }
+\newcommand{\LL}[0]{\mathcal{L} }
+\newcommand{\M}[0]{\mathfrak{M} }
+
+\newcommand{\qpart}[0]{\stepcounter{qpart} \textbf{Question \arabic{section} \alph{qpart})\\}}
+\newcommand{\qpartnb}[0]{\stepcounter{qpart} \textbf{Question \arabic{section} \alph{qpart})} - }
+\newcommand{\ans}[0]{ \textbf{Answer \arabic{section}\\}}
+\newcommand{\apart}[0]{ \textbf{Answer \arabic{section} \alph{qpart})\\}}
+\newcommand{\apartnb}[0]{\textbf{Answer \arabic{section} \alph{qpart})} - }
+\newcommand{\question}[0]{\stepcounter{section}\section*{Question - \arabic{section}.}}
+
+\question
+Let $\LL=\{P,R,f,g,c_0,c_1\}$ where $P$ is a unary predicate, $R$ is a binary prediate and $f\ \&\ g$ are binary function symbols. Let $\M$ be an $\LL$-Structure such that $|\M|=\reals,\ P^\M=\nats,\ R^\M$ is the usual greater-than $(>)$ relation on $R$, $f^\M$ is the usual addition on $\reals$, $g^\M$ is the usual multiplicaiton on $\reals$, $c_0^\M=0$ and $c_1^\M=1$. Finally, let $s$ be a variable assignment over $\M$ with $s(x)=5$ and $s(y)=3$ where $x$ and $y$ are distinct variables.\\
+
+\stepcounter{qpart}
+\qpartnb Determine the semantic value of the following $\LL$-term in $\M$ under $s$
+$$f(g(x,y),g(x,c_1))$$
+
+\apart
+\[\begin{array}{rl}
+&\bar{s}(f(g(x,y),g(x,c_1)))\\
+\Longleftrightarrow&f^\M(\bar{s}(g(x,y)),\bar{s}(g(x,c_1)))\\
+\Longleftrightarrow&f^\M(g^\M(\bar{s}(x),\bar{s}(y)),g^\M(\bar{s}(x),\bar{s}(c_1)))\\
+\Longleftrightarrow&f^\M(\cdot^\M(s(x),s(y)),\cdot^\M(s(x),c_1^\M))\\
+\Longleftrightarrow&+(\cdot(5,3),\cdot(5,1))\\
+\Longleftrightarrow&+(15,5)\\
+\Longleftrightarrow&20
+\end{array}\]
+
+\qpartnb Answer whether or not the $\LL$-formula below is satisfied in $\M$ under $s$
+$$\forall x\forall y(R(x,c_0)\to\exists z(P(z)\wedge R(g(z,x),y)))$$
+
+\apart
+\[\begin{array}{rl}
+&\M,s\vDash\forall x\forall y(R(x,c_0)\to\exists z(P(z)\wedge R(g(z,x),y)))\\
+\Longleftrightarrow&\text{for all }d_0,d_1\in|\M|,\ \M,s\frac{d_0}{x}\frac{d_1}{y}\vDash(R(x,c_0)\to\exists z(P(z)\wedge R(g(z,x),y)))\\
+\Longleftrightarrow&\text{for all }d_0,d_1\in\reals\text{ if }\M,s\frac{d_0}{x}\frac{d_1}{y}\vDash R(x,c_0)\text{ then }\M,s\frac{d_0}{x}\frac{d_1}{y}\vDash\exists z(P(z)\wedge R(g(z,x),y))\\
+\Longleftrightarrow&\text{for all }d_0,d_1\in\reals\text{ if }d_0>0\text{ then exists }d_2\in|\M|\text{ st }\M,s\frac{d_0}{x}\frac{d_1}{y}\frac{d_2}{z}\vDash (P(z)\wedge R(g(z,x),y))\\
+\Longleftrightarrow&\text{for all }d_0,d_1\in\reals\text{ if }d_0>0\text{ then exists }d_2\in\reals\text{ st }\M,s\frac{d_0}{x}\frac{d_1}{y}\frac{d_2}{z}\vDash P(z)\text{ and }\M,s\frac{d_0}{x}\frac{d_1}{y}\frac{d_2}{z}\vDash R(g(z,x),y)\\
+\Longleftrightarrow&\text{for all }d_0,d_1\in\reals\text{ if }d_0>0\text{ then exists }d_2\in\reals\text{ st }d_2\in\nats\text{ and }\M,s\frac{d_0}{x}\frac{d_1}{y}\frac{d_2}{z}\vDash g(z,x)>y\\
+\Longleftrightarrow&\text{for all }d_0,d_1\in\reals\text{ if }d_0>0\text{ then exists }d_2\in\nats\text{ st }d_2\cdot d_0>d_1\\
+\Longleftrightarrow&\mathtt{true}
+\end{array}\]
+
+\question
+Let $\LL=\{P,f\}$ where $P$ is a unary predicate and $f$ is a binary function symbol.\\
+For each of the following $\LL$-formulae find an $\LL$-structure $\M_0$ and a variable assignemnt $s_0$ over $\M_0$ in which the formula is true, and find an $\LL$-structure $\M_1$ and a variable assignment $s_1$ over $\M_1$ in which the formula is false:\\
+
+\stepcounter{qpart}
+\qpartnb $\exists v_2\forall v_1 f(v_2,v_1)\equiv v_2$.\\
+
+\apart
+$\M_0=(\reals,\cdot),\ \bar{s}_0(v_2)=0$.\\
+$\M_1=(\reals,\cdot),\ \bar{s}_1(v_2)=1$.\\
+
+\qpartnb $\exists v_2(P(v_2)\wedge\forall v_1 P(f(v_2,v_1)))$.\\
+
+\apart
+$\M_0=(\reals,\equiv0,\cdot),\ \bar{s}_0(v_2)=0$.\\
+$\M_1=(\reals,\equiv0,\cdot),\ \bar{s}_1(v_2)=1$.
+
+\setcounter{section}{4}
+\question
+Show the following\\
+
+\qpartnb $\vDash (\phi\to\forall x\phi)$ if $x\not\in FV(\phi)$.\\
+
+\apart
+We have that
+$$\vDash(\phi\to\forall x\phi)\text{ if }x\not\in FV(\phi)\Longleftrightarrow\text{if }\vDash\phi\text{ then }\vDash\forall x\phi\text{ if }x\not\in FV(\phi)$$
+Whether $\phi$ is satisfied depends on its free variables.\\
+Since $x\not\in FV(\phi)$, whether $\phi$ is satisified is independent of the value of $x$.\\
+Under the condition that $\phi$ is logically valid, it holds that $\forall x\phi$ is logically valid for $x\not\in FV(\phi)$.\\
+Thus the statement holds.\\
+
+\qpartnb $\vDash \forall x(\phi\to\psi)\to(\forall x\phi\to\forall x\psi)$.\\
+
+\apart
+\[\begin{array}{rl}
+&\vDash \forall x(\phi\to\psi)\\
+\Longleftrightarrow&\text{for all }x\in|\M|\vDash(\phi\to\psi)\\
+\Longleftrightarrow&\text{for all }x\in|\M|\text{ if }\vDash\phi\text{ then}\vDash\psi\\
+\Longleftrightarrow&\text{if }\text{for all }x\in|\M|\vDash\phi\text{ then for all }x\in|\M|\vDash\psi\\
+\Longleftrightarrow&\vDash(\forall x\phi\to\forall x\psi)\\
+\implies&\vDash \forall x(\phi\to\psi)\to\ \vDash(\forall x\phi\to\forall x\psi)\\
+\Longleftrightarrow&\vDash \forall x(\phi\to\psi)\to(\forall x\phi\to\forall x\psi)
+\end{array}\]
+
+\qpartnb if $\Gamma\vDash\phi$ and $x\not\in FV(\Gamma):=\bigcup\limits_{\chi\in\Gamma}FV(\chi)$ then $\Gamma\vDash\forall x\phi$ where $\Gamma\subset\text{Fml}_\LL$.\\
+
+
+\apart
+%TODO
+Assume that $\Gamma\vDash\phi$.\\
+Then, for all models $\M,s$ of $\Gamma$, $\M,s\vDash\phi$.\\
+Thus, for all models $\M,s$ where $\M,s\vDash\gamma$ for all $\gamma\in\Gamma$, $\M,s\vDash\phi$.\\
+Thus, if $\M,s\vDash\gamma$ for all $\gamma\in\Gamma$ then $\M,s\vDash\phi$.\\
+Let $x\not\in FV(\Gamma)$.\\
+Then, if $\M,s\vDash\gamma$ then $\M,s\vDash\forall x\gamma$ by \textbf{Question 5 a)}.\\
+Thus, if $\M,s\vDash\gamma$ for all $\gamma\in\Gamma$ then $\M,s\vDash(\phi\wedge\forall x\gamma)$ for all $\gamma\in\Gamma$.\\
+Thus, if $\M,s\vDash\gamma$ for all $\gamma\in\Gamma$ then for all $x\not\in FV(\Gamma)$, $\M,s\vDash(\phi\wedge\gamma)$ for all $\gamma\in\Gamma$.\\
+Thus, if $\M,s\vDash\gamma$ for all $\gamma\in\Gamma$ then for all $x\not\in FV(\Gamma)$, $\M,s\vDash(\phi)$.\\
+Thus, if $\M,s\vDash\gamma$ for all $\gamma\in\Gamma$ then $\M,s\vDash(\forall x\phi)$ with $x\not\in FV(\Gamma)$.
+
+\end{document}
