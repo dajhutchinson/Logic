@@ -463,7 +463,7 @@ D&:=&\reals\\
 \mathfrak{I}(\bar+)&:&\reals\times\reals\to\reals\text{ with} (a,b)\mapsto(a+b)\\
 \mathfrak{I}(\bar\cdot)&:&\reals\times\reals\to\reals\text{ with} (a,b)\mapsto(a\cdot b)
 \end{array}\]
-We recall $\langle D,\mathfrak{1}\rangle$ is the standard model of the real field.\\
+We recall $\langle D,\mathfrak{I}\rangle$ is the standard model of the real field.\\
 \nb We can alternatively write $\langle D,\mathfrak{I}\rangle=\langle\reals,0,1,+,\cdot\rangle$ for neatness.\\
 
 \definition{Variable Assignment}
@@ -490,7 +490,7 @@ Let $s$ bea variable assignment over $\M$ st $s(x)=s(y)=\pi$. Then
 &=&2\pi
 \end{array}\]
 
-\theorem{}
+\theorem{Substitution}
 Let $s$ be a variable assignment over $\M$, $x\in\text{Var}$ \& $d\in|\M|$.\\
 A new variable assignment $\frac{sd}{x}$ over $\M$ is defined as
 $$\frac{sd}{x}(y)=\begin{cases}d&\text{if }y=x\\s(y)&\text{otherwise}\end{cases}$$
@@ -501,7 +501,7 @@ The \textit{Satiscation Relation}, $\M,s\vDash\phi$ between $\M,s$ and $\LL$-For
 \begin{enumerate}
 	\item $\M,s\vDash t_1\equiv t_2$ iff $\bar{s}(t_1)=\bar{s}(t_2)$.
 	\item $\M,s\vDash P(t_1,\dots,t_k)$ iff $\langle\bar{s}(t_1),\dots,\bar{s}(t_k)\rangle\in P^\M\subset D^k$.
-	\item $\M,s\vDash \neg\phi$ iff $\M,s\not\equiv\phi$.
+	\item $\M,s\vDash \neg\phi$ iff $\M,s\not\vDash\phi$.
 	\item $\M,s\vDash\phi\to\psi$ iff if $\M,s\vDash\phi$ then $\M,s\vDash\psi$.
 	\item $\M,s\vDash \forall x\phi$ iff for all $d\in|\M|$, $\M\frac{sd}{x}\vDash\phi$.
 \end{enumerate}
@@ -532,8 +532,8 @@ Let $\M$ be the standard model of ring theory \& $s$ be a variable assignment ov
 
 \[\begin{array}{rl}
 &\M,s\vDash\forall v_2\exists v_0,\ v_2\bar<v_0\\
-\Longleftrightarrow&\text{for all }d\in\reals,\ \M s\frac{d}{v_2}\propto\exists v_0,\ v_2\bar<v_0\\
-\Longleftrightarrow&\text{for all }e\in\reals,\ \M(s\frac{d}{v_2})\frac{e}{v_0}\propto v_2\bar<v_0\\
+\Longleftrightarrow&\text{for all }d\in\reals,\ \M s\frac{d}{v_2}\vDash\exists v_0,\ v_2\bar<v_0\\
+\Longleftrightarrow&\text{for all }e\in\reals,\ \M(s\frac{d}{v_2})\frac{e}{v_0}\vDash v_2\bar<v_0\\
 \Longleftrightarrow&\text{for all }d\in\reals\text{ there is }e\in\reals,\ s(\frac{d}{v_2})\frac{e}{v_)}v_2<(s\frac{d}{v_0})\frac{e}{v_0}v_0\\
 \Longleftrightarrow&\text{for all }d\in\reals\text{ there is }e\in\reals\text{ st }d<e
 \end{array}\]
@@ -621,8 +621,8 @@ Then $\bar{s}_1(t)=\bar{s}_2(t)$ and $\M,s_1\vDash\phi$ iff $\M,s_2\vDash\phi$.\
 Let $t$ be a closed $\LL$-Term \& $\phi$ an $\LL$-Sentence.\\
 We use the following notation
 \[\begin{array}{rcl}
-t^\M&:=&\text{the unique }d\in D\text{ st }\ bar{s}(t)=d\text{ for \textbf{some} variable assignment }s\text{ over }\M\\
-&:=&\text{the unique }d\in D\text{ st }\ bar{s}(t)=d\text{ for \textbf{all} variable assignment }s\text{ over }\M\\
+t^\M&:=&\text{the unique }d\in D\text{ st }\ \bar{s}(t)=d\text{ for \textbf{some} variable assignment }s\text{ over }\M\\
+&:=&\text{the unique }d\in D\text{ st }\ \bar{s}(t)=d\text{ for \textbf{all} variable assignment }s\text{ over }\M\\
 \M\vDash\phi&:=&\M,s\vDash\phi\text{ for \textbf{some} variable assignment }s\text{ over }\M\\
 &:=&\M,s\vDash\phi\text{ for \textbf{all} variable assignment }s\text{ over }\M\\
 \end{array}\]
@@ -663,8 +663,8 @@ Let $\Phi=\{\forall x\forall y\forall z\ (x\cdot y)\cdot z\equiv x\cdot(y\cdot z
 Then $\Phi\vDash\forall\ x\exists y$ st $y\cdot x\equiv e$ but $\Phi\not\vDash\forall x\forall y\ (x\cdot y)\equiv(y\cdot x)$.\\
 
 \remark{}
-We always have either $\M,s\vDash\phi$ or $\M s\vDash\not\phi$ since $\M s\vDash\phi\Leftrightarrow\M s\not\vDash\phi$.\\
-But it is not always the case that either $\Phi\vDash\phi$ or $\Phi\vDash\not\phi$. (There may be some elements in a group with fulfil a criteria by chance).\\
+We always have either $\M,s\vDash\phi$ or $\M s\not\vDash\phi$ since $\M s\vDash\phi\Leftrightarrow\M s\not\vDash\phi$.\\
+But it is not always the case that either $\Phi\vDash\phi$ or $\Phi\not\vDash\phi$. (There may be some elements in a group with fulfil a criteria by chance).\\
 
 \definition{Logically Valid}
 Let $\phi\in\text{Fml}_\LL$.\\
