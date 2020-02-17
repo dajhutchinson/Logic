@@ -63,14 +63,14 @@
 \newcommand{\apartnb}[0]{ \textbf{Answer \arabic{section} \alph{qpart})} - }
 \newcommand{\question}[0]{\stepcounter{section}\subsection*{Question - \arabic{section}.}}
 
-\question
-Prove
-\begin{center}
-If the sets $M_0,M_1,M_2,\dots$ are countable, then $\bigcup\limits_{n\in\nats}M_n$ is countable as well.
-\end{center}
+%\question
+%Prove
+%\begin{center}
+%If the sets $M_0,M_1,M_2,\dots$ are countable, then $\bigcup\limits_{n\in\nats}M_n$ is countable as well.
+%\end{center}
 
-\ans
-
+%\ans
+\stepcounter{section}
 \question
 Let $\LL=\{c,f,g\}$ be a first-order language, where $c$ is a constant symbol, $f$ is a binary function symbol and $g$ is a unary function symbol. Let $x\ \&\ y$ be variables.\\
 \\
@@ -101,10 +101,7 @@ Prove that the following strings over $\mathcal{A_L}$ are $\LL$-formulae and cal
 \qpartnb $\neg\forall x\neg\forall y(P(g(f(x,c)))\longrightarrow\equiv(y,y)$.\\
 
 \apart
-$x,y,c$ are $\LL$-Terms with $cp=0$.\\
-Thus $f(x,c)$ \& $\equiv(y,y)$ are $\LL$-Terms with $cp=0$.\\
-Thus $g(f(x,c))$ is an $\LL$-Term with $cp=0$.\\
-Thus $P(g(f(x,c))$ is an $\LL$-Formula with $cp=0$.\\
+$\equiv(y,y)$ and $P(g(f(x,c))$ are atomic $\LL$-Formulae with $cp=0$.\\
 Thus $\forall y(P(g(f(x,c)))$ is an $\LL$-Formula with $cp=0+1=1$.\\
 Thus $\neg\forall y(P(g(f(x,c)))$ is an $\LL$-Formula with $cp=1+1=2$.\\
 Thus $\forall x\neg\forall y(P(g(f(x,c)))$ is an $\LL$-Formula with $cp=2+1=3$.\\
@@ -114,23 +111,19 @@ Thus $\neg\forall x\neg\forall y(P(g(f(x,c)))\longrightarrow\equiv(y,y)$ is an $
 \qpartnb $\big(\forall x\neg P\big(f(x,c)\big)\to Q\big(f(x,c),f(f(x,c),f(x,f(x,y)))\big)\big)$.\\
 
 \apart
-$x,y,c$ are $\LL$-Terms with $cp=0$.\\
-Thus $f(x,c)\ \&\ f(x,y)$ are $\LL$-Terms with $cp=0$.\\
-Thus $f(x,f(x,y))$ is an $\LL$-Term with $cp=0$.\\
-Thus $f(f(x,c),f(x,f(x,y)))$ is an $\LL$-Term with $cp=0$.\\
-Thus $P(f(x,c))$ \& $Q\big(f(x,c),f(f(x,c),f(x,f(x,y)))$ are $\LL$-Terms with $cp=0$.\\
+Thus $P(f(x,c))$ \& $Q\big(f(x,c),f(f(x,c),f(x,f(x,y))\big)$ are atomic $\LL$-Formulae with $cp=0$.\\
 Thus $\neg P(f(x,c))$ is an $\LL$-Formula with $cp=0+1=1$.\\
 Thus $\forall x\neg P(f(x,c))$ is an $\LL$-Formula with $cp=1+1=2$.\\
 Thus $\big(\forall x\neg P\big(f(x,c)\big)\to Q\big(f(x,c),f(f(x,c),f(x,f(x,y)))\big)\big)$ is an $\LL$-Formula with ${cp=\max\{2,0\}+1=3}$.
 
-\question
-Prove
-\begin{center}
-Every $\LL$-formula contains as many left parenthese as right parentheses.
-\end{center}
+%\question
+%Prove
+%\begin{center}
+%Every $\LL$-formula contains as many left parenthese as right parentheses.
+%\end{center}
 
-\ans
-
+%\ans
+\stepcounter{section}
 \question
 Let $x,y,z$ be variables and $\LL=\{f,P,Q,R\}$ where $f$ is a unary function symbol, $P$ is a binary predicate symbol, $Q$ is a unary predicate symbol and $R$ is a ternary predicate symbol.\\
 For the following $\LL$-formulae, $\phi$, $\text{determine the corresponding set of variables that occur free in }\phi$.\\
@@ -138,25 +131,26 @@ For the following $\LL$-formulae, $\phi$, $\text{determine the corresponding set
 \qpartnb $\forall x\exists y (P(x,z)\to\neg Q(y))\to\neg Q(y)$.\\
 
 \apartnb
-\[\begin{array}{rcl}
-&&FV\big(\forall x\exists y (P(x,z)\to\neg Q(y))\to\neg Q(y)\big)\\
-&=&FV((P(x,z)\to\neg Q(y))\to\neg Q(y))\backslash\{x,y\}\\
-&=&[FV(P(x,z)\to\neg Q(y))\cup FV(\neg Q(y))]\backslash\{x,y\}\\
-&=&[FV(P(x,z))\cup FV(\neg Q(y))\cup \{y\}]\backslash\{x,y\}\\
-&=&[\{x,z\}\cup FV(Q(y))\cup \{y\}]\backslash\{x,y\}\\
-&=&[\{x,z\}\cup\{y\}\cup \{y\}]\backslash\{x,y\}\\
-&=&\{x,y,z\}\backslash\{x,y\}\\
-&=&\{z\}
+\[\begin{array}{rl}
+&FV\big(\forall x\exists y (P(x,z)\to\neg Q(y))\to\neg Q(y)\big)\\
+=&FV\big(\forall x\exists y (P(x,z)\to\neg Q(y))\big)\cup FV\big(\neg Q(y)\big)\\
+=&[FV\big((P(x,z)\to\neg Q(y))\big)\backslash\{x,y\}]\cup FV\big(Q(y)\big)\\
+=&[\big(FV(P(x,z))\cup FV(\neg Q(y)\big)\backslash\{x,y\}]\cup\{y\}\\
+=&[\{x,z\}\cup FV(Q(y)\big)\backslash\{x,y\}]\cup\{y\}\\
+=&[(\{x,z\}\cup\{y\})\backslash\{x,y\}]\cup\{y\}\\
+=&[\{x,y,z\}\backslash\{x,y\}]\cup\{y\}\\
+=&\{z\}\cup\{y\}\\
+=&\{y,z\}
 \end{array}\]
 
 \qpartnb $\forall x\forall y(Q(c)\wedge Q(f(x)))\to\forall y\forall x(Q(y)\wedge R(x,x,y))$.\\
 
 \apartnb
 \[\begin{array}{rcl}
-&&FV\big(\forall x\forall y(Q(c)\wedge Q(f(x)))\to\forall y\forall x(Q(y)\wedge R(x,x,y))\big)\\
-&=&FV(\forall x\forall y(Q(c)\wedge Q(f(x))))\cup FV(\forall y\forall x(Q(y)\wedge R(x,x,y)))\\
-&=&[FV(Q(c)\wedge Q(f(x)))\backslash\{x,y\}]\cup[FV(Q(y)\wedge R(x,x,y))\backslash\{x,y\}]\\
-&=&[[FV(Q(c))\cup FV(Q(f(x)))]\backslash\{x,y\}]\cup[[FV(Q(y))\cup FV(R(x,x,y))]\backslash\{x,y\}]\\
+&&FV\big(\forall x\forall y(Q(c)\wedge Q(f(x)))\to\forall y\forall x(Q(y)\wedge R(c,x,y))\big)\\
+&=&FV(\forall x\forall y(Q(c)\wedge Q(f(x))))\cup FV(\forall y\forall x(Q(y)\wedge R(c,x,y)))\\
+&=&[FV(Q(c)\wedge Q(f(x)))\backslash\{x,y\}]\cup[FV(Q(y)\wedge R(c,x,y))\backslash\{x,y\}]\\
+&=&[[FV(Q(c))\cup FV(Q(f(x)))]\backslash\{x,y\}]\cup[[FV(Q(y))\cup FV(R(c,x,y))]\backslash\{x,y\}]\\
 &=&[[\emptyset\cup\{x\}]\backslash\{x,y\}]\cup[\{y\}\cup\{x,y\}]\backslash\{x,y\}]\\
 &=&\emptyset\cup\emptyset\\
 &=&\emptyset
