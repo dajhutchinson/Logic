@@ -720,4 +720,119 @@ Let $\phi,\psi\in\text{Fml}_\LL$.\\
 $\phi$ is \textit{Logically Equivalent} to $\psi$ iff $\phi\vDash\psi$ \& $\psi\vDash\phi$.\\
 \nb Equivalently $\vDash\phi\leftrightarrow\psi$.
 
+\proposition{Logical Equivalence}
+Let $\phi,\psi\in\text{Fml}_\LL$.\\
+$\phi\ \&\ \psi$ are \textit{Logically Equivalent} iff $\vDash\phi\to\psi$.\\
+\ie $\phi\leftrightarrow\psi$ is \textit{Logically True}.\\
+
+\proof{Logical Equivalence}
+Recall that $\Phi,\phi\vDash\psi$ iff $\Phi\vDash\phi\to\psi$. Thus
+\[\begin{array}{rl}
+&\phi\vDash\psi\\
+\Longleftrightarrow&\emptyset\cup\{\phi\}\vDash\\
+\Longleftrightarrow&\emptyset\vDash\phi\to\psi\\
+\Longleftrightarrow&\phi\to\psi
+\end{array}\]
+Similar for converse.\\
+We have that $\phi\vDash\psi$ and $\psi\vDash\phi$ iff $\vDash\phi\to\psi$ and $\vDash\psi\to\phi$.\\
+$\Longleftrightarrow\phi\vDash\psi$ and $\psi\vDash\phi$ iff $\vDash\phi\leftrightarrow\psi$.\\
+
+\propositionn{Logical Equivalence}
+\begin{enumerate}
+	\item $((\phi\wedge\psi)\wedge\theta)$ is logically equivalent to $(\phi\wedge(\psi\wedge\theta))$.
+	\item $((\phi\vee\psi)\vee\theta)$ is logically equivalent to $(\phi\vee(\psi\vee\theta))$.
+	\item $\neg\neg\phi$ is logically equivalent to $\phi$.
+	\item $\phi\wedge\psi$ is logically equivalent to $\neg(\neg\phi\vee\neg\psi$.
+\end{enumerate}
+\nb We write $\phi\wedge\psi\wedge\theta$ for $(\phi\wedge\psi)\wedge\theta$.
+
+\subsection{Substitution}
+
+\remark{}
+If we have $P(x)\to Q(x)$ then $P(\bar0)\to Q(\bar0)$ and $P(f(y))\to Q(f(y))$.\\
+If we have $\forall x(P(\bar0)\to Q(\bar0))$ the $\forall x$ is redundent.\\
+
+\definition{Substitution in an $\LL$-Term}
+Let $a,t\in T_{\M_\LL}$.\\
+$[a]\frac{t}x$ denotes the result of replacing all occurences of $x$ in $a$ with $t$.\\
+We define this substitution using the following recursive definition
+\begin{enumerate}
+	\item When $a$ is atomic:
+	$$[a]\frac{t}x:=\begin{cases}t&\text{if }a\equiv x\\a&\text{otherwise}\end{cases}$$
+	\item When $a=f(a_1,\dots,a_j)$ is a compound:
+	$$[a]\frac{t}x:=f\left([a_1]\frac{t}x,\dots,[a_k]\frac{t}x\right)$$
+\end{enumerate}
+
+\examplee{Substitution in an $\LL$-Term}
+\[\begin{array}{rl}
+&[(x+y)+z]\frac{\bar0\cdot\bar0}y\\
+\Longleftrightarrow&[x+y]\frac{\bar0\cdot\bar0}y\cdot[z]\frac{\bar0\cdot\bar0}y\\
+\Longleftrightarrow&\left([x]\frac{\bar0\cdot\bar0}y+[y]\frac{\bar0\cdot\bar0}y\right)\cdot z\\
+\Longleftrightarrow&(x+\bar0\cdot\bar0)\cdot z
+\end{array}\]
+
+\definition{Substitution in an $\LL$-Formula}
+Let $t\in T_{\M_\LL},\ x\in\text{Var}$ and $\phi\in\text{Fml}_\LL$.\\
+$[\phi]\frac{t}x$ denotes the result of replacing all occurences of $x$ in $\phi$ with $t$.\\
+We define this substitution using the following recursive definition
+\begin{enumerate}
+	\item When $\phi:=(P(a_1,\dots,a_t)$ is atomic:
+	$$[\phi]\frac{t}x=P\left([a_1]\frac{t}x,\dots,[a_k]\frac{t}x\right)$$
+	\item When $\phi:=\neg\psi$:
+	$$[\phi]\frac{t}x:=\neg[\psi]\frac{t}x$$
+	\item When $\phi:=\psi\to\theta$:
+	$$[\phi]\frac{t}x:=[\psi]\frac{t}x\to[\theta]\frac{t}x$$
+	\item When $\phi:=\forall z\psi$:
+	$$[\phi]\frac{t}x=\begin{cases}\forall z[\psi]\frac{t}x&\text{if }x\not\equiv z\\\phi&\text{otherwise}\end{cases}$$
+	\nb The $\mathtt{otherwise}$ case is due to all $x$ variables being bounded.
+\end{enumerate}
+
+\example{Substitution in an $\LL$-Formula}
+Let $x\not\equiv y$
+\[\begin{array}{rl}
+&[\forall xP(x)\to\forall yR(x,y)]\frac{c}x\\
+=&[\forall xP(x)]\frac{c}x\to[\forall yR(x,y)]\frac{c}x\\
+=&\forall xP(x)\to\forall y[R(x,y)]\frac{c}x\\
+=&\forall xP(x)\to\forall yR([x]\frac{c}x,[y]\frac{c}x)\\
+=&\forall xP(x)\to\forall yR(c,y)
+\end{array}\]
+
+\proposition{}
+For every $x\in\text{Var},\ a,t\in T_{\M_\LL}$ and $\phi\in\text{Fml}_\LL$ the following results hold
+$$[a]\frac{x}{x}=a\quad\text{and}\quad[\phi]\frac{x}{x}=\phi$$
+
+\proof{Proposition 3.5}
+TODO\\
+\textit{Induction on terms and then on formulae}\\
+
+\proposition{}
+For every $x\in\text{Var},\ a,t\in T_{\M_\LL}$ and $\phi\in\text{Fml}_\LL$.
+\begin{enumerate}
+	\item If $x\not\in\text{Var}(a)$ then $[a]\frac{t}{x}=a$.
+	\item If $x\not\in\text{FV}(\phi)$ then $[\phi]\frac{t}{x}=\phi$.
+\end{enumerate}
+
+\proof{Proposition 3.6 ii)}
+\textit{Proof by induction on terms, and then on formulae}.\\
+\textit{Base Case}\\
+Let $\phi:=P(a_1,\dots,a_k)$ be atomic.\\
+Suppose $x\in\text{FV}(\phi)$\\
+We have that $x\not\in FV(\phi)\underbrace{=\var(\phi)}_{\phi\text{ is atomic}}$\\
+Then $x\not\in\var(a_i)\ \forall\ i\in[1,k]$.
+\[\begin{array}{rl}
+&[\phi]\frac{t}x\\
+=&P([a_1]\frac{t}x,\dots,[a_k]\frac{t}x)\\
+=&P(a_1,\dots,a_k)\\
+=&\phi
+\end{array}\]
+Result holds for base case\\
+\\
+\textit{Inductive Case}
+Let $\phi=\forall z\psi$.\\
+Suppose $x\not\in FV(\phi)$.\\
+Then $FV(\phi)=FV(\psi)\backslash\{z\}$.\\
+If $x\not\in FV(\psi)$ then $[\phi]\frac{t}x=\begin{cases}\phi&\text{if }x=z\\\forall z[\phi]\frac{t}{x}\underbrace{=\forall z\phi}_\text{by IH}&\text{otherwise}\end{cases}$.\\
+Otherwise $x=z$ and $[\phi]\frac{t}x=\phi$.
+
+
 \end{document}
