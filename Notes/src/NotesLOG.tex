@@ -832,7 +832,53 @@ Let $\phi=\forall z\psi$.\\
 Suppose $x\not\in FV(\phi)$.\\
 Then $FV(\phi)=FV(\psi)\backslash\{z\}$.\\
 If $x\not\in FV(\psi)$ then $[\phi]\frac{t}x=\begin{cases}\phi&\text{if }x=z\\\forall z[\phi]\frac{t}{x}\underbrace{=\forall z\phi}_\text{by IH}&\text{otherwise}\end{cases}$.\\
-Otherwise $x=z$ and $[\phi]\frac{t}x=\phi$.
+Otherwise $x=z$ and $[\phi]\frac{t}x=\phi$.\\
+
+\proposition{}
+Let $a,t\in T_{\M_\LL},\ \phi\in\text{Fml}_\LL,\ x\in\var$ with $x\not\in t$. Then
+\begin{enumerate}
+	\item $x\not\in\var\left([a]\frac{t}{x}\right)$.
+	\item $x\not\in FV\left([\phi]\frac{t}{x}\right)\subset\left([\phi]\frac{t}{x}\right)$.
+	\item $x\not\in\var\left([\phi]\frac{t}{x}\right)$.
+\end{enumerate}
+\nb Proof is done by induction on terms \& formulae.\\
+
+\remark{}
+From $\forall xP(x)$ being true, we can infer that $P(y)\equiv[P(x)]\frac{y}x,\ P(f(y))=[P(x)]\frac{f(y)}x$ \& ${P(\bar0)\equiv[P(\bar0)]\frac{\bar0}x}$ are all true.\\
+\underline{but} $\forall x\phi$ being true does not mean that $[\phi]\frac{y}x$ and $[\phi]\frac{\bar0}x$ are true.\\
+
+\example{Remark 3.4}
+We have that $\forall x\exists y\ y\bar<x$ is true, but $\exists y\ y\bar<y$ is not true.\\
+\ie Everyone is liked by someone $\not\implies$ someone is liked by themselves.\\
+
+\definition{Substitutablity}
+\textit{Refers to valid substitutions}.\\
+Let $x\in\var,\ t\in T_{\M_\LL}\ \&\ \phi\in\text{Fml}_\LL$.\\
+We use the notation $\mathtt{SubSt}(t,x,\phi)$ to mean $t$ is substitutable for $x$ in $\phi$.\\
+We define \textit{Substitutability} using the following recursive definition
+\begin{enumerate}
+	\item $\phi$ is atomic then
+	$$\mathtt{SubSt}(t,x,\phi)\ \forall\ x\in\var,t\in T_{\M_\LL}$$
+	\item $\phi=\not\psi$ then
+	$$\mathtt{SubSt}(t,x,\phi)\text{ iff }\mathtt{SubSt}(t,x,\psi)$$
+	\item $\phi=\psi\to\theta$ then
+	$$\mathtt{SubSt}(t,x,\phi)\text{ iff }\mathtt{SubSt}(t,x,\psi)\wedge\mathtt{SubSt}(t,x,\theta)$$
+	\item $\phi=\forall z\psi$ then
+	$$\mathtt{SubSt}(t,x,\phi)\text{ iff }\begin{cases}z\not\in\var(t)\wedge\mathtt{SubSt}(t,x,\psi)&\text{or}\\x\not\in FV(\phi)\end{cases}$$
+\end{enumerate}
+\nb the second case in $iv)$ is a vacuous case since there are no variables to substitute.\\
+
+\example{Substitutability}
+Let $x\neq y\neq z$
+\begin{enumerate}
+	\item $\mathtt{SubSt}(t,x,P(x))\ \forall\ t\in T_{\M_\LL}$.
+	\item $\mathtt{SubSt}(t,y,P(y))\ \forall\ t\in T_{\M_\LL}$.
+	\item $\mathtt{SubSt}(t,x,\neg P(z))\ \forall\ t\in T_{\M_\LL}$.
+	\item $\mathtt{SubSt}(t,x,P(x)\to\neg P(z))\ \forall\ t\in T_{\M_\LL}$.
+	\item $\mathtt{SubSt}(t,x,\forall x\ (P(x)\to\neg P(z))\ \forall\ t\in T_{\M_\LL}$ since $x,y\not\in FV$.
+	\item $\mathtt{SubSt}(t,y,\forall x\ (P(x)\to\neg P(z))\ \forall\ t\in T_{\M_\LL}$ since $x,y\not\in FV$.
+	\item $\neg\mathtt{SubSt}(f(x),z,\forall x(P(x)\to\neg P(z)))\ \forall\ t\in T_{\M_\LL}$ since $z\not\in FV$.
+\end{enumerate}
 
 
 \end{document}
