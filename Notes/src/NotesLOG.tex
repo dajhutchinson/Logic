@@ -880,5 +880,85 @@ Let $x\neq y\neq z$
 	\item $\neg\mathtt{SubSt}(f(x),z,\forall x(P(x)\to\neg P(z)))\ \forall\ t\in T_{\M_\LL}$ since $z\not\in FV$.
 \end{enumerate}
 
+\theoremm{}
+\begin{enumerate}
+	\item Every variable is substitutable for itself in any formula. $\mathtt{SubSt}(x,x,\phi)$.
+	\item For $x\in\var,\ \phi\in F_{\M_\LL}$ with $x\not\in FV(\phi)$, any $t\in T_{\M_\LL}$ is $\mathtt{SubSt}(t,x,\phi)$.
+	\item For all $t\in T_{\M_\LL}$ and $\phi\in F_{\M_\LL}$ if $\var(t)\cup\var(\phi)=\emptyset$ then\\
+	$t$ is substitutable for every variable in $\phi$.
+\end{enumerate}
+
+\subsection{Substitution Lemma}
+
+\proposition{}
+Let $x_1,\dots,x_k\in\var$ be pairwise disjoint and $\pi$ be a permutation of $(1,\dots,k)$.\\
+Then, for all variable assignments $s$ over $\LL$-Structure $\M$ and $d_1,\dots,d_l\in|\M|$
+$$\left(\left(\dots\left(s\frac{d_1}{x_1}\right)\dots\right)\frac{d_{k-1}}{x_{k-1}}\right)\frac{d_k}{x_k}=\left(\left(\dots\left(s\frac{d_{\pi(1)}}{x_{\pi(1)}}\right)\dots\right)\frac{d_{\pi(k-1)}}{x_{\pi(k-1)}}\right)\frac{d_{\pi(k)}}{x_{\pi(k)}}$$
+
+\example{Proposition 3.8}
+$$\left(\left(\left(s\frac{d_1}{x_1}\right)\frac{d_2}{x_2}\right)\frac{d_3}{x_3}\right)y=\begin{cases}d_1&\text{if}y=x_1\\d_2&\text{if}y=x_2\\d_3&\text{if}y=x_3\\s(y)&\text{otherwise}\end{cases}=\left(\left(\left(s\frac{d_2}{x_2}\right)\frac{d_3}{x_3}\right)\frac{d_1}{x_1}\right)y$$
+
+\theorem{Substitution Lemma}
+Let $\M=\langle D,\mathfrak{I}\rangle$ be an $\LL$-Structure, and let $x$ be a variable
+\begin{enumerate}
+	\item Let $a$ be an arbitrary $\LL$-term.\\
+	For every variable assignment $s$ over $\M$, for every $\LL$-term  $t$
+	$$\bar{s}\left([a]\frac{t}x\right)=\overline{s\frac{\bar{s}(t)}{x}(a)}$$
+	\item Let $\phi$ be an arbitrary $\LL$-Formula.\\
+	For every variable assignment $s$ over $\M$, for every $\LL$-term $t$\\
+	if $t$ is substitutable for $x$ in $\phi$ then we have
+	$$\M,s\vDash\phi\frac{t}x\quad\text{iff}\quad\M,s\frac{\bar{s}(t)}{x}\vDash\phi$$
+\end{enumerate}
+
+\proof{Substitution Lemma}
+\textit{This is a proof by induction on terms}.\\
+Let $\M=\langle D,\mathfrak{I}\rangle$ and $x\in\var$.
+\textit{Base}\\
+Let $a$ be a constant. Then
+\[\begin{array}{rcl}
+\bar{s}([a]\frac{t}{x})&=&\bar{s}(a)\\
+&=&a^\M\\
+&=&\overline{s\frac{\bar{s}(t)}{x}(a)}
+\end{array}\]
+Let $a$ be a variable.\\
+If $a=x$ then
+\[\begin{array}{rcl}
+\bar{s}([x]\frac{t}{x})&=&\bar{s}(t)\\
+&=&s\frac{\bar{s}(t)}{x}(tx\\
+&=&\overline{s\frac{\bar{s}(t)}{x}(x)}
+\end{array}\]
+If $a\neq x$ then
+\[\begin{array}{rcl}
+\bar{s}([a]\frac{t}{x})&=&\bar{s}(a)\\
+&=&\overline{s\frac{\bar{s}(t)}{x}(a)}
+\end{array}\]
+\textit{Induction}\\
+Let $a=f(a_1,\dots,a_k)$. Then
+\[\begin{array}{rcl}
+\bar{s}([a]\frac{t}{x})&=&\bar{s}(f([a_1]\frac{t}{x_1},\dots,[a_k]\frac{t}{x_k})\\
+&=&f^\M(\bar{s}([a_1]\frac{t}{x_1}),\dots,\bar{s}([a_k]\frac{t}{x_k}))\\
+&\overset{\text{by IH}}=&f^M\left(\overline{s\frac{\bar{s}(t)}{x}(a_1)},\dots,\overline{s\frac{\bar{s}(t)}{x}(a_k)}\right)\\
+&=&\overline{s\frac{\bar{s}(t)}{x})}(f(a_1,\dots,a_k))
+\end{array}\]
+\textit{Now we prove $ii)$ by induction on formulae}.\\
+If $\phi:=a\equiv b$.Then
+\[\begin{array}{rl}
+&\M,s\vDash[a\equiv b]\frac{t}x\\
+\Longleftrightarrow&\M,s\vDash[a]\frac{t}x\equiv[b]\frac{t}x\\
+\Longleftrightarrow&\bar{s}([a]\frac{t}{x})=\bar{s}([b]\frac{t}{x})\\
+\Longleftrightarrow&s\frac{\bar{s}(t)}{x}(a)=s\frac{\bar{s}(t)}{x}(b)\\
+\Longleftrightarrow&\M,s\frac{\bar{s}(t)}{x}\vDash a\equiv b
+\end{array}\]
+If $\phi:=\neg\psi$. Then
+\[\begin{array}{cl}
+&\M,s\vDash[\phi]\frac{t}x\\
+\Longleftrightarrow&\M,s\vDash\neg[\psi]\frac{t}x\\
+\Longleftrightarrow&\M,s\not\vDash[\psi]\frac{t}x\\
+\overset{\text{by IH}}{\Longleftrightarrow}&\M,s\frac{\bar{s}(t)}{x}\not\vDash\psi\\
+\Longleftrightarrow&\M,s\frac{\bar{s}(t)}{x}\vDash\neg\psi\\
+\Longleftrightarrow&\M,s\frac{\bar{s}(t)}{x}\vDash\phi
+\end{array}\]
+Similar derivation for $phi=\psi\to\theta$.\\
+%TODO rest
 
 \end{document}
