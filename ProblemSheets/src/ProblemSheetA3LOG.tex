@@ -1,0 +1,169 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=1in, paperwidth=8.3in, paperheight=11.7in]{geometry}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{dsfont}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{changepage} 
+
+\begin{document}
+
+\pagestyle{fancy}
+\setlength\parindent{0pt}
+\allowdisplaybreaks
+
+\renewcommand{\headrulewidth}{0pt}
+\hyphenpenalty 10000
+\exhyphenpenalty 10000
+
+% Cover page title
+\title{Logic - Problem Sheet 3}
+\author{Dom Hutchinson}
+\maketitle
+
+% Header
+\fancyhead[L]{Dom Hutchinson}
+\fancyhead[C]{Logic - Problem Sheet 3}
+\fancyhead[R]{\today}
+
+% Counters
+\newcounter{qpart}[section]
+
+% commands
+\newcommand{\dotprod}[0]{\boldsymbol{\cdot}}
+\newcommand{\cosech}[0]{\mathrm{cosech}\ }
+\newcommand{\cosec}[0]{\mathrm{cosec}\ }
+\newcommand{\sech}[0]{\mathrm{sech}\ }
+\newcommand{\prob}[0]{\mathbb{P}}
+\newcommand{\nats}[0]{\mathbb{N}}
+\newcommand{\cov}[0]{\mathrm{cov}}
+\newcommand{\var}[0]{\mathrm{Var}}
+\newcommand{\expect}[0]{\mathbb{E}}
+\newcommand{\reals}[0]{\mathbb{R}}
+\newcommand{\integers}[0]{\mathbb{Z}}
+\newcommand{\indicator}[0]{\mathds{1}}
+\newcommand{\nb}[0]{\textit{N.B.} }
+\newcommand{\ie}[0]{\textit{i.e.} }
+\newcommand{\eg}[0]{\textit{e.g.} }
+\newcommand{\iid}[0]{\overset{\text{iid}}{\sim} }
+\newcommand{\x}[0]{\textbf{x} }
+\newcommand{\X}[0]{\textbf{X} }
+\newcommand{\LL}[0]{\mathcal{L}}
+
+\newcommand{\qpart}[0]{\stepcounter{qpart} \textbf{Question \arabic{section} \alph{qpart})\\}}
+\newcommand{\qpartnb}[0]{\stepcounter{qpart} \textbf{Question \arabic{section} \alph{qpart})} - }
+\newcommand{\ans}[0]{ \textbf{Answer \arabic{section}\\}}
+\newcommand{\ansnb}[0]{ \textbf{Answer \arabic{section}}}
+\newcommand{\apart}[0]{ \textbf{Answer \arabic{section} \alph{qpart})\\}}
+\newcommand{\apartnb}[0]{ \textbf{Answer \arabic{section} \alph{qpart})}}
+\newcommand{\question}[0]{\stepcounter{section}\subsection*{Question - \arabic{section}.}}
+
+\stepcounter{section}\stepcounter{qpart}
+\qpartnb Show that the following is \textit{not} the case for all languages $\LL$ and \text{$\LL$-formulae $\phi,\psi$}.
+$$\forall y\exists x\phi\vDash\exists x\forall y\psi$$
+
+\apart
+Consider the scenario where $\phi:=x\equiv y$ and $\psi:=x\equiv y$ and are restricted to the natural numbers.\\
+$\forall y\exists x\phi$ is satisfied for all $y\in\nats$ since $x=y$ is a valid assignment.\\
+However, there does not exist a natural number which is equivalent to all natural numbers.\\
+Thus, $\exists x\forall y\psi$ does not hold for any $x$.\\
+Thus $\forall y\exists x\phi\vDash\exists x\forall y\psi$ does not hold for all languages $\LL$ and $\LL$-formulae $\phi,\psi$.\\
+
+\stepcounter{section}\stepcounter{qpart}
+\qpartnb Show that the following is \textit{not} the case for all languages $\LL$ and \text{$\LL$-formulae $\phi,\psi$}.
+\begin{center}
+$\exists x(\phi\wedge\psi)$ is logically equivalent to $\exists x\phi\wedge\exists x\psi$.
+\end{center}
+\apart
+Consider the case where $\phi:=x\equiv1$ and $\psi:=x\equiv2$.\\
+There is no $x$ which satisfies $\phi\wedge\psi$.\\
+However $\exists x\phi\wedge\exists x\psi$ holds trivally.\\
+Thus $\exists x(\phi\wedge\psi)\not\vDash\exists x\phi\wedge\exists x \psi$.
+Further, these two are not logically equivalent for all languages $\LL$ and $\LL$-formulae, $\phi,\psi$.
+
+\setcounter{section}{4}
+\question
+Let $\{P,f,c\}\subset\LL$ where $P$ is a binary predicate symbol, $f$ is a binary function symbol and $c$ is a constant symbol. Perform the following substitutions.\\
+
+\textit{NOTE}\\
+\[\begin{array}{rllrllrl}
+&[\exists xP(x)]\frac{t}{x}&\quad&&[P\vee Q]\frac{t}{x}&\quad&&[P\wedge Q]\frac{t}{x}\\
+\Leftrightarrow&[\neg(\forall x\neg P(x)]\frac{t}{x}&&\Leftrightarrow&[\neg P\to Q]\frac{t}{x}&&\Leftrightarrow&[\neg(P\to\neg Q)]\frac{t}{x}\\
+\Leftrightarrow&\neg[\forall x\neg P(x)]\frac{t}{x}&&\Leftrightarrow&[\neg P]\frac{t}{x}\to[Q]\frac{t}{x}&&\Leftrightarrow&\neg[P\to\neg Q]\frac{t}{x}\\
+\Leftrightarrow&\begin{cases}\neg\forall x[\neg P(x)]\frac{t}{x}&\text{if }x\not\equiv z\\\neg(\forall x\neg P(x))=P(x)&\text{otherwise}\end{cases}&&\Leftrightarrow&\neg[P]\frac{t}{x}\to[Q]\frac{t}{x}&&\Leftrightarrow&\neg\left([P]\frac{t}{x}\to[\neg Q]\frac{t}{x}\right)\\
+\Leftrightarrow&\begin{cases}\exists x[P(x)]\frac{t}{x}&\text{if }x\not\equiv z\\\exists xP(x)&\text{otherwise}\end{cases}&&\Leftrightarrow&[P]\frac{t}{x}\vee[Q]\frac{t}{x}&&\Leftrightarrow&\neg\left([P]\frac{t}{x}\to\neg[Q]\frac{t}{x}\right)\\
+&&&&&&\Leftrightarrow&[P]\frac{t}{x}\wedge[Q]\frac{t}{x}
+\end{array}\]
+
+\qpartnb
+$\left[\exists z\big(P(x,z)\vee P(y,x)\big)\right]\frac{f(x,c)}y$\\
+
+\apartnb
+\[\begin{array}{rl}
+&\left[\exists z\big(P(x,z)\vee P(y,x)\big)\right]\frac{f(x,c)}y\\
+\Longleftrightarrow&\exists z\left[P(x,z)\vee P(y,x)\right]\frac{f(x,c)}{y}\\
+\Longleftrightarrow&\exists z[P(x,z)]\frac{f(x,c)}{y}\vee [P(y,x)]\frac{f(x,c)}{y}\\
+\Longleftrightarrow&\exists z\big(P(x,z)\vee P(f(x,c),x)\big)
+\end{array}\]
+
+\qpartnb
+$\left[\exists y\big(\neg P(x,y)\to\exists y\big(P(z,y)\wedge\exists z(P(x,z)\wedge P(y,x))\big)\big)\right]\frac{f(z,c)}x$\\
+
+\apartnb
+\[\begin{array}{rl}
+&\left[\exists y\big(\neg P(x,y)\to\exists y\big(P(z,y)\wedge\exists z(P(x,z)\wedge P(y,x))\big)\big)\right]\frac{f(z,c)}x\\
+\Longleftrightarrow&\exists y\left[(\neg P(x,y))\to\exists y\big(P(z,y)\wedge\exists z(P(x,z)\wedge P(y,x))\big)\right]\frac{f(z,c)}x\\
+\Longleftrightarrow&\exists y\left[(\neg P(x,y))\right]\frac{f(z,c)}x\to\left[\exists y\big(P(z,y)\wedge\exists z(P(x,z)\wedge P(y,x))\big)\right]\frac{f(z,c)}x\\
+\Longleftrightarrow&\exists y\left(\neg [P(x,y)]\frac{f(z,c)}x\right)\to\exists y\left[P(z,y)\wedge\exists z(P(x,z)\wedge P(y,x))\right]\frac{f(z,c)}x\\
+\Longleftrightarrow&\exists y\left(\neg [P(x,y)]\frac{f(z,c)}x\right)\to\exists y\left(\left[P(z,y)\right]\frac{f(z,c)}x\wedge\left[\exists z(P(x,z)\wedge P(y,x))\right]\frac{f(z,c)}x\right)\\
+\Longleftrightarrow&\exists y\left(\neg [P(x,y)]\frac{f(z,c)}x\right)\to\exists y\left(\left[P(z,y)\right]\frac{f(z,c)}x\wedge\exists z\left[P(x,z)\wedge P(y,x)\right]\frac{f(z,c)}x\right)\\
+\Longleftrightarrow&\exists y\left(\neg [P(x,y)]\frac{f(z,c)}x\right)\to\exists y\left(\left[P(z,y)\right]\frac{f(z,c)}x\wedge\exists z[P(x,z)]\frac{f(z,c)}x\wedge [P(y,x)]\frac{f(z,c)}x\right)\\
+\Longleftrightarrow&\exists y\big(\neg P(f(z,c),y)\to\exists y\big(P(z,y)\wedge\exists z\big(P(f(z,c),z)\wedge P(y,f(z,c))\big)\big)\big)\\
+\end{array}\]
+
+\qpartnb
+$\left[\forall x\big(P(x,y)\to\exists y\big(P(z,y)\wedge\exists z(P(x,z)\vee P(y,x))\big)\big)\right]\frac{f(z,z)}{z}$\\
+
+\apartnb
+\[\begin{array}{rl}
+&\left[\forall x\big(P(x,y)\to\exists y\big(P(z,y)\wedge\exists z(P(x,z)\vee P(y,x))\big)\big)\right]\frac{f(z,z)}{z}\\
+\Longleftrightarrow&\forall x\left[P(x,y)\to\exists y\big(P(z,y)\wedge\exists z(P(x,z)\vee P(y,x))\big)\right]\frac{f(z,z)}{z}\\
+\Longleftrightarrow&\forall x\big([P(x,y)]\frac{f(z,z)}{z}\to\left[\exists y\big(P(z,y)\wedge\exists z(P(x,z)\vee P(y,x))\big)\right]\frac{f(z,z)}{z}\big)\\
+\Longleftrightarrow&\forall x\big(P(x,y)\to\exists y\left[\big(P(z,y)\wedge\exists z(P(x,z)\vee P(y,x))\big)\right]\frac{f(z,z)}{z}\big)\\
+\Longleftrightarrow&\forall x\big(P(x,y)\to\exists y\left([P(z,y)]\frac{f(z,z)}{z}\wedge\left[\exists z\big(P(x,z)\vee P(y,x)\big)\right]\frac{f(z,z)}{z}\right)\\
+\Longleftrightarrow&\forall x\left(P(x,y)\to\exists y\left(P(f(z,z),y)\wedge\exists z\big(P(x,z)\vee P(y,x))\right)\right)
+\end{array}\]
+
+\question
+In the substitutions performed in $5\ b)$ \& $5\ c)$ state whether or not the terms you substituted are \textit{substitutable} for the variables in the formulae; provide a proof.\\
+
+\ansnb
+\begin{itemize}
+	\item[$5b)$]
+	By definition of substitutability we have $\mathtt{SubSt}(f(z,c),x,P(x,z))$ \& $\mathtt{SubSt}(f(z,c),x,P(y,z))$.\\
+	Thus $\mathtt{SubSt}(f(z,c),x,P(x,z)\vee P(y,z))$.\\
+	However $z\in\var(f(z,c))=\{z\}$ and $x\in\mathrm{FV}(\exists z(P(x,z)\vee P(y,x)))=\{x,y\}$.\\
+	Thus we do \underline{not} have that $\mathtt{SubSt}(f(z,c),x,\exists z(P(x,z)\vee P(y,z)))$.\\
+	Thus $f(z,c)$ is \underline{not} substitutable for $x$ in $\exists y\big(\neg P(x,y)\to\exists y\big(P(z,y)\wedge\exists z(P(x,z)\wedge P(y,x))\big)\big)$.
+	\item[$5c)$] We have $\mathtt{SubSt}(f(z,z),z,P(x,z))$ \& $\mathtt{SubSt}(f(z,z),z,P(y,x))$.\\
+	Thus $\mathtt{SubSt}(f(z,z),z,P(x,z)\wedge P(y,x))$.\\
+	Note that $z\not\in FV(\exists(P(x,z)\vee P(y,x)))=\{x,y\}$.\\
+	Thus $\mathtt{SubSt}(f(z,z),z,\exists z(P(x,z)\wedge P(y,x)))$.\\
+	We have $\mathtt{SubSt}(f(z,z),z,P(z,y))$ so $\mathtt{SubSt}(f(z,z),z,P(z,y)\wedge\exists z(P(x,z)\wedge P(y,x)))$.\\
+	Note that $y\not\in\var(f(z,z))=\{z\}$.\\
+	Thus $\mathtt{SubSt}\big(f(z,z),z,\exists y\big(P(z,y)\wedge\exists z(P(x,z)\wedge P(y,x))\big)\big)$.\\
+	Let $\phi:=\exists y\big(P(z,y)\wedge\exists z(P(x,z)\wedge P(y,x))\big)$ noting $\mathtt{SubSt}(f(z,z),z,\phi)$.\\
+	We have $\mathtt{SubSt}(f(z,z),z,P(x,y))$.\\
+	Thus $\mathtt{SubSt}(f(z,z),z,P(x,y)\to\phi)$.\\
+	Note that $x\not\in\var(f(z,z))=\{z\}$.\\
+	Thus $\mathtt{SubSt}(f(z,z),z,\forall x(P(x,y)\to\phi))$.\\
+	Thus $f(z,z)$ \underline{is} substitutable for $z$ in $\forall x\big(P(x,y)\to\exists y\big(P(z,y)\wedge\exists z(P(x,z)\vee P(y,x))\big)\big)$.
+\end{itemize}
+
+\end{document}
