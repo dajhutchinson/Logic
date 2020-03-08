@@ -1,0 +1,776 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=1in, paperwidth=8.3in, paperheight=11.7in]{geometry}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{dsfont}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{eufrak}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{changepage} 
+
+\begin{document}
+
+\pagestyle{fancy}
+\setlength\parindent{0pt}
+\allowdisplaybreaks
+
+\renewcommand{\headrulewidth}{0pt}
+\setlist[enumerate,1]{label={\roman*)}}
+\setlist[itemize,1]{label=-}
+
+
+% Cover page title
+\title{Logic - Notes}
+\author{Dom Hutchinson}
+\date{\today}
+\maketitle
+
+% Header
+\fancyhead[L]{Dom Hutchinson}
+\fancyhead[C]{Logic - Notes}
+\fancyhead[R]{\today}
+
+% Counters
+\newcounter{definition}[subsection]
+\newcounter{example}[section]
+\newcounter{notation}[section]
+\newcounter{proposition}[section]
+\newcounter{proof}[section]
+\newcounter{remark}[section]
+\newcounter{theorem}[section]
+
+% commands
+\newcommand{\dotprod}[0]{\boldsymbol{\cdot}}
+\newcommand{\cosech}[0]{\mathrm{cosech}\ }
+\newcommand{\cosec}[0]{\mathrm{cosec}\ }
+\newcommand{\sech}[0]{\mathrm{sech}\ }
+\newcommand{\prob}[0]{\mathbb{P}}
+\newcommand{\nats}[0]{\mathbb{N}}
+\newcommand{\cov}[0]{\mathrm{Cov}}
+\newcommand{\var}[0]{\mathrm{Var}}
+\newcommand{\expect}[0]{\mathbb{E}}
+\newcommand{\reals}[0]{\mathbb{R}}
+\newcommand{\integers}[0]{\mathbb{Z}}
+\newcommand{\indicator}[0]{\mathds{1}}
+\newcommand{\nb}[0]{\textit{N.B.} }
+\newcommand{\ie}[0]{\textit{i.e.} }
+\newcommand{\eg}[0]{\textit{e.g.} }
+\newcommand{\X}[0]{\textbf{X}}
+\newcommand{\x}[0]{\textbf{x}}
+\newcommand{\iid}[0]{\overset{\text{iid}}{\sim}}
+\newcommand{\proved}[0]{$\hfill\square$\\}
+\newcommand{\LL}[0]{\mathcal{L}}
+\newcommand{\M}[0]{\mathfrak{M}}
+\newcommand{\I}[0]{\mathfrak{I}}
+
+\newcommand{\definition}[1]{\stepcounter{definition} \textbf{Definition \arabic{section}.\arabic{definition}\ - }\textit{#1}\\}
+\newcommand{\definitionn}[1]{\stepcounter{definition} \textbf{Definition \arabic{section}.\arabic{definition}\ - }\textit{#1}}
+\newcommand{\proof}[1]{\stepcounter{proof} \textbf{Proof \arabic{section}.\arabic{proof}\ - }\textit{#1}\\}
+\newcommand{\prooff}[1]{\stepcounter{proof} \textbf{Proof \arabic{section}.\arabic{proof}\ - }\textit{#1}}
+\newcommand{\example}[1]{\stepcounter{example} \textbf{Example \arabic{section}.\arabic{example}\ - }\textit{#1}\\}
+\newcommand{\examplee}[1]{\stepcounter{example} \textbf{Example \arabic{section}.\arabic{example}\ - }\textit{#1}}
+\newcommand{\notation}[1]{\stepcounter{notation} \textbf{Notation \arabic{section}.\arabic{notation}\ - }\textit{#1}\\}
+\newcommand{\notationn}[1]{\stepcounter{notation} \textbf{Notation \arabic{section}.\arabic{notation}\ - }\textit{#1}}
+\newcommand{\proposition}[1]{\stepcounter{proposition} \textbf{Proposition \arabic{section}.\arabic{proposition}\ - }\textit{#1}\\}
+\newcommand{\propositionn}[1]{\stepcounter{proposition} \textbf{Proposition \arabic{section}.\arabic{proposition}\ - }\textit{#1}}
+\newcommand{\remark}[1]{\stepcounter{remark} \textbf{Remark \arabic{section}.\arabic{remark}\ - }\textit{#1}\\}
+\newcommand{\remarkk}[1]{\stepcounter{remark} \textbf{Remark \arabic{section}.\arabic{remark}\ - }\textit{#1}}
+\newcommand{\theorem}[1]{\stepcounter{theorem} \textbf{Theorem \arabic{section}.\arabic{theorem}\ - }\textit{#1}\\}
+\newcommand{\theoremm}[1]{\stepcounter{theorem} \textbf{Theorem \arabic{section}.\arabic{theorem}\ - }\textit{#1}}
+
+\tableofcontents
+
+\vspace{1cm}\textbf{NOTES}
+\begin{itemize}
+	\item[-] Not included any proofs.
+	\item[-] Not included any examples.
+\end{itemize}
+
+% Start of content
+\newpage
+
+\section{Syntax}
+
+\subsection{General}
+
+\definition{Alphabet, $\mathcal{A}$}
+An \textit{Alphabet} is a set of characters, $\mathcal{A}$. These characters do not have any assigned values (yet).\\
+
+\definition{String}
+A \textit{String}, $a:=\langle a_1,\dots,a_n\rangle$, over an alphabet $\mathcal{A}$ is an element of $\mathcal{A}^n$ for $n\in\nats$.\\
+Here $a$ is said to have \textit{length} $n$.\\
+
+\remark{$\langle a,b\rangle=\langle\langle a_1,\dots,a_n\rangle,\langle b_1,\dots,b_m\rangle\neq\langle a_1,\dots,a_n,b_1,\dots,b_m\rangle$}
+
+\definition{Set of all Strings, $\mathcal{A}^*$}
+Let $\mathcal{A}$ be an \textit{Alphabet}.\\
+We define the set of all strings, $\mathcal{A}^*$, over the alphabet as
+$$\mathcal{A}^*:=\{\langle a_1,\dots,a_n\rangle:n\in\nats\text{ and }a_1,\dots,a_n\in\mathcal{A}\}\equiv\bigcup\limits_{n\in\nats}\mathcal{A}^n$$
+
+\remark{If an alphabet, $\mathcal{A}$, is countable then $\mathcal{A^*}$ is countable}
+Further $\mathcal{A}^*$ is countably infinite if $\mathcal{A}\neq\emptyset$.\\
+
+\definition{Declarative Sentence}
+A \textit{Declarative Sentence} is a sentence which is either true or false.\\
+\nb These are the focus of mathematical logic.\\
+
+\subsection{First Order Languages}
+
+\definition{Common Components of Alphabets}
+Below are some common classes of characters used in mathematical alphabets
+\begin{enumerate}
+	\item Propositional Connectives (Describe locagical relations between predicates). \\
+	`not', `and', `or', `if$\dots$then$\dots$'.
+	\item Quantifiers\\
+	`for all', `there is'.
+	\item Variables\\
+	`x', `y', `z', \dots
+	\item Punctuation\\
+	`(',`)', `,', \dots
+	\item Equality\\
+	$`=$'.
+	\item Constants\\
+	`1',`2',`3',`$e$',\dots
+	\item Predicates\\
+	$`\prec$'.
+	\item Functions\\
+	$`\circ$'.
+\end{enumerate}
+
+\definition{Alphabet of First-Order Language}
+The \textit{Alphabet} of a \textit{First-Order Language} comprises the following elements
+\begin{enumerate}
+	\item Propositional Connectives\\
+	$\neg$, $\to$
+	\item Quantifiers\\
+	$\forall$
+	\item Variables\\
+	$v_1,v_2,\dots$ (Infinetly many).
+	\item Punctuation\\
+	( ) and ,
+	\item Equality\\
+	$\equiv$ (This is a 2-arity logical predicate)
+	\item Constants\\
+	$c_1,c_2,\dots$ (Countable many since we use countable alphabets).
+	\item Predicates\\
+	$P_i^n$ is an $n$-arity predicate for $n\in\nats$.
+	\item Functions\\
+	$f_i^n$ is an $n$-arity function for $n\in\nats$.
+\end{enumerate}
+i) - v) are \textit{Logical Symbols} \& vi) - viii) are \textit{Non-Logical Symbols} of \textit{First-Order Languages}.\\
+The \textit{Non-Logical Symbols} will vary depending on the subject matter of the language.\\
+
+\remark{$\equiv$ is the only \underline{logical} predicate symbol in FOLs}
+
+\definition{Negation, $\neg$, and Implication, $\to$}
+Let $P,Q$ be \textit{Predicates}.
+\begin{center}
+\begin{tabular}{c|c}
+$P$&$\neg P$\\
+\hline T&\textbf{F}\\
+T&\textbf{T}
+\end{tabular}
+\quad
+\begin{tabular}{c|c|c}
+$P$&$Q$&$P\to Q$\\
+\hline T&T&\textbf{T}\\
+T&F&\textbf{F}\\
+F&T&\textbf{T}\\
+F&F&\textbf{T}
+\end{tabular}
+\end{center}
+
+\proposition{Extension to Alphabet of First-Order Language}
+For concisness of notation we usally allow the following extra propositional connectives \& quantifiers to be used.
+\begin{itemize}
+	\item Propositional Connectives\\
+	$\wedge$, $\vee$
+	\item Quantifiers\\
+	$\exists$
+\end{itemize}
+
+\definition{And, $\wedge$, and Or, $\vee$}
+Let $P,Q$ be \textit{Predicates}.
+\begin{center}
+\begin{tabular}{c|c|c}
+$P$&$Q$&$P\wedge Q$\\
+\hline T&T&\textbf{T}\\
+T&F&\textbf{F}\\
+F&T&\textbf{F}\\
+F&F&\textbf{F}
+\end{tabular}
+\quad
+\begin{tabular}{c|c|c}
+$P$&$Q$&$P\vee Q$\\
+\hline T&T&\textbf{T}\\
+T&F&\textbf{T}\\
+F&T&\textbf{T}\\
+F&F&\textbf{F}
+\end{tabular}
+\end{center}
+
+\remark{$P\wedge Q\Leftrightarrow \neg(P\to\neg Q)$ and $P\vee Q\Leftrightarrow (\neg P)\to Q$}
+
+\definition{$\LL$-Term (and $\LL$-Term Complexity)}
+Let $\LL$ be a FOL.\\
+We define \textit{$\LL$-Terms} \& \textit{$\LL$-Term Complexity} recursively.
+\begin{itemize}
+	\item[T1] Let $s$ be a variable or constant symbol.\\
+	$s$ is an \textit{$\LL$-Term} with $cp(s)=0$.
+	\item[T2] Let $f$ be a $k$-arity function symbol and $t_1,\dots,t_k$ be \textit{$\LL$-Terms}.\\
+	$f(t_1,\dots,t_k)$ is an \textit{$\LL$-Term} with $cp(f)=\max\{cp(t_1),\dots,cp(t_k)\}+1\geq1$.
+\end{itemize}
+\nb By this definition we cannot have infinitely long \textit{$\LL$-Terms}.\\
+
+\definition{Atomic $\LL$-Term}
+Let $\LL$ be a FOL and $t\in Tm_\LL$.\\
+$t$ is an \textit{Atomic $\LL$-Term} iff $cp(t)=0$.\\
+\ie An \textit{Atomic $\LL$-Term} is either a constant or variable symbol.\\
+
+\definition{Compound $\LL$-Term}
+Let $t\in Tm_\LL$.\\
+$t$ is a \textit{Compound $\LL$-Term} iff $cp(t)\geq1$.\\
+\ie An \textit{Atomic $\LL$-Term} is function symbol.\\
+
+\definition{Atomic Formulae}
+Let $\LL$ be a FOL, $P$ be a $k$-arity predicate symbol of $\LL$ and $t_1,\dots,t_k\in Tm_\LL$.\\
+An \textit{Atomic Formulae} has the form
+$$P(t_1,\dots,t_k)$$
+\ie \textit{Atomic Formulae} are predicates on \textit{$\LL$-Terms}.\\
+
+\definition{$\LL$-Formula (and $\LL$-Formulae Complexity)}
+Let $\LL$ be a FOL.\\
+We define \textit{$\LL$-Formulae} \& \textit{$\LL$-Formulae Complexity} recursively
+\begin{itemize}
+	\item[F1] Let $\phi$ be an \textit{Atomic $\LL$-Formula}.\\
+	$\phi$ is an $\LL$-Formula with $cp(\phi)=0$.
+	\item[F2] Let $\phi$ be an \textit{$\LL$-Formula}.\\
+	$\neg\phi$ is an $\LL$-Formula with $cp(\neg\phi)=cp(\phi)+1$.
+	\item[F3] Let $\phi,\psi$ be a \textit{$\LL$-Formulae}.\\
+	$\phi\to\psi$ is an $\LL$-Formula with $cp(\phi\to\psi)=\max\{cp(\phi),cp(\psi)\}+1$.
+	\item[F4] Let $\phi$ be an \textit{$\LL$-Formula} \& $x$ be any variable.\\
+	$\forall x\phi$ is an $\LL$-Formula with $cp(\forall x\phi)=cp(\phi)+1$.
+\end{itemize}
+\nb By this definition we cannot have infinitely long \textit{$\LL$-Formulae}.\\
+
+\remark{$\LL$-Term \& $\LL$-Formulae complexity is a measure of syntactic complexity and is unrelated to any semantic meaning.}
+$\LL$-Formulae complexity is unrelated from the complexity of any terms in it.\\
+
+\remark{F4 necessitates the use of parentheses}
+Otherwise $\phi\to\psi\to\theta$ is ambiguous as it could be read as either $(\phi\to\psi)\to\theta$ or $\phi\to(\psi\to\theta)$ which don't necessarily have the same semantic meaning.\\
+
+\definition{Compound $\LL$-Formula}
+Let $\phi\in Fml_\LL$.\\
+$\phi$ is a \textit{Compound $\LL$-Formula} iff $cp(\phi)\geq1$.\\
+
+\subsection{Induction}
+
+\theorem{Induction on Terms}
+Let $\LL$ be a FOL and $P$ be a property that $\LL$-Terms may have.\\
+If
+\begin{enumerate}
+	\item All \textit{Atomic $\LL$-terms} have $P$; \underline{And},
+	\item For all $k$-arity function symbols $f$ of $\LL$ and $t_1,\dots,t_k\in Tm_\LL$ which have property $P$, $f(t_1,\dots,t_k)$ has $P$. %TODO try to rewrite this
+\end{enumerate}
+Then all $t\in Tm_\LL$ have property $P$.\\
+
+\theorem{Induction on Formulae}
+Let $\LL$ be a FOL and $P$ be a property that $\LL$-Formulae may have.\\
+If
+\begin{enumerate}
+	\item All \textit{Atomic $\LL$-Formulae} have $P$; \underline{And},
+	\item $\phi,\psi$ have $P$ then $\neg\phi,\ \phi\to\psi$ and $\forall x\phi$ (for all variables $x$) have property $P$.
+\end{enumerate}
+Then all $\phi\in Fm_\LL$ have property $P$.
+
+\subsection{Free Variables}
+
+\definition{Set of Variables, $\var(\cdot)$}
+$\var:\mathcal{A}^*_\LL\to 2^{\var}$ is a function which maps from a string to the set of variables in it.\\
+Variables are defined by the \textit{Alphabet} of the language being used.\\
+
+\definition{Closed $\LL$-Term}
+Let $t\in Tm_\LL$ for some FOL, $\LL$.\\
+If $\var(t)=\emptyset$ then $t$ is said to be a \textit{Closed $\LL$-Term}.\\
+
+\definition{Free Variables, $FV(\cdot)$}
+Let $\LL$ be a FOL.\\
+\textit{Free Variables} are unbounded variables in an \textit{$\LL$-Formula}.\\
+We define the \textit{Set of Free Variables} of an \textit{$\LL$-Formula} inductively
+\begin{itemize}
+	\item[FV1] Let $P$ be a $k$-arity \textit{Predicate} \& $t_1,\dots,t_k\in Tml_\LL$.\\
+	$FV(P(t_1,\dots,t_k)):=\var(P(t_1,\dots,t_k))$.
+	\item[FV2] Let $\phi\in Fml_\LL$.\\
+	$FV(\neg\phi):=FV(\phi)$.
+	\item[FV3] Let $\phi,\psi\in Fml_\LL$.\\
+	$FV(\phi\to\psi):=FV(\phi)\cup FC(\psi)$.
+	\item[FV4] Let $\phi\in Fml_{\LL}$ and $x$ be any variable.\\
+	$FV(\forall x\phi):=FV(\phi)\backslash\{x\}$.
+	\item[FV-EXT1]Let $\phi,\psi\in Fml_\LL$.\\
+	$FV(\phi\wedge\psi):=FV(\phi)\cup FV(\psi)$.
+	\item[FV-EXT2]Let $\phi,\psi\in Fml_\LL$.\\
+	$FV(\phi\vee\psi):=FV(\phi)\cup FV(\psi)$.
+	\item[FV-EXT3]Let $\phi\in Fml_\LL$ and $x$ be any variable.\\
+	$FV(\exists x\phi):=FV(\phi)\backslash\{x\}$.
+\end{itemize}
+\nb $FV(\cdot):\mathcal{A}^*_{\LL}\to2^{\var}$.\\
+
+\definition{$\LL$-Sentence}
+Let $\phi\in Fml_\LL$ for some FOL, $\LL$.\\
+If $FV(\phi)=\emptyset$ then $\phi$ is said to be a \textit{$\LL$-Sentence}.\\
+
+\remarkk{The meaning anthonof formulae depends on how we interpret their free variables}
+
+\section{Semantics}
+
+\definition{$\LL$-Structure}
+Let $\LL$ be a FOL.\\
+An \textit{$\LL$-Structure} assigns meaning to the \textit{Non-Logical} symbols of $\LL$.\\
+An \textit{$\LL$-Structure} is an ordered pair $\M:=(D,\I)$ where
+\begin{itemize}
+	\item[\textit{Domain}] $D$ is a non-empty set.\\
+	Often $\reals$ or similar.
+	\item[\textit{Interpretation}] $\I$ is a function over the non-logical symbols of $\LL$.
+	\[\begin{array}{rcl}
+	\I(c)&\in&D\text{ where }c\text{ is a constant symbol of }\LL\\
+	\I(P)&\subset&D^n\text{ where }P\text{ is a }k\text{-arity predicate symbol of }\LL\\
+	\I(f)&:&D^n\to D\text{ where }f\text{ is a }k\text{-arity function symbol of }\LL
+	\end{array}\]
+\end{itemize}
+
+\remark{Interpretation, $\I$}
+The \textit{Interpretation} is a function which assigns meaning to non-logical symbols.\\
+$\I(P)$ gives the property or relation on $D$ by which $P$ is interpreted.\\
+$\I(f)$ gives the function on $D^n$ by which $f$ is interpreted.\\
+$\I(P)$ gives the object in $D$ which $c$ denotes.\\
+
+\definition{Variable Assignment, $s$}
+Let $\LL$ be a FOL and $\M:=(|\M|,\I)$ be an $\LL$-Structure.\\
+A \textit{Variable Assignment} maps variables to a value in the domain of $\M$.
+$$s:\var\to|\M|$$
+
+\definition{Variable Assignment for $\LL$-Terms, $\bar{s}$}
+Let $\LL$ be a FOL and $\M:=(|\M|,\I)$ be an $\LL$-Structure.\\
+We define \textit{Variable Assignment} over \textit{$\LL$-Terms} recursively
+\begin{itemize}
+	\item[V1] Let $x$ be a variable symbol of $\LL$.\\
+	$\bar{s}(x):=s(x)$
+	\item[V2] Let $c$ be a constant symbol of $\LL$.\\
+	$\bar{s}(c):=c^\M$
+	\item[V3] Let $f$ be a $k$-arity function symbol of $\LL$ and $t_1,\dots,t_k$ be \textit{$\LL$-Terms}.\\
+	$\bar{s}(f(t_1,\dots,t_k)):=f^M(\bar{s}(t_1),\dots,\bar{s}(t_k))$
+\end{itemize}
+\nb $\bar{s}:Tm_\LL\to|\M|$.\\
+
+\remark{$\bar{s}(t)$ is the \underline{Semantic Value} of term $t$ in struture $\M$ under assignement $s$.}
+$\bar{s}(t)$ gives a description of what $t$ designates in $\M$ under the assignment $s$.
+
+\subsection{Satisfaction Relation}
+
+\definition{Satisfaction Relation, $\vDash$}
+Let $\LL$ be a FOL, $\M$ be an \textit{$\LL$-Structure} and $s$ a \textit{Variable Assignment} over $\M$.\\
+The \textit{Satisfaction Relation} (states whether a given formula is true under a given model)??\\
+We define the \textit{Satisfaction Relation}, $\vDash$, recursively
+\begin{itemize}
+	\item[S1] Let $t_1,t_2\in Tm_\LL$.\\
+	$\M,s,\vDash (t_1\equiv t_2):\Leftrightarrow\bar{s}(t_1)=\bar{s}(t_2)$.
+	\item[S2] Let $P$ be a $k$-arity predicate symbol of $\LL$ and $t_1,\dots,t_k\in Tm_\LL$.\\
+	$\M,s,\vDash P(t_1,\dots,t_k):\Leftrightarrow\langle\bar{s}(t_1),\dots,\bar{s}(t_k)\rangle\in P^\M$.
+	\item[S3] Let $\phi\in Fml_\LL$.\\
+	$\M,s,\vDash \neg\phi:\Leftrightarrow\M,s\not\vDash\phi$.
+	\item[S4] Let $\phi,\psi\in Fml_\LL$.\\
+	$\M,s,\vDash (\phi\to\psi):\Leftrightarrow$ if $\M,s\vDash\phi$ then $\M,s\vDash\psi$.
+	\item[S5] Let $\phi\in Fml_\LL$ and $x$ be any variable.\\
+	$\M,s,\vDash \forall x\phi:\Leftrightarrow\M,s\frac{d}{x}\vDash\phi$ for all $d\in|\M|$.
+	\item[S-EXT1]Let $\phi,\psi\in Fml_\LL$.\\
+	$\M,s\vDash(\phi\wedge\psi):\Leftrightarrow\M,s\vDash\phi$ and $\M,s\vDash\psi$.
+	\item[S-EXT2]Let $\phi,\psi\in Fml_\LL$.\\
+	$\M,s\vDash(\phi\vee\psi):\Leftrightarrow\M,s\vDash\phi$ or $\M,s\vDash\psi$.
+	\item[S-EXT3]Let $\phi\in Fml_\LL$ and $x$ be any variable.\\
+	$\M,s\vDash\exists x\phi:\Leftrightarrow\M,s\frac{d}x\vDash\phi$ for at least one $d\in|\M|$.
+	\item[S-EXT2]Let $\phi,\psi\in Fml_\LL$.\\
+	$\M,s\vDash(\phi\leftrightarrow\psi):\Leftrightarrow\M,s\vDash\phi$ iff $\M,s\vDash\psi$.
+\end{itemize}
+
+\remark{When $\M,s\vDash\phi$ holds we say ``$\phi$ is true in $\M$ under $s$''}
+Or, ``$\phi$ is satisfied by $\M$ under $s$''.\\
+Or, ``$\M,s$ models $\phi$''.\\
+
+\definition{Model}
+Let $\LL$ be a FOL, $\Phi\subseteq Fml_\LL$, $\M$ be an \textit{$\L$-Structure} and $s$ a \textit{Variable Assignment}.\\
+$\M,s$ is a \textit{Model} of $\Phi$ if $\M,s\vDash\Phi$.\\
+
+\remark{Semantic Value of a Term}
+Let $t\in Tm_\LL$ for some FOL, $\LL$, and $s$ be a \textit{Variable Assignment}.\\
+The semantic value of $t$, $\bar{s}(t)$, \underline{only} depends on
+\begin{enumerate}
+	\item The \textit{Interpreation} of the constant \& function symbols that occur in $t$. And,
+	\item The \textit{Assignment} of values to variables in $t$, given by $s$.
+\end{enumerate}
+
+\remark{Truth of a Formula}
+Let $\phi\in Fml_\LL$ for some FOL, $\LL$.\\
+The truth of $\phi$ \underline{only} depends on
+\begin{enumerate}
+	\item The domain of discourse, $|\M|$, over which the quantifiers range %TODO what is The domain of discourse
+	\item The \textit{Interpretation} of the constants, functions \& predicate symbols in $\phi$.
+	\item The \textit{Assignment} of values to \textit{Free Variables} in $\phi$, given by $s$.
+\end{enumerate}
+
+\theorem{Coincidence Lemma}
+Let $\LL_1,\LL_2$ be unique FOLs, $\M_1:=(D,\I_1)$ be an $\LL_1$-Structure and $\M_2:=(D,\I_2)$ be an $\LL_2$-Structure.\\
+Note that both structures have the same domain.\\
+Let $\LL:=\LL_1\cap\LL_2$. Then the following are true
+\begin{enumerate}
+	\item $\forall\ t\in Tm_\LL, \forall$ variable assignments $s_1$ over $\M_2$ and $s_2$ over $\M_2$
+	\begin{center}
+	If $\begin{Bmatrix}c^{\M_1}=c^{\M_2}\ \forall\ c\text{ that occur in }t\\f^{\M_1}=f^{\M_2}\ \forall\ f\text{ that occur in }t\\s_1(x)=s_2(x)\ \forall\ x\text{ that occur in }t\end{Bmatrix}$ then $\overline{s_1}(t)=\overline{s_2}(t)$.
+	\end{center}
+	\ie If these conditions hold then $t$ has the same semantic value under both variable assignments.
+	\item $\forall\ \phi\in Fml_\LL, \forall$ variable assignments $s_1$ over $\M_2$ and $s_2$ over $\M_2$
+	\begin{center}
+	If $\begin{Bmatrix}c^{\M_1}=c^{\M_2}\ \forall\ c\text{ that occur in }\phi\\f^{\M_1}=f^{\M_2}\ \forall\ f\text{ that occur in }\phi\\P^{\M_1}=P^{\M_2}\ \forall\ P\text{ that occur in }\phi\\s_1(x)=s_2(x)\ \forall\ x\text{ that occur in }\phi\end{Bmatrix}$ then $\M_1,s_2\vDash\phi$ iff $\M_2,s_2\vDash \phi$.
+	\end{center}
+	\ie If these conditions hold $\phi$ is equivalent truth values under both $\LL$-structures \& variable assignemnts.
+\end{enumerate}
+\nb AKA \textit{Reduct Property} of First-Order Logic.\\
+
+\remark{Semantic Interpretations Closed $\LL$-Terms \& $\LL$-Sentences}
+Let $\LL$ be a FOL, $t$ be a \textit{Closed $\LL$-Term}, $\phi$ be an \textit{$\LL$-Sentence}, $\M$ be an \textit{$\LL$-Structure}.\\
+Let $s_1,s_2$ be arbitrary \textit{Variable Assignments} over $\M$. Then
+$$\overline{s_1}(t)=\overline{s_2}(t)\text{ and }\M,s_1\vDash\phi\text{ iff }\M,s_2\vDash\phi$$
+\ie Choice of variable assignment does not affect semantic value of closed $\LL$-Terms \& $\LL$-Sentences.\\
+
+\definition{Logical Consequence, $\Phi\vDash\phi$}
+Let $\LL$ be a FOL, $\phi\in Fml_\LL$ and $\Phi\subseteq Fml_\LL$.\\
+$\phi$ is a \textit{Logical Consequence} of $\Phi$ iff
+\begin{center}
+$\forall$ $\LL$-Structures $\M$, $\forall$ variable assignments $s$ over $\M$ it holds that $(\M,s\vDash\Phi)\to(\M,s\vDash\phi)$.
+\end{center}
+\nb When this is the case, it is denoted $\Phi\vDash\phi$.\\
+\nb AKA ``$\phi$ logically follows from $\Phi$'' or ``$\Phi$ logically implies $\phi$''.\\
+
+\proposition{For unary predicates $P$, $P(x)\vDash P(x)\vee P(y)$}
+
+\proposition{$\forall\ \phi,\psi\in Fml_\LL\ \&\ \Phi\subseteq Fml_\LL,\ \Phi,\phi\vDash\psi$ iff $\Phi\vDash\phi\to\psi$}
+
+\definition{Logically Valid, $\vDash\phi$}
+Let $\LL$ be a FOL, $\phi\in Fml_\LL$.\\
+$\phi$ is \textit{Logically Valid} iff $\M,s\vDash\phi$ for all $\LL$-Structures $\M$ and variable assignemnts $s$ over $\M$.\\
+\nb This is denoted $\vDash\phi$.\\
+
+\definition{Satisfiable}
+Let $\LL$ be a FOL, $\phi\in Fml_\LL$ and $\Phi\subseteq Fml_\LL$.
+\begin{center}\begin{tabular}{rcl}
+$\phi$ is \textit{Satisfiable}&iff&$\exists$ an $\LL$-Structure $\M$ and variable assignment $s$ over $\M$, st $\M,s\vDash\phi$.\\
+$\Phi$ is \textit{Satisfiable}&iff&$\exists$ an $\LL$-Structure $\M$ and variable assignment $s$ over $\M$, st $\M,s\vDash\Phi$.
+\end{tabular}\end{center}
+
+\theorem{}
+Let $\LL$ be a FOL, $\phi\in Fml_\LL$ and $\Phi\subseteq Fml_\LL$.\\
+Then
+\begin{enumerate}
+	\item $\phi$ is \textit{Logically Valid} iff $\emptyset\vDash\phi$.
+	\item $\phi$ is \textit{Logically Valid} iff $\neg\phi$ is \underline{not} \textit{Satisfiable}.
+	\item $\Phi\vDash\phi$ iff $\Phi\cup\{\neg\phi\}$ is \underline{not} \textit{Satisfiable}.
+\end{enumerate}
+
+\definition{Logical Equivalence}
+Let $\LL$ be a FOL and $\phi,\psi\in Fml_\LL$.\\
+$\phi$ is \textit{Logically Equivalent} to $\psi$ iff
+$\phi\vDash\psi$ \underline{and} $\psi\vDash\phi$.\\
+\ie $\phi$ is \textit{Logically Equivalent} to $\psi$ iff $\vDash\phi\leftrightarrow\psi$.\\
+
+\proposition{Logical Equivalences}
+The following are \textit{Logically Equivalent}
+\begin{enumerate}
+	\item $((\phi\wedge\psi)\wedge\theta)$ is logically equivalent to $(\phi\wedge(\psi\wedge\theta))$.
+	\item $((\phi\vee\psi)\vee\theta)$ is logically equivalent to $(\phi\vee(\psi\vee\theta))$.
+	\item $\neg\neg\phi$ is logically equivalent to $\phi$.
+	\item $\phi\wedge\psi$ is logically equivalent to $\neg((\neg\phi)\vee(\neg\psi))$.
+\end{enumerate}
+
+\definition{True of, $\M\vDash\phi[\![a_1,\dots,a_n]\!]$}
+Let $\LL$ be a FOL, $\phi\in Fml_\LL$ with $FV(\phi)\subset\{x_1,\dots,x_n\}$.\\
+Let $\M$ be an $\LL$-Structure, $s_1,s_2$ be variable assignments over $\M$ and $a_1,\dots,a_n\in|\M|$.\\
+By the \textit{Conincidence Lemma}, \textbf{Theorem 2.1}
+$$\text{if }s_1(x_i)=s_2(x_2)\ \forall\ i\in[1,n]\text{ then }\M,s_1\vDash\phi\Leftrightarrow\M,s_2\vDash\phi$$
+Equivalently
+\[\begin{array}{rl}
+&\M,s\vDash\phi\text{ for \textit{all} variable assignments }s\text{ over }\M\text{ st }s(x_1)=a_1,\dots,s(x_n)=a_n\\
+\Leftrightarrow&\M,s\vDash\phi\text{ for \textit{some} variable assignments }s\text{ over }\M\text{ st }s(x_1)=a_1,\dots,s(x_n)=a_n
+\end{array}\]
+We denote these holding by $\M\vDash\phi[\![a_1,\dots,a_n]\!]$.\\
+\nb $\M\vDash\phi[\![a_1,\dots,a_n]\!]$ means ``$\phi$ is \textit{true of} the objects $a_1,\dots,a_n\in\M$''.\\
+
+\subsection{Substitution}
+
+\definition{Substitution}
+\textit{Substitution} is the process of replacing one expression with another.\\
+Substituting $t$ for $x$ in $a$ is denoted by $[a]\frac{t}x$.\\
+\nb Usually $t$ is an $\LL$-term, $x$ is a variable \& $a$ is an $\LL$-term or $\LL$-Formula.\\
+
+\definition{Substitution of a Term for a Variable in a Term}
+Let $\LL$ be a FOL, $a,t\in Tm_\LL$ and $x$ be a variable.\\
+We define the \textit{Substitution} $[a]\frac{t}{x}$ recursively
+\begin{itemize}
+	\item[Sub-T1] If $a$ is an \textit{Atomic $\LL$-Term} then
+	$$[a]\tfrac{t}{x}:=\begin{cases}t&\text{if }a=x\\a&\text{if }a\neq x\end{cases}$$
+	\item[Sub-T2] If $a$ is a \textit{Compound $\LL$-Term} of the form $a:=f(a_1,\dots,a_k)$ where $a_1,\dots,a_k\in Tm_\LL$
+	$$[a]\tfrac{t}x:=f\left([a_1]\tfrac{t}x,\dots,[a_k]\tfrac{t}x\right)$$
+\end{itemize}
+
+\remark{$[a]\frac{t}x=a$ for all constant symbols in $a$}
+
+\definition{Substitution of a Term for a Variable in a Formula}
+Let $\LL$ be a FOL, $\phi,\psi\in Fml_\LL$, $t\in Tm_\LL$ and $x,z$ be variables.\\
+We define the \textit{Substitution} $[\phi]\frac{t}x$ recursively
+\begin{itemize}
+	\item[SUB1] If $\phi$ is an \textit{Atomic $\LL$-Formula} of the form $P(a_1,\dots,a_k)$ where $a_1,\dots,a_k\in Tm_\LL$.\\
+	$[\phi]\frac{t}x:=P\left([a_1]\frac{t}x,\dots,[a_k]\frac{t}x\right)$
+	\item[SUB-F2] $[\neg\phi]\frac{t}x:=\neg[\phi]\frac{t}x$.
+	\item[SUB-F3] $[(\phi\to\psi)]\frac{t}x:=[\phi]\frac{t}x\to[\psi]\frac{t}x$.
+	\item[SUB-F4] $[\forall z\phi]\frac{t}x:=\begin{cases}\forall z[\phi]\frac{t}x&\text{if }x\neq z\\
+\forall z\phi&\text{if }x=z\end{cases}$.
+	\item[SUB-F-EXT1]$[\phi\wedge\psi]\frac{t}{x}:=[\phi]\frac{t}x\wedge[\psi]\frac{t}x$.
+	\item[SUB-F-EXT2]$[\phi\vee\psi]\frac{t}{x}:=[\phi]\frac{t}x\vee[\psi]\frac{t}x$.
+	\item[SUB-F-EXT3] $[\exists x\phi]\frac{t}x:=\begin{cases}\exists x[\phi]\frac{t}{x}&\text{if }x\not\equiv z\\\exists x\phi&\text{otherwise}\end{cases}$.
+\end{itemize}
+\nb We never substitute bound variables (only \textit{Free Variables}).\\
+
+\proposition{$\forall\ t\in Tm_\LL,\ [t]\frac{x}x=t$}
+
+\proposition{$\forall\ \phi\in Fml_\LL,\ [\phi]\frac{x}x=\phi$}
+
+\proposition{If $x\not\in var(t)$ then $[a]\frac{a}{x}=t$}
+
+\proposition{If $x\not\in FV(\phi)$ then $[\phi]\frac{a}{x}=\phi$}
+
+\proposition{Let $x\not\in var(a)$ then $x\not\in var([t]\frac{a}x)$ and $x\not\in FV([\phi]\frac{a}x)$}
+
+\definition{Substitutable}
+Let $\LL$ be a FOL, $t\in Tm_\LL$ and $x$ be a variable.\\
+Let $\phi,\psi\in Fml_\LL$.\\
+We define whether $t$ is \textit{Substitutable} for a variable $x$ in a formula $\phi$ recursively
+\begin{itemize}
+	\item[SU1] If $\phi$ is an \textit{Atomic $\LL$-Formula}. Then $\mathtt{SubSt}(t,x,\phi)$ \underline{always}.
+	\item[SU2] $\mathtt{SubSt}(t,x,\neg\phi)$ \underline{iff} $\mathtt{SubSt}(t,x,\phi)$.
+	\item[SU3] $\mathtt{SubSt}(t,x,\phi\to\psi)$ \underline{iff} $\mathtt{SubSt}(t,x,\phi)$ \underline{and} $\mathtt{SubSt}(t,x,\psi)$.
+	\item[SU4] $\mathtt{SubSt}(t,x,\forall z\phi)$ if $\begin{cases}&z\not\in var(t)\text{ \underline{and}\ }mathtt{SubSt}(t,x,\phi)\\\text{or}&x\not\in FV(\phi)\end{cases}$
+	\item[SU-EXT1] $\mathtt{SubSt}(t,x,\phi\wedge\psi)$ \underline{iff} $\mathtt{SubSt}(t,x,\phi)$ \underline{and} $\mathtt{SubSt}(t,x,\psi)$.
+	\item[SU-EXT2] $\mathtt{SubSt}(t,x,\phi\vee\psi)$ \underline{iff} $\mathtt{SubSt}(t,x,\phi)$ \underline{and} $\mathtt{SubSt}(t,x,\psi)$.
+	\item[SU-EXT3] $\mathtt{SubSt}(t,x,\exists z\phi)$ \underline{if} $\begin{cases}&z\in var(t)\text{ \underline{and} }\mathtt{SubSt}(\phi)\\\text{or}&x\not\in FV(\exists z\phi)\end{cases}$
+\end{itemize}
+\nb If $\mathtt{SubSt}(t,x,\phi)$, $t$ is said to be \textit{Free} for $x$ in $\phi$.\\
+%TODO one sentence definition (
+
+\proposition{Every variable is Substitutable for itself, in all formulae}
+
+\proposition{If $x\not\in FV(\phi)$ all $t\in Tm_\LL$ are Substitutable for $x$ in $\Phi$}
+
+\proposition{If $var(t)\cap var(\phi)=\emptyset$ then $t$ is substitutable for any variable in $\phi$.}
+Notably, every closed $\LL$-term is substitutable for any variable in any formula.\\
+
+\proposition{Substitution order doesn't matter}
+Let $\LL$ be a FOL, $\M$ be an $\LL$-structure, $s$ be a variable assignment and $d_1,\dots,d_k\in|\M|$.\\
+Let $x_1,\dots,x_k$ be distinct variables and $\pi$ be a permutation over $k$. Then
+$$\left(\left(\dots\left(s\tfrac{d_1}{x_1}\right)\dots\right)\tfrac{d_{k-1}}{x_{k-1}}\right)\tfrac{d_k}{x_k}=\left(\left(\dots\left(s\tfrac{d_{\pi(1)}}{x_{\pi(1)}}\right)\dots\right)\tfrac{d_{\pi(k-1)}}{x_{\pi(k-1)}}\right)\tfrac{d_{\pi(k)}}{x_{\pi(k)}}$$
+
+\theorem{Substitution Lemma}
+Let $\LL$ be a FOL, $\M$ be an $\LL$-Structure, $t\in Tm_\LL$, $\phi\in Fml_\LL$ and $x$ be a variable.\begin{enumerate}
+	\item For every variable assignment $s$ over $\M$, $\forall\ a\in Tm_\LL$
+	$$\overline{s}\left([a]\tfrac{t}x\right)=\overline{s\tfrac{\overline{s}(t)}x}(a)$$
+	\item For every variable assignment $s$ over $\M$, $\forall\ a\in Tm_\LL$ where $a$ is \textit{Substitutable} for $x$ in $\phi$
+	$$\M,s\vDash\phi\tfrac{t}x\quad\text{iff}\quad\M,s\frac{\overline{s}(t)}x\vDash\phi$$
+\end{enumerate}
+
+\proposition{$\forall\ t\in Tm_\LL$ if $t$ is substitutable for $x$ then $\vDash\left(\forall x\phi\to[\phi]\frac{t}x\right)$ for all $t\in Tm_\LL$}
+
+\propositionn{$\forall\ \phi\in Fml_\LL$ if $t$ is substitutable for $x$ then $\vDash\left([\phi]\frac{t}x\to\exists x\phi\right)$ for all $t\in Tm_\LL$}
+
+\subsection{Homomorphism}
+
+\definition{Homomorphism}
+Let $\LL$ be a FOL and $\M_1,\M_2$ be $\LL$-Structures.\\
+A function $H:\M_1\to\M_2$ is a \textit{Homomorphism} if it fulfils the following
+\begin{itemize}
+	\item $H(c^{\M_1})=c^{\M_2}$ for all constant symbols, $c$, of $\LL$.
+	\item $H(f^{\M_1}(t_1,\dots,t_k)=f^{\M_2}(H(t_1),\dots,H(t_k))$ for all $k$-arity function symbols $f$ of $\LL$ and $t_1,\dots,t_k\in|\M_1|$.
+	\item $\langle t_1,\dots,t_k\rangle\in P^{\M_1}\Leftrightarrow\langle H(t_1),\dots,H(t_k)\rangle\in P^{\M_2}$ for all $k$-arity predicates symbols $P$ of $\LL$ and $t_1,\dots,t_k\in|\M_1|$.\\
+	\ie $\langle t_1,\dots,t_k\rangle$ has property $P^{\M_1}$ \underline{iff} $\langle H(t_1),\dots,H(t_k)\rangle$ has property $P^{\M_2}$.
+\end{itemize}
+
+\theorem{Semantic Value of a Homomorphism}
+Let $\LL$ be a FOL, $\M_1,\M_2$ be $\LL$-Structures and $s$ be a variable assignment over $\M_1$.\\
+Let $H$ be a \textit{Homomorphism} from $\M_1$ to $\M_2$.\\
+Then, $\forall\ t\in Tm_\LL$
+$$H\circ\overline{s}(t)=\overline{H\circ s}(t)$$
+
+\definition{Isomorphism}
+Let $H$ be a \textit{Homomorphism}.\\
+$H$ is an \textit{Isomorhpism} if it is \textit{Bijective}.\\
+\nb If there exists an \textit{Isomorphism} between $\M_1$ and $\M_2$ they are said to be \textit{Isomorphic}.\\
+
+\definition{Substructure}
+Let $\LL$ be a FOL and $\M_1,\M_2$ be $\LL$-Structures.\\
+$\M_1$ is a \textit{Substructure} of $\M_2$ if
+\begin{itemize}
+	\item $|\M_1|\subset|\M_2|$. And,
+	\item The function $i(d)=d\ \forall\ d\in|\M_1|$ is a \textit{Homomorphism}
+\end{itemize}
+\nb $\M_2$ is called an \textit{Extension} of $\M_1$.\\
+
+\definition{Elementary Equivalence}
+Let $\LL$ be a FOL and $\M_1,\M_2$ be $\LL$-Structures.\\
+$\M_1$ and $\M_2$ are \textit{Elementary Equivalent} if
+$$\M_1\vDash\sigma\Leftrightarrow\M_2\vDash\sigma\quad\forall\ \sigma\in Sent_\LL$$
+
+\proposition{Isomorphic $\LL$-Structures are Elementary Equivalence}
+
+\definition{Elementary Embedding}
+Let $\LL$ be a FOL and $\M_1,\M_2$ be $\LL$-Structures.\\
+An \textit{Elementary Embedding} of $\M_1$ in $\M_2$ is a function $H:|\M_1|\to|\M_2|$ st
+$$\forall\ \phi\in Fml_\LL,\forall\ \text{variable assignments }s\text{ over }\M_1\quad \M_1,s\vDash\phi\Leftrightarrow\M_2,H\circ s\vDash\phi$$
+\nb $H\circ s:\var\to|\M_2|$.\\
+\nb If there exists an \textit{Elementary Embedding} of $\M_1$ in $\M_2$, then $\M_1$ and $\M_2$ are \textit{Elementary Equivalent}.\\
+
+\proposition{An Isomorphism is an Elementary Embedding}
+
+\proposition{An Elemenetary Embedding of $\M_1$ in $\M_2$ is an Injective Homomorphism from $\M_1$ to $\M_2$}
+\nb The converse may not be true.
+
+\subsection{Definable}
+
+\definition{Definable}
+Let $\LL$ be a FOL, $\M$ be an $\LL$-Structure and $\mathcal{R}$ be a $k$-arity relation on $|\M|$.\\
+$\mathcal{R}$ is \textit{Definable} in $\M$ if $\exists\ \phi\in Fml_\LL$ where $FV(\phi)\subset\{x_1,\dots,x_k\}$ and $\forall\ a_1,\dots,a_k\in|\M|$ it holds that
+$$\langle a_1,\dots,a_k\rangle\in\mathcal{R}\quad\text{iff}\quad\M\vDash\phi[\![a_1,\dots,a_k]\!]$$
+\nb $\mathcal{R}$ is \textbf{not} a predicate and is \textbf{not} related to any symbols in $\M$.\\
+\nb We say $\mathcal{R}$ is \textit{defined by} $\phi$ in $\M$.\\
+
+\proposition{$\mathcal{R}$ is defined by $\phi$ in $\M$ iff $\M,s\vDash\phi\Leftrightarrow\langle s(x_1),\dots,s(x_k)\rangle\in\mathcal{R}$ for all variable assignments $s$ over $\M$.}
+
+
+\newpage\setcounter{section}{-1}
+\section{Appendix}
+
+\subsection{Standard Models}
+
+\definition{Standard Model of Arithmetic}
+Let language of arithmetic is $\LL_\nats:=\{\overline<,S,\overline+,\overline\cdot,E,\overline0\}$ where
+\begin{itemize}
+	\item $\overline<$ is a binary relation symbol.
+	\item $S$ is a unary function symbol.
+	\item $\overline+,\overline\cdot,E$ are binary function symbols.
+	\item $\overline0$ is the constant symbol for $0\in\nats$.
+\end{itemize}
+Let $\M$ be a $\LL_\nats$-Structure with the domain $|\M|=\nats$ defined as
+\begin{itemize}
+	\item $\overline<$ is interpreted as the usual `\textit{less-than}' relation on $\nats$.
+	$$\ie\ \langle x,y\rangle\in\overline<^\M\Leftrightarrow x<y$$
+	\item $S$ is interpreted as the \textit{successor function} `$+1$' on $\nats$.
+	$$\ie S^\M(n)=n+1$$
+	\item $\overline+,\overline\cdot,E$ are interpreted as the usual `\textit{addition}', `\textit{multiplication}' and `\textit{exponentitation}' on $\nats$ respectively.
+	$$\ie E^\M(n,m)=n^m$$
+	\item $\overline0$ is interpreted as the natural numbers $0$.
+\end{itemize}
+
+\subsection{Notation}
+
+\proposition{Formal Notation}
+\begin{center}\begin{tabular}{|l|l|}
+\hline
+\textbf{Notation}&\textbf{Use}\\
+\hline$\langle a_1,\dots,a_n\rangle$&A string of length $n$\\
+$\langle a,b\rangle$&Two consecutive strings\\
+$a*b$&Concatenation of two strings\\
+$\mathcal{A}^*$&Set of all strings over alphabet $\mathcal{A}$\\
+$\mathcal{A}_\LL$&Alphabet of language $\LL$\\
+$Tm_\LL$&Set of $\LL$-Terms of language $\LL$\\
+$Fml_\LL$&Set of $\LL$-Formulae of language $\LL$\\
+$Var$&Set of variables in the alphabet??\\
+$Sent_\LL$&Set of $\LL$-Sentences of language $\LL$\\
+$\to$&Implication\\
+$\leftrightarrow$&Equivalence\\
+$\vee$& Or\\
+$\wedge$&And\\
+$\forall$&For all\\
+$\exists$&There exists\\
+$\exists!$&There exists a unique\\
+$\bar+$&Syntactic $+$, has no semantic value.\\
+&$\bar{ }$ signals this for all symbols\\
+$:\Leftrightarrow$&Defined to have same logical value (true or false)\\
+$\Phi\vDash\phi$&$\phi\in Fml_\LL$ is a logical consequence of $\Phi\subseteq Fml_\LL$.\\
+$\vDash\phi$&$\phi\in Fml_\LL$ is logically valid.\\
+$\M_1\cong\M_2$&Structures $\M_1$ and $\M_2$ are isomorphic.\\
+$\M\vDash\phi[\![a_1,\dots,a_n]\!]$&$\phi$ is true for the objects $a_1,\dots,a_n\in|\M|$.\\
+\hline
+\end{tabular}\end{center}
+
+\proposition{Convential Notation}
+\begin{center}\begin{tabular}{|l|l|}
+\hline
+\textbf{Notation}&\textbf{Use}\\
+\hline$\mathcal{A}$&Alphabet\\
+$\LL$&Language (First-Order)\\
+$t$&Term\\
+$\phi,\psi,\theta,\chi$&Formulae\\
+$x\circ y$&$\circ(x,y)$ where $\circ$ is a function or predicate\\
+$c\not\prec d$&$\neg\prec(c,d)$\\
+$\M$&$\LL$-Structure\\
+$\I$&Interpreation from an $\LL$-Structure\\
+$D$ or $|\M|$&Domain of an $\LL$-Structure\\
+$P^\M$&$\I(P)$\\
+$f^\M$&$\I(f)$\\
+$c^\M$&$\I(c)$\\
+$\M\vDash\phi$&$\M,s\vDash\phi\ \forall\ s$ over $\M$ since $\phi$ \underline{is an $\LL$-sentence}.\\
+$t^\M$&$d\in|\M|$ st $\bar{s}(t)=d\ \forall\ s$ over $\M$ since $t$ \underline{is a Closed $\LL$-Term}.\\
+$\mathtt{SubSt}(t,x,\phi)$&$t\in Tm_\LL$ is substitutable for $x\in\var$ in $\phi\in Fml_\LL$.\\
+\hline
+\end{tabular}\end{center}
+ 
+\subsection{Definitions}
+
+\definition{Arity}
+The \textit{Arity} of a function is the number of arguments it takes.\\
+\nb Unary, Binary, Ternary, Quaternary, \dots\\
+
+\definition{Countable Set}
+Let $X$ be a set.\\
+$X$ is \textit{Countable} if
+\[\begin{array}{rl}
+&\exists\ f:\nats\to X\text{ st }f\text{ is surjective}.\\
+\text{Or}&\exists\ f:X\to\nats\text{ st }f\text{ is injective}.
+\end{array}\]
+
+\definition{Predicate}
+A \textit{Predicate} is an expression over a set of variables and returns a logical conclustion (\ie True or False).\\
+\nb Practically a function from set of variables to true or false.
+
+\subsection{Indentities}
+
+\theoremm{Complex Connectives \& Quantifiers in terms of FOL}
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Term}&\textbf{In FOL}\\
+\hline
+$\exists x,\ P(x)$&$\neg(\forall\ x,\ \neg P(x))$\\
+$P\vee Q$&$(\neg P)\to Q$\\
+$P\wedge Q$&$\neg(P\to\neg Q)$\\
+$P\leftrightarrow Q$&$\begin{array}{rl}&(P\to Q)\wedge(Q\to P)\\\Leftrightarrow&\neg((P\to Q)\to\neg(Q\to P))\end{array}$\\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Techniques}
+
+\proposition{Induction on Terms}
+\proposition{Induction on Formulae}
+
+\end{document}
