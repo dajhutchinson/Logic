@@ -65,6 +65,7 @@
 \newcommand{\proved}[0]{$\hfill\square$\\}
 \newcommand{\LL}[0]{\mathcal{L}}
 \newcommand{\M}[0]{\mathfrak{M}}
+\newcommand{\D}[0]{\mathcal{D}}
 
 \newcommand{\definition}[1]{\stepcounter{definition} \textbf{Definition \arabic{section}.\arabic{definition}\ - }\textit{#1}\\}
 \newcommand{\definitionn}[1]{\stepcounter{definition} \textbf{Definition \arabic{section}.\arabic{definition}\ - }\textit{#1}}
@@ -797,6 +798,16 @@ Let $x\not\equiv y$
 =&\forall xP(x)\to\forall yR(c,y)
 \end{array}\]
 
+\definition{Extension of Substitution}
+\[\begin{array}{rllrllrl}
+&[\exists xP(x)]\frac{t}{x}&\quad&&[P\vee Q]\frac{t}{x}&\quad&&[P\wedge Q]\frac{t}{x}\\
+\Leftrightarrow&[\neg(\forall x\neg P(x)]\frac{t}{x}&&\Leftrightarrow&[\neg P\to Q]\frac{t}{x}&&\Leftrightarrow&[\neg(P\to\neg Q)]\frac{t}{x}\\
+\Leftrightarrow&\neg[\forall x\neg P(x)]\frac{t}{x}&&\Leftrightarrow&[\neg P]\frac{t}{x}\to[Q]\frac{t}{x}&&\Leftrightarrow&\neg[P\to\neg Q]\frac{t}{x}\\
+\Leftrightarrow&\begin{cases}\neg\forall x[\neg P(x)]\frac{t}{x}&\text{if }x\not\equiv z\\\neg(\forall x\neg P(x))=P(x)&\text{otherwise}\end{cases}&&\Leftrightarrow&\neg[P]\frac{t}{x}\to[Q]\frac{t}{x}&&\Leftrightarrow&\neg\left([P]\frac{t}{x}\to[\neg Q]\frac{t}{x}\right)\\
+\Leftrightarrow&\begin{cases}\exists x[P(x)]\frac{t}{x}&\text{if }x\not\equiv z\\\exists xP(x)&\text{otherwise}\end{cases}&&\Leftrightarrow&[P]\frac{t}{x}\vee[Q]\frac{t}{x}&&\Leftrightarrow&\neg\left([P]\frac{t}{x}\to\neg[Q]\frac{t}{x}\right)\\
+&&&&&&\Leftrightarrow&[P]\frac{t}{x}\wedge[Q]\frac{t}{x}
+\end{array}\]
+
 \proposition{}
 For every $x\in\text{Var},\ a,t\in T_{\M_\LL}$ and $\phi\in\text{Fml}_\LL$ the following results hold
 $$[a]\frac{x}{x}=a\quad\text{and}\quad[\phi]\frac{x}{x}=\phi$$
@@ -867,6 +878,24 @@ We define \textit{Substitutability} using the following recursive definition
 	$$\mathtt{SubSt}(t,x,\phi)\text{ iff }\begin{cases}z\not\in\var(t)\wedge\mathtt{SubSt}(t,x,\psi)&\text{or}\\x\not\in FV(\phi)\end{cases}$$
 \end{enumerate}
 \nb the second case in $iv)$ is a vacuous case since there are no variables to substitute.\\
+
+\proposition{Extension to Substitutability}
+\[\begin{array}{rl}
+&\mathtt{SubSt}(t,x,P\vee Q)\\
+\Leftrightarrow&\mathtt{SubSt}(t,x,\neg P\to Q)\\
+\Leftrightarrow&\mathtt{SubSt}(t,x,\neg P)\wedge\mathtt{SubSt}(t,x,Q)\\
+\Leftrightarrow&\mathtt{SubSt}(t,x,P)\wedge\mathtt{SubSt}(t,x,Q)\\\\
+&\mathtt{SubSt}(t,x,P\wedge Q)\\
+\Leftrightarrow&\mathtt{SubSt}(t,x,\neg(P\to\neg Q))\\
+\Leftrightarrow&\mathtt{SubSt}(t,x,P\to\neg Q)\\
+\Leftrightarrow&\mathtt{SubSt}(t,x,P)\wedge\mathtt{SubSt}(t,x,\neg Q)\\
+\Leftrightarrow&\mathtt{SubSt}(t,x,P)\wedge\mathtt{SubSt}(t,x,Q)\\\\
+&\mathtt{SubSt}(t,x,\exists P(z))\\
+\Leftrightarrow&\mathtt{SubSt}\big(t,x,\neg(\forall z\neg P(z))\big)\\
+\Leftrightarrow&\mathtt{SubSt}\big(t,x,\forall z\neg P(z)\big)\\
+\Leftrightarrow&\begin{cases}&z\in\var(t)\wedge\mathtt{SubSt}(\neg P(z))\\\text{or}&x\not\in FV(\forall z P(z))\end{cases}\\
+\Leftrightarrow&\begin{cases}&z\in\var(t)\wedge\mathtt{SubSt}(P(z))\\\text{or}&x\not\in FV(\forall z P(z))\end{cases}
+\end{array}\]
 
 \example{Substitutability}
 Let $x\neq y\neq z$
@@ -960,5 +989,78 @@ If $\phi:=\neg\psi$. Then
 \end{array}\]
 Similar derivation for $phi=\psi\to\theta$.\\
 %TODO rest
+
+\remark{I have missed some from 3.3.14 but have covered in ReviewedNotesLOG}
+
+\section{Deductive Systems for First-Order Predicate Logic}
+
+\remark{Structure of Mathetmical Proofs}
+Mathetmatical Proofs take the following, rough, structure
+\begin{itemize}
+	\item[-] Assumptions: Axioms, definitions, proved theorem,\dots\\
+	\nb These depend on the subject matter. The \textit{Logical Axioms} appear in every proof.
+	\item[-] Deduction Steps
+	\item[-] Theorem - Consequent of a deduction from the assumptions \& \textit{Logical Axioms}.
+\end{itemize}
+
+\definition{Generalisation}
+Let $\LL$ be a FOL and $\phi,psi\in Fml_\LL$.\\
+$\phi$ is a \textit{Generalisation} of $\psi$ $\begin{cases}&\phi=\psi\\\text{or}&\phi=\forall x_1\dots\forall x_n\psi\end{cases}$ for some variables $x_1,\dots,x_n\in var$.\\
+\nb Every $\LL$-Formula is a generalisation of itself.\\
+
+\subsection{Hilbert Calculus}
+
+\definition{Logical Axioms of Hilbert Calculus}
+Let $\LL$ be a FOL.\\
+The set of \textit{Logical Axioms} over $\LL$ comprises all generalisation of the following forms of $\LL$-Formulae (and nothing else)
+\begin{enumerate}
+	\item $\phi(\to\psi\to\theta)$.
+	\item $(\phi(\to\psi\to\theta))\to((\phi\to\psi)\to(\phi\to\theta))$.
+	\item $(\neg\phi\to\neg\psi)\to(\psi\to\phi)$.
+	\item $\forall x\phi\to[\phi]\frac{t}{x}$ where $\mathtt{SubSt}(t,x,\phi)$.
+	\item $\phi\to\forall x\phi$ where $x\not\in FV(\phi)$.
+	\item $\forall x(\phi\to\psi)\to(\forall x\phi\to\forall x\psi)$.
+	\item $t\equiv t$.
+	\item $t_0\equiv t_1\to\left([\phi]\frac{t_0}x\to[\phi]\frac{t_1}x\right)$ where $\mathtt{SubSt}(t_0,x,\phi)$ \underline{and} $\mathtt{SubSt}(t_1,x,\phi)$.
+\end{enumerate}
+\nb $\phi,\psi,\theta\in Fml_\LL$, $x$ is any variable and $t,t_0,t_1\in Tm_\LL$.\\
+\nb This set of axioms is denoted $\Lambda_\LL$ or $\Lambda$.\\
+
+\definition{Deduction in Hilbert Calculus}
+A \textit{Deduction}, $D$, from a set of $\LL$-Formulae, $\Gamma$, in \textit{Hilbert Calculus} is a finite sequence $\langle\phi_1,\dots,\phi_n\rangle$ of $\LL$-Formulae st either of the following holds $\forall i\in[1,n]$
+\begin{enumerate}
+	\item $\phi_i\in\Gamma\cup\Lambda$; or,
+	\item $\exists j,k\in[1,i]$ st $\phi_j=\phi_k\to\phi_i$.
+\end{enumerate}
+$\phi_n$ is the final output of $\D$.\\
+\nb We say that $\D$ is a deduction of $\phi_n$ from $\Gamma$.\\
+
+\proposition{}
+Let $\D:=\langle\phi_1,\dots,\phi_n\rangle$ be a deduction of $\phi_n$ from $\Gamma$.
+\begin{enumerate}
+	\item $\D_m:=\langle \phi_1,\phi_m\rangle$ is a deduction of $\phi_m$ from $\Gamma$ for $m\in[1,n]$ %Some weird symbol used in notes but i think a typo
+	\item $\D$ is a deduction of $\phi_n$ from $\Sigma$ for all $\Sigma\supset\Gamma$.
+	\item For any deduction $\D:=\langle\phi_1',\dots,\phi_m'\rangle$ from $\Gamma$, the concatenation $\D*\D'=\langle\phi_1,\dots,\phi_n,\phi_1',\dots,\phi_m'\rangle$ is a deduction of $\theta_{m}'$ from $\Gamma$.
+\end{enumerate}
+
+\definition{Deducibility in Hilbert Style}
+Let $\LL$ be a FOL, $\phi\in Fml_\LL$ and $\Gamma$ be a set of axioms.\\
+$\phi$ is \textit{Deducible} from $\Gamma$, if there exists a deduction of $\phi$ from $\Gamma$.\\
+\nb This is denoted $\Gamma\vdash\phi$ and we say $\phi$ is a \textit{Theorem} of $\Gamma$.\\
+\nb If $\Gamma:=\emptyset$ then we denote it as $\vdash\phi$.\\
+
+\theorem{Monotonicity of Deducibility}
+If $\Gamma\vdash\phi$ and $\Gamma\subset\Sigma$ then $\Sigma\vdash\phi$.\\
+
+\theorem{Generalisation Theorem}
+If $\Gamma\vdash\phi$ and $x\not\in FV(\Gamma)$ then $\Gamma\vdash\forall x\phi$.\\
+Here $FV(\Gamma):=\bigcup\limits_{\phi\in\Gamma}FV(\phi)$.\\
+
+\theoremm{}
+\begin{itemize}
+	\item[Ax] $\Gamma\vdash\phi\forall\ \phi\in\Gamma\cup\Lambda$.
+	\item[MP] If $\Gamma\vdash\phi\to\psi$ and $\Gamma\vdash\phi$ then $\Gamma\vdash\psi$.
+	\item[Gen] If $\Gamma\vdash\phi$ and $x\not\in FV(\Gamma)$, then $\Gamma\vdash\forall x\phi$
+\end{itemize}
 
 \end{document}
