@@ -36,7 +36,7 @@
 \fancyhead[R]{\today}
 
 % Counters
-\newcounter{definition}[subsection]
+\newcounter{definition}[section]
 \newcounter{example}[section]
 \newcounter{notation}[section]
 \newcounter{proposition}[section]
@@ -266,7 +266,7 @@ Otherwise $\phi\to\psi\to\theta$ is ambiguous as it could be read as either $(\p
 
 \definition{Compound $\LL$-Formula}
 Let $\phi\in Fml_\LL$.\\
-$\phi$ is a \textit{Compound $\LL$-Formula} iff $cp(\phi)\geq1$.\\
+$\phi$ is a \textit{Compound $\LL$-Formula} iff $cp(\phi)\geq1$.
 
 \subsection{Induction}
 
@@ -325,6 +325,44 @@ Let $\phi\in Fml_\LL$ for some FOL, $\LL$.\\
 If $FV(\phi)=\emptyset$ then $\phi$ is said to be a \textit{$\LL$-Sentence}.\\
 
 \remarkk{The meaning anthonof formulae depends on how we interpret their free variables}
+
+\subsection{Consistency}
+
+\definition{Consistent}
+Let $\LL$ be a FOL, $\phi\in Fml_\LL$ and $\Phi\subset Fml_\LL$.
+\begin{itemize}
+	\item $\phi$ is \textit{Consistent} iff $\nexists\ \phi\in Fml_\LL$ st $\phi\vdash\psi$ \underline{and} $\phi\vdash\neg\psi$.
+	\item $\Phi$ is \textit{Consistent} iff $\nexists\ \phi\in Fml_\LL$ st $\Phi\vdash\psi$ \underline{and} $\Phi\vdash\neg\psi$.
+\end{itemize}
+
+\proposition{$\Phi$ is Consistent iff $\exists\ \phi\in Fml_\LL$ st $\Phi\nvdash\psi$}
+
+\proposition{$\Phi$ is Consistent iff $\forall\ \Sigma\subset\Phi$, $\Sigma$ is Consistent}
+
+\proposition{If $\Gamma\vdash\phi$ then $\exists\ \Sigma\subset\Gamma$ st $\Sigma\vdash\phi$.}
+
+\theorem{Inconsistency}
+Let $\LL$ be a FOL, $\phi\in Fml_\LL$ and $\Phi\subset Fml_\LL$.
+\begin{enumerate}
+	\item $\Phi\vdash\phi$ iff $\Phi\cup\{\neg\phi\}$ is \textit{Inconsistent}.
+	\item $\Phi\cup\{\phi\}$ is \textit{Inconsistent} iff $\Phi\cup\{\neg\neg\phi\}$ is \textit{Inconsistent}.
+	\item $\Phi\vdash\neg\phi$ iff $\Phi\cup\{\phi\}$ is \textit{Inconsistent}.
+\end{enumerate}
+
+\theorem{If $\Gamma\cup\{\neg\phi\}$ is Satisfiable then $\Gamma\nvdash\phi$.}
+
+\theorem{Chain of Consistency}
+Let $\LL$ be a FOL and $\Gamma_0\subset\dots\subset\Gamma_n\subset\dots\subset Fml_\LL$.
+\begin{center}
+If $\forall i,\ \Gamma_i$ is \textit{Consistent}, then $\Gamma:=\cup_i\Gamma_i$ is \textit{Consistent}.
+\end{center}
+
+\subsection{Alphabetic Variants}
+
+\theorem{Alphabetic Variants}
+$\forall\ \phi\in Fml_\LL,\ t\in Tm_\LL ,\ z\in\var,\ \exists \psi\in Fml_\LL$ with $cp(\psi)=cp(\phi)$ st
+$$\vdash(\phi\leftrightarrow\psi)\quad\text{and}\quad\mathtt{SubSt}(t,z,\psi)$$
+\nb This $\psi$ is called an \textit{Alphabetic Variant} of $\phi$.
 
 \section{Semantics}
 
@@ -653,8 +691,221 @@ $$\langle a_1,\dots,a_k\rangle\in\mathcal{R}\quad\text{iff}\quad\M\vDash\phi[\![
 \nb $\mathcal{R}$ is \textbf{not} a predicate and is \textbf{not} related to any symbols in $\M$.\\
 \nb We say $\mathcal{R}$ is \textit{defined by} $\phi$ in $\M$.\\
 
-\proposition{$\mathcal{R}$ is defined by $\phi$ in $\M$ iff $\M,s\vDash\phi\Leftrightarrow\langle s(x_1),\dots,s(x_k)\rangle\in\mathcal{R}$ for all variable assignments $s$ over $\M$.}
+\propositionn{$\mathcal{R}$ is defined by $\phi$ in $\M$ iff $\M,s\vDash\phi\Leftrightarrow\langle s(x_1),\dots,s(x_k)\rangle\in\mathcal{R}$ for all variable assignments $s$ over $\M$.}
 
+\section{Deductive Reasoning}
+
+\remark{Structure of Deductive Mathematical Proofs}
+Deductive mathematical proofs take (roughly) the following structure
+\begin{enumerate}
+	\item \textit{Assumptions} - Axioms, definitions \& proved theorems.\\
+	\nb These depend on the subject matter.
+	\item \textit{Deduction Steps}.
+	\item \textit{Theorem} - The consequent of the deductions.
+\end{enumerate}
+
+\remark{Logical Axioms are assumptions in almost all mathemtical proofs}
+
+\definition{Generalisation}
+Let $L$ be a FOL \& $\phi,\psi\in Fml_\LL$.\\
+$\phi$ is a \textit{Generalisation} of $\psi$ if
+\begin{itemize}
+	\item[] $\phi=\psi$;
+	\item[Or,] $\phi=\forall x_1,\dots,\forall x_n\psi$ for some $x_1,\dots,x_n\in\var$.
+\end{itemize}
+\nb Every \textit{$\LL$-Formula} is a \textit{Generalisaiton} of itself.\\
+
+\subsection{Hilbert Calculus}
+
+\definition{Hilbert Calculus}
+\textit{Hilbert Calculus} is a formal system of deductive logic, used in mathematical proofs.\\
+
+\definition{Logical Axioms of Hilbert Calculus, $\Lambda_\LL$}
+Let $\LL$ be a FOL, $\phi,\psi,\theta\in Fml_\LL$, $t,t_0,t_1\in Tm_\LL$ and $x$ is an arbitrary variable.\\
+The \textit{Logical Axioms of Hilbert Calculus} over $\LL$ comprises all \textit{Generalisations} of the following forms of an \textit{$\LL$-Formula}:
+\begin{itemize}
+	\item[H1] $\phi\to(\psi\to\theta)$.
+	\item[H2] $(\phi\to(\psi\to\theta))\to((\phi\to\psi)\to(\phi\to\theta))$.
+	\item[H3] $(\neg\phi\to\neg\psi)\to(\psi\to\phi)$.
+	\item[H4] $\forall x\phi\to[\phi]\frac{t}x$ where $\mathtt{SubSt}(t,x,\phi)$.
+	\item[H5] $\phi\to\forall x\psi$ for $x\not\in FV(\phi)$.
+	\item[H6] $[\forall x(\phi\to\psi)]\to[\forall x\phi\to\forall x\psi]$.
+	\item[H7] $t\equiv t$.
+	\item[H8] $t_0\equiv t_1\to\left([\phi]\frac{t_0}x\to[\phi]\frac{t_1}x\right)$ where $\mathtt{SubSt}(t_0,x,\phi)$ \underline{and} $\mathtt{SubSt}(t_1,x,\phi)$.
+\end{itemize}
+\nb This set is denoted as $\Lambda_\LL$.\\
+
+\remark{Logical Axioms are formulae}
+
+\definition{Deduction in Hilbert Calculus}
+Let $\LL$ be a FOL \& $\Gamma\subset Fml_\LL$ in \textit{Hilbert Calculus}.\\
+A \textit{Deduction}, $\mathcal{D}$ from $\Gamma$ is a finite sequence, $\langle\phi_1,\dots,\phi_n\rangle$, of \textit{$\LL$-Formulae} where $\forall\ k\in[1,n]$:
+\begin{itemize}
+	\item[] $\phi_k\in \Lambda_\LL\cup\Gamma$.\\
+	\ie $\phi_k$ is assumed to be true.
+	\item[or,] $\exists i,j,k$ with $i,j<k$ st $\phi_j=\phi_i\to\phi_k$.\\
+	\ie $\phi_k$ is true by implication.
+\end{itemize}
+\nb We say $\mathcal{D}$ is a \textit{Deduction} of $\phi_n$ since $\phi_n$ is the last formula.\\
+
+\proposition{Deductions from Deductions}
+Let $\LL$ be a FOL, $\Gamma\subset Fml_\LL$ \& $\mathcal{D}:=\langle\phi_1,\dots,\phi_n\rangle$ be a \textit{Deduction} from $\Gamma$.
+\begin{itemize}
+	\item $\forall\ m\leq n,\ \mathcal{D}\upharpoonright_m:=\langle\phi_1,\dots,\phi_m\rangle$ is a \textit{Deduction} of $\theta_m$ from $\Gamma$.\\
+	\ie All subsequences of a \textit{Deduction} are \textit{Deductions}.
+	\item $\forall\ \Sigma\supset\Gamma,\ \mathcal{D}$ is a \textit{Deduction} of $\phi_n$ from $\Sigma$.
+	\item For all deductions $\mathcal{D}':=\langle\psi_1,\dots,\phi_m\rangle$ from $\Gamma$
+	$$\mathcal{D}*\mathcal{D}=\langle\phi_1,\dots,\phi_n,\psi_1,\dots,\psi_m\rangle\text{ is a deduction of }\theta_{m}\text{ from }\Gamma.$$
+\end{itemize}
+
+\definition{Deducibility in Hilbert Style}
+Let $\LL$ be a FOL, $\phi\in Fml_\LL$ \& $\Gamma\subset Fml_\LL$.\\
+$\phi$ is \textit{Deducible} from $\Gamma$ if $\exists$ a deduction of $\phi$ from $\Gamma$.\\
+\nb This is denoted $\Gamma\vdash\phi$ (If $\Gamma\equiv\emptyset$ then we write $\vdash\phi$).\\
+
+\remark{If $\Gamma\vdash\phi$ we say $\phi$ is a \underline{Theorem} of $\Gamma$}
+
+\definition{Modus Ponens}
+Let $\LL$ be a FOL, $\phi,\psi\in Fml_\LL$ \& $\Gamma,\Sigma\subset Fml_\LL$.\\
+If $\Gamma\vdash\psi$ is obtained from $\Gamma\vdash(\phi\to\psi)$ \underline{and} $\Gamma\vdash\phi$ we say
+\begin{center}
+$\Gamma\vdash\phi$ is obtained by appyling \textit{Modus Ponens} to $\Gamma\vdash(\phi\to\psi)$ and $\Gamma\vdash\phi$.
+\end{center}
+\nb \textit{``Modus Ponens''} translates to \textit{``Putting the limit''}.\\
+
+\theorem{Monotonicity of Deducibility}
+Let $\LL$ be a FOL, $\phi\in Fml_\LL$ \& $\Gamma,\Sigma\subset Fml_\LL$.
+\begin{center}If $\Gamma\vdash\phi$ \underline{and} $\Sigma\supset\Lambda$ then $\Sigma\vdash\phi$.\end{center}
+
+\theorem{Generalisation Theorem}
+Let $\LL$ be a FOL, $\phi\in Fml_\LL$ \& $\Gamma,\Sigma\subset Fml_\LL$.
+\begin{center}
+If $\Gamma\vdash \phi$ \underline{and} $x\not\in FV(\Gamma)$ then $\Gamma\vdash\forall x\phi$ where $FV(\Gamma):=\bigcup\limits_{\psi\in\Gamma}FV(\psi)$
+\end{center}
+
+\proposition{Alternative Expressions of prev theorems}
+Let $\LL$ be a FOL, $\phi,\psi\in Fml_\LL$ \& $\Gamma,\Sigma\subset Fml_\LL$.
+\begin{itemize}
+	\item[AX] $\Gamma\vdash\phi\ \forall\ \phi\in\Gamma\cup\Lambda_\LL$.
+	\item[MP] If $\Gamma\vdash(\phi\to\psi)$ \underline{and} $\Gamma\vdash\phi$ then $\Gamma\vdash\psi$.
+	\item[GEN] If $\Gamma\vdash\phi$ \underline{and} $x\not\in FV(\Gamma)$ then $\Gamma\vdash\forall x\phi$.
+\end{itemize}
+
+\subsection{Deduction Theorem}
+
+\theorem{Law of Excluded Middle - $\forall\ \phi\in Fml_\LL,\ \vdash\phi\vee\neg\phi$}
+Since $(\phi\vee\neg\phi)\Leftrightarrow(\neg\phi\to\neg\phi)$.\\
+
+\theorem{Deduction Theorem}
+Let $\LL$ be a FOL, $\phi,\psi\in Fml_\LL$ \& $\Gamma,\Sigma\subset Fml_\LL$.
+\begin{center}$\Gamma,\phi\vdash\psi$ iff $\Gamma\vdash(\phi\to\psi)$.\end{center}
+
+\theorem{Transitivity of Conditional}
+Let $\LL$ be a FOL, $\phi,\psi,\theta\in Fml_\LL$ \& $\Gamma,\Sigma\subset Fml_\LL$.
+\begin{center}If $\Gamma\vdash(\phi\to\psi)$ \underline{and} $\Gamma\vdash(\psi\to\theta)$ then $\Gamma\vdash(\phi\to\theta)$\end{center}
+
+\theorem{$\to$ Exchange}
+Let $\LL$ be a FOL, $\phi,\psi,\theta\in Fml_\LL$ \& $\Gamma,\Sigma\subset Fml_\LL$.
+\begin{center}If $\Gamma\vdash(\phi\to(\psi\to\theta))$ then $\Gamma\vdash(\psi\to(\phi\to\theta))$.\end{center}
+
+\theorem{Ex Falso Quodlibet}
+Let $\LL$ be a FOL, $\phi\in Fml_\LL$ \& $\Gamma,\Sigma\subset Fml_\LL$.
+\begin{center}
+If $\Gamma\vdash\phi$ \underline{and} $\Gamma\vdash(\neg\phi)$ then $\Gamma\vdash\psi\ \forall\ \psi\in Fml_\LL$.
+\end{center}
+\nb \textit{``Ex Falso Quodlibet''} translates to \textit{``From a false proposition''}.\\
+
+\theorem{Double Negation Elimination}
+Let $\LL$ be a FOL.
+$$\forall\ \phi\in Fml_\LL,\ \vdash((\neg\neg\phi)\to\phi)$$
+
+\theorem{Double Negation Introduction}
+Let $\LL$ be a FOL.
+$$\forall\ \phi\in Fml_\LL,\ \vdash(\phi\to(\neg\neg\phi))$$
+
+\theorem{Contraposition}
+Let $\LL$ be a FOL and $\Gamma\subset Fml_\LL$.
+$$\forall\ \phi,\psi\in Fml_\LL,\ \Gamma\vdash(\phi\to\psi)\text{ iff }\Gamma\vdash(\neg\psi\to\neg\phi).$$
+
+\theorem{Reductio ad Absurdum - 1}
+Let $\LL$ be a FOL, $\Gamma\subset Fml_\LL$ and $\phi\in Fml_\LL$.
+\begin{center}
+If $\exists\ \psi\in Fml_\LL$ st $\Gamma,\neg\phi\vdash\psi$ \underline{and} $\Gamma,\neg\phi\vdash\neg\psi$ then $\Gamma\vdash\phi$.
+\end{center}
+\nb \textit{``Reductio ad Absurdum''} translates to \textit{``Reduction to absurdity''}.\\
+
+\theorem{Reductio ad Absurdum - 2}
+Let $\LL$ be a FOL, $\Gamma\subset Fml_\LL$ and $\phi\in Fml_\LL$.
+\begin{center}
+If $\exists\ \psi\in Fml_\LL$ st $\Gamma,\phi\vdash\psi$ \underline{and} $\Gamma,\phi\vdash\neg\psi$ then $\Gamma\vdash\neg\phi$.
+\end{center}
+
+\theorem{Left $\forall$ Introduction}
+Let $\LL$ be a FOL, $\Gamma\subset Fml_\LL$, $t\in Tm_\LL$ and $\phi,\psi\in Fml_\LL$.
+\begin{center}If $\Gamma,[\phi]\frac{t}x\vdash\psi$ and $\mathtt{SubSt}(t,x,\phi)$ then $\Gamma,\forall x\phi\vdash\psi$.\end{center}
+
+\theorem{Right $\forall$ Elimination}
+Let $\LL$ be a FOL, $\Gamma\subset Fml_\LL$, $t\in Tm_\LL$ and $\phi,\psi\in Fml_\LL$.
+\begin{center}
+If $\Gamma\vdash\forall x\phi$ and $\mathtt{SubSt}(t,x,\phi)$ then $\Gamma\vdash[\phi]\frac{t}x$.
+\end{center}
+
+\subsubsection{Facts}
+
+\proposition{$\forall\ \phi,\psi\in Fml_\LL,\ \vdash((\phi\to\psi)\to(\neg\psi\to\neg\phi))$}
+
+\proposition{$\vdash(\phi\to\theta)\to((\psi\to\theta)\to((\phi\vee\psi)\to\theta))$}
+
+\proposition{$\vdash((\phi\wedge\psi)\to\phi)$}
+
+\proposition{$\vdash((\phi\wedge\psi)\to\psi)$}
+
+\proposition{$\vdash(\phi\to(\psi\to(\phi\wedge\psi)))$}
+
+\theorem{Left $\wedge$ Introduction}
+Let $\LL$ be a FOL, $\Gamma\subset Fml_\LL$, $t\in Tm_\LL$ and $\phi,\psi,\theta\in Fml_\LL$.
+\begin{itemize}
+	\item If $\Gamma,\phi\vdash\theta$ then $\Lambda,(\phi\wedge\psi)\vdash\theta$.
+	\item If $\Gamma,\psi\vdash\theta$ then $\Lambda,(\phi\wedge\psi)\vdash\theta$.
+\end{itemize}
+
+\theorem{Right $\wedge$}
+Let $\LL$ be a FOL, $\Gamma\subset Fml_\LL$, $t\in Tm_\LL$ and $\phi,\psi\in Fml_\LL$.
+\begin{itemize}
+	\item[\textit{Introduction}] If $\Gamma\vdash\phi$ \underline{and} $\Gamma\vdash\psi$ then $\Gamma\vdash(\phi\wedge\psi)$.
+	\item[\textit{Elmination}] If $\Gamma\vdash(\phi\wedge\psi)$ then $\Gamma\vdash\phi$ \underline{and} $\Gamma\vdash\psi$.
+\end{itemize}
+
+\proposition{}
+Let $\LL$ be a FOL, $\Gamma\subset Fml_\LL$, $t\in Tm_\LL$ and $\phi\in Fml_\LL$.
+\begin{itemize}
+	\item If $\exists\ \psi\in Fml_\LL$ st $\Gamma,\neg\phi\vdash(\psi\wedge\neg\psi)$ then $\Gamma\vdash\phi$.
+	\item If $\exists\ \psi\in Fml_\LL$ st $\Gamma,\phi\vdash(\psi\wedge\neg\psi)$ then $\Gamma\vdash\neg\phi$.
+\end{itemize}
+
+\proposition{If $\mathtt{t,x,\phi}$ then $\vdash([\psi]\frac{t}x\to\exists x\phi)$}
+
+\proposition{If $x\not\in FV(\phi)$ then $\vdash(\exists x\phi\to\phi)$}
+
+\proposition{$\vdash(\forall x(\phi\to\psi)\to(\exists x\phi\to\exists x\psi))$}
+
+\proposition{$\vdash (t_0\equiv t_1)\to(t_1\equiv t_0)$}
+
+\proposition{$\vdash (t_0\equiv t_1)\leftrightarrow(t_1\equiv t_0)$}
+
+\proposition{$\vdash (t_0\equiv t_1)\to((t_1\equiv t_2)\to(t_0\equiv t_2))$}
+
+\propositionn{$\{\langle t_0,t_1\rangle \in Tm_\LL\times Tm_\LL : \Gamma\vdash(t_0\equiv t_1)\}$ is an Equivalence Relation.}
+
+\subsection{Soundness Theorem}
+
+\theoremm{Every Logical Axiom is logically true}
+\begin{center}$\forall\ \lambda\in\Lambda_\LL,\ \vDash \lambda$ (\ie $\emptyset\vDash\lambda$)\end{center}
+
+\theoremm{Soundess Theorem}
+\begin{center}$\forall\ \Gamma\subset Fml_\LL,\ \forall\ \phi\in Fml_\LL$ if $\Gamma\vdash\phi$ then $\Gamma\vDash\phi$.\end{center}
+Equivalently
+\begin{center}$\forall\ \Gamma\subset Fml_\LL$ if $\Gamma$ is \textit{Satisfiable}, then $\Gamma$ is \textit{Consistent}.\end{center}
 
 \newpage\setcounter{section}{-1}
 \section{Appendix}
@@ -709,6 +960,8 @@ $\Phi\vDash\phi$&$\phi\in Fml_\LL$ is a logical consequence of $\Phi\subseteq Fm
 $\vDash\phi$&$\phi\in Fml_\LL$ is logically valid.\\
 $\M_1\cong\M_2$&Structures $\M_1$ and $\M_2$ are isomorphic.\\
 $\M\vDash\phi[\![a_1,\dots,a_n]\!]$&$\phi$ is true for the objects $a_1,\dots,a_n\in|\M|$.\\
+$\Lambda_\LL$&Logical axioms for Hilbert Calculus.\\
+$\Gamma\vdash\phi$&$\phi$ is deducible from $\Gamma$.\\
 \hline
 \end{tabular}\end{center}
 
@@ -719,7 +972,8 @@ $\M\vDash\phi[\![a_1,\dots,a_n]\!]$&$\phi$ is true for the objects $a_1,\dots,a_
 \hline$\mathcal{A}$&Alphabet\\
 $\LL$&Language (First-Order)\\
 $t$&Term\\
-$\phi,\psi,\theta,\chi$&Formulae\\
+$\phi,\psi,\dots$&Formulae (Lower case greek).\\
+$\Lambda,\Gamma,\dots$&Sets of Formulae (Upper case greek).\\
 $x\circ y$&$\circ(x,y)$ where $\circ$ is a function or predicate\\
 $c\not\prec d$&$\neg\prec(c,d)$\\
 $\M$&$\LL$-Structure\\
@@ -731,6 +985,8 @@ $c^\M$&$\I(c)$\\
 $\M\vDash\phi$&$\M,s\vDash\phi\ \forall\ s$ over $\M$ since $\phi$ \underline{is an $\LL$-sentence}.\\
 $t^\M$&$d\in|\M|$ st $\bar{s}(t)=d\ \forall\ s$ over $\M$ since $t$ \underline{is a Closed $\LL$-Term}.\\
 $\mathtt{SubSt}(t,x,\phi)$&$t\in Tm_\LL$ is substitutable for $x\in\var$ in $\phi\in Fml_\LL$.\\
+$\Gamma,\phi\vdash\psi$&$\Gamma\cup\{\phi\}\vdash\psi$.\\
+$\Gamma,\phi\vDash\psi$&$\Gamma\cup\{\phi\}\vDash\psi$.\\
 \hline
 \end{tabular}\end{center}
  
