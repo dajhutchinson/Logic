@@ -11,7 +11,7 @@
 \usepackage{fancyhdr}
 \usepackage{graphicx}
 \usepackage{tikz}
-\usepackage{changepage} 
+\usepackage{changepage}
 
 \begin{document}
 
@@ -119,6 +119,12 @@ Further $\mathcal{A}^*$ is countably infinite if $\mathcal{A}\neq\emptyset$.\\
 A \textit{Declarative Sentence} is a sentence which is either true or false.\\
 \nb These are the focus of mathematical logic.\\
 
+\definition{Characteristic Function, $\chi_R$}
+Let $R\subset\nats^m$ be an $m$-arity \textit{Relation}.\\
+The \textit{Characteristic Function} $\chi_R:\nats^m\to\nats$ is defined as
+\[\chi_R(n_1,\dots,n_m):=\begin{cases}0&\text{if }\langle n_1,\dots,n_m\rangle\in R\\1&\text{otherwise}\end{cases}\]
+\nb $R$ is \textit{Recursive} if $\chi_R$ is recursive by \textbf{Definition 4.5}.
+
 \subsection{First Order Languages}
 
 \definition{Common Components of Alphabets}
@@ -173,7 +179,7 @@ Let $P,Q$ be \textit{Predicates}.
 \begin{tabular}{c|c}
 $P$&$\neg P$\\
 \hline T&\textbf{F}\\
-T&\textbf{T}
+F&\textbf{T}
 \end{tabular}
 \quad
 \begin{tabular}{c|c|c}
@@ -324,45 +330,7 @@ We define the \textit{Set of Free Variables} of an \textit{$\LL$-Formula} induct
 Let $\phi\in Fml_\LL$ for some FOL, $\LL$.\\
 If $FV(\phi)=\emptyset$ then $\phi$ is said to be a \textit{$\LL$-Sentence}.\\
 
-\remarkk{The meaning anthonof formulae depends on how we interpret their free variables}
-
-\subsection{Consistency}
-
-\definition{Consistent}
-Let $\LL$ be a FOL, $\phi\in Fml_\LL$ and $\Phi\subset Fml_\LL$.
-\begin{itemize}
-	\item $\phi$ is \textit{Consistent} iff $\nexists\ \phi\in Fml_\LL$ st $\phi\vdash\psi$ \underline{and} $\phi\vdash\neg\psi$.
-	\item $\Phi$ is \textit{Consistent} iff $\nexists\ \phi\in Fml_\LL$ st $\Phi\vdash\psi$ \underline{and} $\Phi\vdash\neg\psi$.
-\end{itemize}
-
-\proposition{$\Phi$ is Consistent iff $\exists\ \phi\in Fml_\LL$ st $\Phi\nvdash\psi$}
-
-\proposition{$\Phi$ is Consistent iff $\forall\ \Sigma\subset\Phi$, $\Sigma$ is Consistent}
-
-\proposition{If $\Gamma\vdash\phi$ then $\exists\ \Sigma\subset\Gamma$ st $\Sigma\vdash\phi$.}
-
-\theorem{Inconsistency}
-Let $\LL$ be a FOL, $\phi\in Fml_\LL$ and $\Phi\subset Fml_\LL$.
-\begin{enumerate}
-	\item $\Phi\vdash\phi$ iff $\Phi\cup\{\neg\phi\}$ is \textit{Inconsistent}.
-	\item $\Phi\cup\{\phi\}$ is \textit{Inconsistent} iff $\Phi\cup\{\neg\neg\phi\}$ is \textit{Inconsistent}.
-	\item $\Phi\vdash\neg\phi$ iff $\Phi\cup\{\phi\}$ is \textit{Inconsistent}.
-\end{enumerate}
-
-\theorem{If $\Gamma\cup\{\neg\phi\}$ is Satisfiable then $\Gamma\nvdash\phi$.}
-
-\theorem{Chain of Consistency}
-Let $\LL$ be a FOL and $\Gamma_0\subset\dots\subset\Gamma_n\subset\dots\subset Fml_\LL$.
-\begin{center}
-If $\forall i,\ \Gamma_i$ is \textit{Consistent}, then $\Gamma:=\cup_i\Gamma_i$ is \textit{Consistent}.
-\end{center}
-
-\subsection{Alphabetic Variants}
-
-\theorem{Alphabetic Variants}
-$\forall\ \phi\in Fml_\LL,\ t\in Tm_\LL ,\ z\in\var,\ \exists \psi\in Fml_\LL$ with $cp(\psi)=cp(\phi)$ st
-$$\vdash(\phi\leftrightarrow\psi)\quad\text{and}\quad\mathtt{SubSt}(t,z,\psi)$$
-\nb This $\psi$ is called an \textit{Alphabetic Variant} of $\phi$.
+\remarkk{The meaning of a formulae depends on how we interpret their free variables}
 
 \section{Semantics}
 
@@ -383,18 +351,19 @@ An \textit{$\LL$-Structure} is an ordered pair $\M:=(D,\I)$ where
 
 \remark{Interpretation, $\I$}
 The \textit{Interpretation} is a function which assigns meaning to non-logical symbols.\\
-$\I(P)$ gives the property or relation on $D$ by which $P$ is interpreted.\\
-$\I(f)$ gives the function on $D^n$ by which $f$ is interpreted.\\
-$\I(P)$ gives the object in $D$ which $c$ denotes.\\
+$P^\M:=\I(P)$ gives the property or relation on $D$ by which $P$ is interpreted.\\
+$f^\M:=\I(f)$ gives the function on $D^n$ by which $f$ is interpreted.\\
+$c^\M:=\I(c)$ gives the object in $D$ which $c$ denotes.\\
 
 \definition{Variable Assignment, $s$}
 Let $\LL$ be a FOL and $\M:=(|\M|,\I)$ be an $\LL$-Structure.\\
 A \textit{Variable Assignment} maps variables to a value in the domain of $\M$.
 $$s:\var\to|\M|$$
+\nb $\bar{s}(\cdot)$ is the function which recursively defines a variable assignment $s$.\\
 
-\definition{Variable Assignment for $\LL$-Terms, $\bar{s}$}
+\definition{Semantic Value of $\LL$-Terms, $\bar{s}$}
 Let $\LL$ be a FOL and $\M:=(|\M|,\I)$ be an $\LL$-Structure.\\
-We define \textit{Variable Assignment} over \textit{$\LL$-Terms} recursively
+We define \textit{Semantic Value} $\bar{s}(t)$ over \textit{$\LL$-Terms} recursively
 \begin{itemize}
 	\item[V1] Let $x$ be a variable symbol of $\LL$.\\
 	$\bar{s}(x):=s(x)$
@@ -423,16 +392,16 @@ We define the \textit{Satisfaction Relation}, $\vDash$, recursively
 	$\M,s,\vDash \neg\phi:\Leftrightarrow\M,s\not\vDash\phi$.
 	\item[S4] Let $\phi,\psi\in Fml_\LL$.\\
 	$\M,s,\vDash (\phi\to\psi):\Leftrightarrow$ if $\M,s\vDash\phi$ then $\M,s\vDash\psi$.
+	\item[S-EXT1]Let $\phi,\psi\in Fml_\LL$.\\
+	$\M,s\vDash(\phi\wedge\psi)\Leftrightarrow\M,s\vDash\phi$ and $\M,s\vDash\psi$.
+	\item[S-EXT2]Let $\phi,\psi\in Fml_\LL$.\\
+	$\M,s\vDash(\phi\vee\psi)\Leftrightarrow\M,s\vDash\phi$ or $\M,s\vDash\psi$.
+	\item[S-EXT3]Let $\phi,\psi\in Fml_\LL$.\\
+	$\M,s\vDash(\phi\leftrightarrow\psi)\Leftrightarrow\M,s\vDash\phi$ iff $\M,s\vDash\psi$.
 	\item[S5] Let $\phi\in Fml_\LL$ and $x$ be any variable.\\
 	$\M,s,\vDash \forall x\phi:\Leftrightarrow\M,s\frac{d}{x}\vDash\phi$ for all $d\in|\M|$.
-	\item[S-EXT1]Let $\phi,\psi\in Fml_\LL$.\\
-	$\M,s\vDash(\phi\wedge\psi):\Leftrightarrow\M,s\vDash\phi$ and $\M,s\vDash\psi$.
-	\item[S-EXT2]Let $\phi,\psi\in Fml_\LL$.\\
-	$\M,s\vDash(\phi\vee\psi):\Leftrightarrow\M,s\vDash\phi$ or $\M,s\vDash\psi$.
-	\item[S-EXT3]Let $\phi\in Fml_\LL$ and $x$ be any variable.\\
-	$\M,s\vDash\exists x\phi:\Leftrightarrow\M,s\frac{d}x\vDash\phi$ for at least one $d\in|\M|$.
-	\item[S-EXT2]Let $\phi,\psi\in Fml_\LL$.\\
-	$\M,s\vDash(\phi\leftrightarrow\psi):\Leftrightarrow\M,s\vDash\phi$ iff $\M,s\vDash\psi$.
+	\item[S-EXT4]Let $\phi\in Fml_\LL$ and $x$ be any variable.\\
+	$\M,s\vDash\exists x\phi\Leftrightarrow\M,s\frac{d}x\vDash\phi$ for at least one $d\in|\M|$.
 \end{itemize}
 
 \remark{When $\M,s\vDash\phi$ holds we say ``$\phi$ is true in $\M$ under $s$''}
@@ -440,8 +409,9 @@ Or, ``$\phi$ is satisfied by $\M$ under $s$''.\\
 Or, ``$\M,s$ models $\phi$''.\\
 
 \definition{Model}
-Let $\LL$ be a FOL, $\Phi\subseteq Fml_\LL$, $\M$ be an \textit{$\L$-Structure} and $s$ a \textit{Variable Assignment}.\\
-$\M,s$ is a \textit{Model} of $\Phi$ if $\M,s\vDash\Phi$.\\
+Let $\LL$ be a FOL, $\Phi\subseteq Fml_\LL$, $\M$ be an \textit{$\LL$-Structure} and $s$ a \textit{Variable Assignment}.\\
+$\M,s$ is a \textit{Model} of $\Phi$ if $\M,s\vDash\phi$ for all $\phi\in\Phi$ \\
+\nb This is denoted as $\M,s\vDash\Phi$.\\
 
 \remark{Semantic Value of a Term}
 Let $t\in Tm_\LL$ for some FOL, $\LL$, and $s$ be a \textit{Variable Assignment}.\\
@@ -523,6 +493,7 @@ Let $\LL$ be a FOL and $\phi,\psi\in Fml_\LL$.\\
 $\phi$ is \textit{Logically Equivalent} to $\psi$ iff
 $\phi\vDash\psi$ \underline{and} $\psi\vDash\phi$.\\
 \ie $\phi$ is \textit{Logically Equivalent} to $\psi$ iff $\vDash\phi\leftrightarrow\psi$.\\
+\nb For formulae this is the \textit{Equivalence Relation}.\\
 
 \proposition{Logical Equivalences}
 The following are \textit{Logically Equivalent}
@@ -585,11 +556,18 @@ We define the \textit{Substitution} $[\phi]\frac{t}x$ recursively
 
 \proposition{$\forall\ \phi\in Fml_\LL,\ [\phi]\frac{x}x=\phi$}
 
-\proposition{If $x\not\in var(t)$ then $[a]\frac{a}{x}=t$}
+\proposition{If $x\not\in var(t)$ then $[t]\frac{a}{x}=t$}
 
 \proposition{If $x\not\in FV(\phi)$ then $[\phi]\frac{a}{x}=\phi$}
 
 \proposition{Let $x\not\in var(a)$ then $x\not\in var([t]\frac{a}x)$ and $x\not\in FV([\phi]\frac{a}x)$}
+
+\proposition{Substitution of Free Variables}
+Let $x,y\in Var$ with $x\neq y,\ t\in Tm_\LL$ and $\phi\in Fml_\LL$.
+\begin{itemize}
+	\item If $y\not\in\var(t)$ then $\left[[t]\frac{y}x\right]\frac{y}x=t$.
+	\item If $y\not\in\var(\phi)$ then $\mathtt{SubSt}\left(x,y,[\phi]\frac{x}y\right)$ \underline{and} $\left[[\phi]\frac{y}x\right]\frac{x}y=\phi$.
+\end{itemize}
 
 \definition{Substitutable}
 Let $\LL$ be a FOL, $t\in Tm_\LL$ and $x$ be a variable.\\
@@ -599,7 +577,7 @@ We define whether $t$ is \textit{Substitutable} for a variable $x$ in a formula 
 	\item[SU1] If $\phi$ is an \textit{Atomic $\LL$-Formula}. Then $\mathtt{SubSt}(t,x,\phi)$ \underline{always}.
 	\item[SU2] $\mathtt{SubSt}(t,x,\neg\phi)$ \underline{iff} $\mathtt{SubSt}(t,x,\phi)$.
 	\item[SU3] $\mathtt{SubSt}(t,x,\phi\to\psi)$ \underline{iff} $\mathtt{SubSt}(t,x,\phi)$ \underline{and} $\mathtt{SubSt}(t,x,\psi)$.
-	\item[SU4] $\mathtt{SubSt}(t,x,\forall z\phi)$ if $\begin{cases}&z\not\in var(t)\text{ \underline{and}\ }mathtt{SubSt}(t,x,\phi)\\\text{or}&x\not\in FV(\phi)\end{cases}$
+	\item[SU4] $\mathtt{SubSt}(t,x,\forall z\phi)$ if $\begin{cases}&z\not\in var(t)\text{ \underline{and} }\mathtt{SubSt}(t,x,\phi)\\\text{or}&x\not\in FV(\phi)\end{cases}$
 	\item[SU-EXT1] $\mathtt{SubSt}(t,x,\phi\wedge\psi)$ \underline{iff} $\mathtt{SubSt}(t,x,\phi)$ \underline{and} $\mathtt{SubSt}(t,x,\psi)$.
 	\item[SU-EXT2] $\mathtt{SubSt}(t,x,\phi\vee\psi)$ \underline{iff} $\mathtt{SubSt}(t,x,\phi)$ \underline{and} $\mathtt{SubSt}(t,x,\psi)$.
 	\item[SU-EXT3] $\mathtt{SubSt}(t,x,\exists z\phi)$ \underline{if} $\begin{cases}&z\in var(t)\text{ \underline{and} }\mathtt{SubSt}(\phi)\\\text{or}&x\not\in FV(\exists z\phi)\end{cases}$
@@ -609,7 +587,7 @@ We define whether $t$ is \textit{Substitutable} for a variable $x$ in a formula 
 
 \proposition{Every variable is Substitutable for itself, in all formulae}
 
-\proposition{If $x\not\in FV(\phi)$ all $t\in Tm_\LL$ are Substitutable for $x$ in $\Phi$}
+\proposition{If $x\not\in FV(\phi)$ all $t\in Tm_\LL$ are Substitutable for $x$ in $\phi$}
 
 \proposition{If $var(t)\cap var(\phi)=\emptyset$ then $t$ is substitutable for any variable in $\phi$.}
 Notably, every closed $\LL$-term is substitutable for any variable in any formula.\\
@@ -630,6 +608,86 @@ Let $\LL$ be a FOL, $\M$ be an $\LL$-Structure, $t\in Tm_\LL$, $\phi\in Fml_\LL$
 \proposition{$\forall\ t\in Tm_\LL$ if $t$ is substitutable for $x$ then $\vDash\left(\forall x\phi\to[\phi]\frac{t}x\right)$ for all $t\in Tm_\LL$}
 
 \propositionn{$\forall\ \phi\in Fml_\LL$ if $t$ is substitutable for $x$ then $\vDash\left([\phi]\frac{t}x\to\exists x\phi\right)$ for all $t\in Tm_\LL$}
+
+\subsection{Consistency}
+
+\definition{Consistent}
+Let $\LL$ be a FOL, $\phi\in Fml_\LL$ and $\Phi\subset Fml_\LL$.
+\begin{itemize}
+	\item $\phi$ is \textit{Consistent} iff $\nexists\ \psi\in Fml_\LL$ st $\phi\vdash\psi$ \underline{and} $\phi\vdash\neg\psi$.
+	\item $\Phi$ is \textit{Consistent} iff $\nexists\ \psi\in Fml_\LL$ st $\Phi\vdash\psi$ \underline{and} $\Phi\vdash\neg\psi$.
+\end{itemize}
+
+\proposition{$\Phi$ is Consistent iff $\exists\ \psi\in Fml_\LL$ st $\Phi\nvdash\psi$}
+
+\proposition{$\Phi$ is Consistent iff $\forall\ \Sigma\subset\Phi$, $\Sigma$ is Consistent}
+
+\proposition{If $\Gamma\vdash\phi$ then $\exists\ \Sigma\subset\Gamma$ st $\Sigma\vdash\phi$.}
+
+\theorem{Inconsistency}
+Let $\LL$ be a FOL, $\phi\in Fml_\LL$ and $\Phi\subset Fml_\LL$.
+\begin{enumerate}
+	\item $\Phi\vdash\phi$ iff $\Phi\cup\{\neg\phi\}$ is \textit{Inconsistent}.
+	\item $\Phi\cup\{\phi\}$ is \textit{Inconsistent} iff $\Phi\cup\{\neg\neg\phi\}$ is \textit{Inconsistent}.
+	\item $\Phi\vdash\neg\phi$ iff $\Phi\cup\{\phi\}$ is \textit{Inconsistent}.
+\end{enumerate}
+
+\theorem{If $\Gamma\cup\{\neg\phi\}$ is Satisfiable then $\Gamma\nvdash\phi$.}
+
+\theorem{Chain of Consistency}
+Let $\LL$ be a FOL and $\Gamma_0\subset\dots\subset\Gamma_n\subset\dots\subset Fml_\LL$.
+\begin{center}
+If $\forall i,\ \Gamma_i$ is \textit{Consistent}, then $\Gamma:=\cup_i\Gamma_i$ is \textit{Consistent}.
+\end{center}
+
+\definition{Maximally Consistent}
+Let $\LL$ be a FOL and $\Gamma\subset Fml_\LL$.\\
+$\Gamma$ is \textit{Maximally Consistent} if $\Gamma$ is \textit{Consistent} \underline{and} $\Gamma\not\subset\Delta$ where $\Delta$ is any consistent set of $Fml_\LL$.\\
+
+\proposition{}
+Let $\LL$ be a FOL and $\Sigma\subset Fml_LL$.\\
+If $\Sigma$ is \textit{Consistent} then $\exists\ \Delta\subset Fml_\LL$ st $\Delta\supset\Sigma$ and $\Delta$ is \textit{Maximally Consistent}.\\
+
+\definition{Henkin}
+Let $\LL$ be a FOL and $\Gamma\subset Fml_\LL$.\\
+$\Gamma$ is \textit{Henkin} if $\forall$ formula of the form $\exists x\phi\in Fml_\LL$, $\exists\ t\in Tm_\LL$ st $\mathtt{SubSt}(t,x,\phi)$ \underline{and} ${\Gamma\vdash(\exists x\phi\to[\phi]\frac{t}x)}$.\\
+
+\proposition{Let $\Gamma\subset\Sigma\subset Fml_\LL$ if $\Gamma$ is Henkin then $\Sigma$ is Henkin.}
+
+\theorem{}
+Let $\LL$ be a FOL and $\Gamma\subseteq Fml_\LL$ be \textit{Consistent} st $FV(\Gamma)$ is finite. Then
+\[\exists\ \Sigma\subseteq Fml_\LL\text{ st }\Gamma\subset\Sigma\text{ and }\Sigma\text{is a consistent Henkin}.\]
+
+\proposition{If $\Gamma\subset Fml_\LL$ is \textit{Consistent} and $\Gamma\vdash\phi\implies\Gamma\cup\{\phi\}$ is \textit{Consistent}.}
+
+\proposition{If $\Gamma\subset Fml_\LL$ is \textit{Consistent} then $\Gamma$ is \textit{Maximally Consistent} \underline{iff} $\psi\in\Gamma$ \underline{or} $\neg\psi\in\Gamma$ holds $\forall\ \psi\in Fml_\LL$.}
+
+\proposition{If $\Gamma$ is \textit{Maximally Consistent} then $\Gamma\vdash\phi$ \underline{iff} $\phi\in\Gamma$.}
+Hence, by \textbf{Proposition 1.6}, if $\Gamma$ is \textit{Maximally Consistent} then $\forall\ \psi\in Fml_\LL$ either $\Gamma\vdash\psi$ \underline{xor} $\Gamma\vdash\neg\psi$ holds.\\
+
+\proposition{Properties Maximally Consistent Henkin Sets}
+Let $\LL$ be a FOL, $\Gamma\subseteq Fml_\LL$ \underline{be} \textit{Maximally Consistent Henkin} and $\phi,\psi\in Fml_\LL$.
+\[\begin{array}{rcl}
+\Gamma\vdash\neg\phi&\Longleftrightarrow&\Gamma\nvdash\phi\\
+\Gamma\vdash(\phi\to\psi)&\Longleftrightarrow&\text{ if }\Gamma\vdash\phi\text{ then }\Gamma\vdash\psi\\
+\Gamma\vdash\forall x\phi&\Longleftrightarrow&\forall\ t\in Tm_\LL\text{ if }\texttt{SubSt}(t,x,\phi)\text{ then }\Gamma\vdash[\phi]\frac{t}x
+\end{array}\]
+
+\proposition{}
+Let $\LL$ be a FOL and $\Gamma\subset Fml_\LL$ be \textit{Consistent} st $FV(\Gamma)$ is finite. Then
+\[\exists\ \Sigma\subset\Delta\subset Fml_\LL\text{ st }\Delta\text{ is Maximially Consistent Henkin set}\]
+
+\theorem{Henkin's Theorem}
+Let $\LL$ be a FOL and $\Gamma\subset Fml_\LL$ be a \textit{Maximally Consistent Henkin} set. Then
+\[\forall\phi\in Fml_\LL,\ \M^\Gamma,s^\Gamma\vDash\phi\text{ \underline{iff} }\Gamma\vdash\phi\]
+\nb $\Gamma\vdash\phi$ iff $\phi\in\Gamma$ since $\Gamma$ is \textit{Maximally Consistent}.
+
+\subsection{Alphabetic Variants}
+
+\theorem{Alphabetic Variants}
+$\forall\ \phi\in Fml_\LL,\ t\in Tm_\LL ,\ z\in\var,\ \exists \psi\in Fml_\LL$ with $cp(\psi)=cp(\phi)$ st
+$$\vdash(\phi\leftrightarrow\psi)\quad\text{and}\quad\mathtt{SubSt}(t,z,\psi)$$
+\nb This $\psi$ is called an \textit{Alphabetic Variant} of $\phi$.
 
 \subsection{Homomorphism}
 
@@ -897,15 +955,101 @@ Let $\LL$ be a FOL, $\Gamma\subset Fml_\LL$, $t\in Tm_\LL$ and $\phi\in Fml_\LL$
 
 \propositionn{$\{\langle t_0,t_1\rangle \in Tm_\LL\times Tm_\LL : \Gamma\vdash(t_0\equiv t_1)\}$ is an Equivalence Relation.}
 
-\subsection{Soundness Theorem}
+\subsection{Completeness \& Soundness Theorems}
 
 \theoremm{Every Logical Axiom is logically true}
+Let $\LL$ be a FOL.
 \begin{center}$\forall\ \lambda\in\Lambda_\LL,\ \vDash \lambda$ (\ie $\emptyset\vDash\lambda$)\end{center}
 
 \theoremm{Soundess Theorem}
+Let $\LL$ be a FOL.
 \begin{center}$\forall\ \Gamma\subset Fml_\LL,\ \forall\ \phi\in Fml_\LL$ if $\Gamma\vdash\phi$ then $\Gamma\vDash\phi$.\end{center}
 Equivalently
 \begin{center}$\forall\ \Gamma\subset Fml_\LL$ if $\Gamma$ is \textit{Satisfiable}, then $\Gamma$ is \textit{Consistent}.\end{center}
+
+\theorem{Completeness Theorem}
+Let $\LL$ be a FOL.
+\[\begin{array}{rl}
+&\forall\ \Gamma\subset Fml_\LL\text,\ \phi\in Fml_\LL\text{ if }\Gamma\vDash\phi\text{ then }\Gamma\vdash\phi\\
+\Longleftrightarrow&\forall\ \Gamma\subset Fml_\LL,\text{ if }\Gamma\text{ is consistent, then }\Gamma\text{ is satisfiable}.
+\end{array}\]
+\begin{center}
+\end{center}
+This is the coverse of the \textit{Soundess Theorem} (\textbf{Theorem 3.17}).\\
+
+\remark{The Completeness Theorem makes Hilbert Calculus unnecessary.}
+Proving $(\vdash\phi)\leftrightarrow(\neg\neg\phi)$ is not obvious but $(\vDash\phi)\leftrightarrow(\neg\neg\phi)$ is obvious.\\
+
+\theorem{Restricted Completeness Theorem}
+Let $\LL$ be a FOL and $\Gamma\subset Fml_\LL$.\\
+If $\Gamma$ is \textit{Consistent} and $FV(\Gamma)$ is finite then
+\begin{center}
+	$\exists$ a model $\M,s$ of $\Gamma$ st $|\M|$ is \textit{Countable}
+\end{center}
+
+\remark{Combining Soundness \& Completeness Theorem}
+Let $\LL$ be a FOL.\\
+As a result of the \textit{Soundness Theorem} and \textit{Completeness Theorem} we have that
+\begin{center}
+$\forall\ \Gamma\subset Fml_\LL$ and $\phi\in Fml_\LL$, $\Gamma\vDash\phi$ \underline{iff} $\Gamma\vdash\phi$
+\end{center}
+This means that logical implication and deducibility are equivalent.\\
+
+\definition{Eqivalence Relation $\sim_\Gamma$}
+Let $\LL$ be a FOL, $\Gamma\subset Fml_\LL$ and $t,t'\in Tm_\LL$.\\
+We define the relation $\sim_\Gamma$ as
+\begin{center}
+	$t\sim_\Gamma t':\Leftrightarrow \Gamma\vdash (t\equiv t')$
+\end{center}
+\nb This is an equivalence relation by \textbf{Proposition 3.15}.\\
+
+\proposition{Equivalence Relation for Functions and Predicates}
+Let $\LL$ be a FOL, $f$ be a function symbol of arity $n$, $P$ be a predicate symbol of arity $n$ and $t_1,\dots,t_n,t'_1,\dots,t'_n\in Tm_\LL$.\\
+Then
+\[\begin{array}{rcl}
+t_1\sim_\Gamma t'_1,\dots,t_n\sim_\Gamma t'_n&\Rightarrow&f(t_1,\dots,t_n)\sim_\Gamma f(t'_1,\dots,t'_n)\\
+&\Rightarrow&(\Gamma\vdash P(t_1,\dots,t_n)\Leftrightarrow\Gamma\vdash P(t'_1,\dots,t'_n))
+\end{array}\]
+
+\definition{Canonical Model $\M^\Gamma$ and Canonical Variable Assignment $s^\Gamma$}
+Let $\LL$ be a FOL, $\Gamma\subset Fml_\LL$ and $t_1,\dots,t_n\in Tm_\LL$.\\
+The \textit{Canonical Model} $\M^\Gamma$ and \textit{Canonical Variable Assignment} $s^\Gamma$ over $\M^\Gamma$ are defined as
+\[\begin{array}{rcl}
+	|\M^\Gamma|&:=&\{[t]_{\sim_\Gamma}:t\in Tm_\LL\}\\
+	c^{\M^\Gamma}&:=&[c]_{\sim_\Gamma}\\
+	f^{\M^\Gamma}([t_1]_{\sim_\Gamma},\dots,[t_n]_{\sim_\Gamma})&:=&[f(t_1,\dots,t_n)]_{\sim_\Gamma}\\
+	P^{\M^\Gamma}&:=&\{\langle[t_1]_{\sim_\Gamma},\dots,[t_n]_{\sim_\Gamma}\rangle:\Gamma\vdash(t_1,\dots,t_n)\}\\
+	s^\Gamma(x)&:=&[x]_{\sim_\Gamma}
+\end{array}\]
+
+\remark{$|\M^\Gamma|$ is Countable}
+
+\proposition{Properties of Canonical Model}
+Let $\LL$ be a FOL and $\Gamma\subseteq Fml_\LL$ (\underline{not} necessarily \textit{Maximally Consistent} or a \textit{Henkin}).
+\begin{itemize}
+	\item $\forall\ t\in Tm_\LL,\ \overline{s^\Gamma}(t)=[t]_{\sim_\Gamma}$
+	\item $\forall$ atomic formulae $\phi\in Fml_\LL,\ \M^\Gamma,s^\Gamma\vDash\phi$ iff $\Gamma\vdash\phi$
+\end{itemize}
+
+\subsection{Consequences \& Applications of Completeness Theorem}
+
+\theorem{Downward L\"owenheim-Skolem Theorem}
+Let $\LL$ be a FOL and $\Gamma\subset Fml_\LL$.\\
+If $\Gamma$ is \textit{Satisfiable} then $\Gamma$ has a \textit{Countable} model $\M$.\\
+
+\theorem{Compactness Theorem}
+Let $\LL$ be a FOL and $\Gamma\subset Fml_\LL$.\\
+Then $\Gamma$ is \textit{Satisfiable} \underline{iff} every finite subset $\Delta\subseteq\Gamma$ is \textit{Satisfiable}.\\
+
+\definition{Theory of $\M$}
+Let $\LL$ be a FOL and $\M$ be an $\LL$-Strucutre.\\
+The \textit{Theory of $\M$} is defined as
+\[Th(\M):=\{\phi\in Sent_\LL:\M\vDash\phi\}\]
+
+\definition{Consequences of $\Gamma$}
+Let $\LL$ be a FOL, $\M$ be an $\LL$-Strucutre and $\Gamma\subset Fml_\LL$.\\
+The \textit{Consequences of $\Gamma$} is defined as
+\[Cn(\Gamma):=\{\phi\in Sent_\LL:\Gamma\vdash\phi\}\]
 
 \newpage\setcounter{section}{-1}
 \section{Appendix}
@@ -956,12 +1100,18 @@ $\exists!$&There exists a unique\\
 $\bar+$&Syntactic $+$, has no semantic value.\\
 &$\bar{ }$ signals this for all symbols\\
 $:\Leftrightarrow$&Defined to have same logical value (true or false)\\
+$\mathfrak{M},s\vDash\phi$&$\phi$ is satisfied under $\mathfrak{M}$ and $s$\\
 $\Phi\vDash\phi$&$\phi\in Fml_\LL$ is a logical consequence of $\Phi\subseteq Fml_\LL$.\\
 $\vDash\phi$&$\phi\in Fml_\LL$ is logically valid.\\
 $\M_1\cong\M_2$&Structures $\M_1$ and $\M_2$ are isomorphic.\\
 $\M\vDash\phi[\![a_1,\dots,a_n]\!]$&$\phi$ is true for the objects $a_1,\dots,a_n\in|\M|$.\\
 $\Lambda_\LL$&Logical axioms for Hilbert Calculus.\\
-$\Gamma\vdash\phi$&$\phi$ is deducible from $\Gamma$.\\
+$\Gamma\vdash\phi$&$\phi\in Fml_\LL$ is deducible from $\Gamma\subset Fml_\LL$.\\
+$t\sim_\Gamma t'$&$t\equiv t'$ is deducible from $\Gamma$.\\
+$[t]_{\sim_\Gamma}$&Equivalence class of $t$ modulo$\sim_\Gamma$.\\
+$\chi_R$&Characteristic Equation of Relation $R$.\\
+$\mu[G]$&Minimalisation of recursive function $G$.\\
+$\#(\cdot),\#^*(\cdot),\#^{**}(\cdot)$&G\"odel Number injections.\\
 \hline
 \end{tabular}\end{center}
 
@@ -977,19 +1127,22 @@ $\Lambda,\Gamma,\dots$&Sets of Formulae (Upper case greek).\\
 $x\circ y$&$\circ(x,y)$ where $\circ$ is a function or predicate\\
 $c\not\prec d$&$\neg\prec(c,d)$\\
 $\M$&$\LL$-Structure\\
+$Th(\M)$&Theory of $\M$\\
+$Cn(\Gamma)$&Consequences of $\Gamma$\\
 $\I$&Interpreation from an $\LL$-Structure\\
 $D$ or $|\M|$&Domain of an $\LL$-Structure\\
-$P^\M$&$\I(P)$\\
-$f^\M$&$\I(f)$\\
-$c^\M$&$\I(c)$\\
+$P^\M$&$\I(P)\subset|M|^n$ The interpretation of predicate symbol $P$ defined by the $\LL$-Structure $\M$\\
+$f^\M$&$\I(f):|M|^n\to|M|$ The interpretation of function symbol $P$ defined by the $\LL$-Structure $\M$\\
+$c^\M$&$\I(c)\in|M|$ The interpretation of constant symbol $P$ defined by the $\LL$-Structure $\M$\\
 $\M\vDash\phi$&$\M,s\vDash\phi\ \forall\ s$ over $\M$ since $\phi$ \underline{is an $\LL$-sentence}.\\
 $t^\M$&$d\in|\M|$ st $\bar{s}(t)=d\ \forall\ s$ over $\M$ since $t$ \underline{is a Closed $\LL$-Term}.\\
 $\mathtt{SubSt}(t,x,\phi)$&$t\in Tm_\LL$ is substitutable for $x\in\var$ in $\phi\in Fml_\LL$.\\
+$\mathcal{D}$&A deduction\\
 $\Gamma,\phi\vdash\psi$&$\Gamma\cup\{\phi\}\vdash\psi$.\\
 $\Gamma,\phi\vDash\psi$&$\Gamma\cup\{\phi\}\vDash\psi$.\\
 \hline
 \end{tabular}\end{center}
- 
+
 \subsection{Definitions}
 
 \definition{Arity}
@@ -1024,6 +1177,27 @@ $P\leftrightarrow Q$&$\begin{array}{rl}&(P\to Q)\wedge(Q\to P)\\\Leftrightarrow&
 \end{tabular}
 \end{center}
 
+\subsection{Truth Tables}
+\begin{tabular}{ccccc}
+	% Not, And, Or, Implies, Equivalent
+	\begin{tabular}{|c|c|}
+		\hline
+		$P$&$\neg P$\\\hline
+		T&\textbf{F}\\
+		F&\textbf{T}\\
+		\hline
+	\end{tabular}&
+
+	\begin{tabular}{|cc|c|c|c|c|}
+		\hline
+		$P$&$Q$&$P\to Q$&$P\leftrightarrow Q$&$P\wedge Q$&$P\vee Q$\\\hline
+		T&T&\textbf{T}&\textbf{T}&\textbf{T}&\textbf{T}\\
+		T&F&\textbf{F}&\textbf{F}&\textbf{F}&\textbf{T}\\
+		F&T&\textbf{T}&\textbf{F}&\textbf{F}&\textbf{T}\\
+		F&F&\textbf{T}&\textbf{T}&\textbf{F}&\textbf{F}\\\hline
+	\end{tabular}&
+
+\end{tabular}
 \subsection{Techniques}
 
 \proposition{Induction on Terms}
